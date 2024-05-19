@@ -6,6 +6,7 @@
 ***************************/
 window.onload = function() {
 	/* PARSING */
+	
 	/* DOCTYPE Standards Mode test */
 	try {
 		let is_HTML5_mode = document.compatMode === "CSS1Compat";
@@ -57,6 +58,7 @@ window.onload = function() {
 	}
 	
 	/* ELEMENTS */
+	
 	/* Embedding custom non-visible data test */
 	try {
 		var data_test_elemnt = document.createElement("div");
@@ -200,6 +202,7 @@ window.onload = function() {
 	}
 	
 	/* Time tag test */
+	// Test for "datetime" attribute moved to manual testing.
 	try {
 		let time_test = !(document.createElement("time") instanceof HTMLUnknownElement);
 		document.getElementById("timetest").textContent = time_test ? "PASS" : "FAIL";
@@ -261,6 +264,7 @@ window.onload = function() {
 		}
 		else {
 			document.getElementById("dialogtest").textContent = "FAIL";
+			console.log("<dialog>: Your browser does not support the dialog element.");
 		}
 	}
 	catch (error) {
@@ -270,7 +274,7 @@ window.onload = function() {
 	/* Hidden attribute test */
 	try {
 		var sample_p = document.createElement("p");
-		let hidden_test = "hidden" in sample_ol;
+		let hidden_test = "hidden" in sample_p;
 		document.getElementById("hiddentest").textContent = hidden_test ? "PASS" : "FAIL";
 	}
 	catch (error) {
@@ -301,5 +305,776 @@ window.onload = function() {
 	}
 	catch (error) {
 		document.getElementById("iahtmltest").textContent = "FAIL";
+	}
+	
+	/* FORMS */
+	
+	/* Input of type Text test */
+	try {
+		let input_text_test = document.createElement("input");
+		input_text_test.type = "text";
+		if (input_text_test.type === "text") {
+			let selection_direction_test = "selectionDirection" in input_text_test;
+			document.getElementById("textinputtest").textContent = selection_direction_test ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("textinputtest").textContent = "FAIL";
+		}
+	}
+	catch (error) {
+		document.getElementById("textinputtest").textContent = "FAIL";
+	}
+	
+	/* Input of type Search test */
+	try {
+		let input_search_test = document.createElement("input");
+		input_search_test.type = "search";
+		document.getElementById("searchinputtest").textContent = (input_search_test.type === "search") ? "PASS" : "FAIL";
+	}
+	catch (error) {
+		document.getElementById("searchinputtest").textContent = "FAIL";
+	}
+	
+	/* Input of type Tel test */
+	try {
+		let input_tel_test = document.createElement("input");
+		input_tel_test.type = "tel";
+		document.getElementById("telinputtest").textContent = (input_tel_test.type === "tel") ? "PASS" : "FAIL";
+	}
+	catch (error) {
+		document.getElementById("telinputtest").textContent = "FAIL";
+	}
+	
+	/* Input of type URL test */
+	try {
+		let input_url_test = document.createElement("input");
+		input_url_test.type = "url";
+		if (input_url_test.type === "url") {
+			input_url_test.value = "bad-url";
+			document.getElementById("urlinputtest").textContent = (!input_url_test.checkValidity()) ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("urlinputtest").textContent = "FAIL";
+		}
+	}
+	catch (error) {
+		document.getElementById("urlinputtest").textContent = "FAIL";
+	}
+	
+	/* Input of type Email test */
+	try {
+		let input_email_test = document.createElement("input");
+		input_email_test.type = "email";
+		if (input_email_test.type === "email") {
+			input_email_test.value = "bad-email";
+			document.getElementById("emailinputtest").textContent = (!input_email_test.checkValidity()) ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("emailinputtest").textContent = "FAIL";
+		}
+	}
+	catch (error) {
+		document.getElementById("emailinputtest").textContent = "FAIL";
+	}
+	
+	/* Input of type Date test */
+	try {
+		let input_date_test = document.createElement("input");
+		input_date_test.type = "date";
+		if (input_date_test.type === "date") {
+			var tests_passed = 0;
+			input_date_test.value = "bad-date";
+			if (input_date_test.value === "") { tests_passed++; }
+			let min_date_test = "min" in input_date_test;
+			if (min_date_test) { tests_passed++; }
+			let max_date_test = "max" in input_date_test;
+			if (max_date_test) { tests_passed++; }
+			let step_date_test = "step" in input_date_test;
+			if (step_date_test) { tests_passed++; }
+			if ("stepDown" in input_date_test) { tests_passed++; }
+			if ("stepUp" in input_date_test) { tests_passed++; }
+			if ("valueAsDate" in input_date_test) { tests_passed++; }
+			if ("valueAsNumber" in input_date_test) { tests_passed++; }
+			document.getElementById("dateinputtest").textContent = (tests_passed === 8) ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("dateinputtest").textContent = "FAIL";
+		}
+	}
+	catch (error) {
+		document.getElementById("dateinputtest").textContent = "FAIL";
+	}
+	
+	/* Input of type Month test */
+	try {
+		let input_month_test = document.createElement("input");
+		input_month_test.type = "month";
+		if (input_month_test.type === "month") {
+			var tests_passed = 0;
+			input_month_test.value = "bad-month";
+			if (input_month_test.value === "") { tests_passed++; }
+			let min_month_test = "min" in input_month_test;
+			if (min_month_test) { tests_passed++; }
+			let max_month_test = "max" in input_month_test;
+			if (max_month_test) { tests_passed++; }
+			let step_month_test = "step" in input_month_test;
+			if (step_month_test) { tests_passed++; }
+			if ("stepDown" in input_month_test) { tests_passed++; }
+			if ("stepUp" in input_month_test) { tests_passed++; }
+			if ("valueAsDate" in input_month_test) { tests_passed++; }
+			if ("valueAsNumber" in input_month_test) { tests_passed++; }
+			document.getElementById("monthinputtest").textContent = (tests_passed === 8) ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("monthinputtest").textContent = "FAIL";
+			console.log("Input of type \"month\": Your browser does not support the \"month\" input type.");
+		}
+	}
+	catch (error) {
+		document.getElementById("monthinputtest").textContent = "FAIL";
+	}
+	
+	/* Input of type Week test */
+	try {
+		let input_week_test = document.createElement("input");
+		input_week_test.type = "week";
+		if (input_week_test.type === "week") {
+			var tests_passed = 0;
+			input_week_test.value = "bad-week";
+			if (input_week_test.value === "") { tests_passed++; }
+			let min_week_test = "min" in input_week_test;
+			if (min_week_test) { tests_passed++; }
+			let max_week_test = "max" in input_week_test;
+			if (max_week_test) { tests_passed++; }
+			let step_week_test = "step" in input_week_test;
+			if (step_week_test) { tests_passed++; }
+			if ("stepDown" in input_week_test) { tests_passed++; }
+			if ("stepUp" in input_week_test) { tests_passed++; }
+			if ("valueAsDate" in input_week_test) { tests_passed++; }
+			if ("valueAsNumber" in input_week_test) { tests_passed++; }
+			document.getElementById("weekinputtest").textContent = (tests_passed === 8) ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("weekinputtest").textContent = "FAIL";
+			console.log("Input of type \"week\": Your browser does not support the \"week\" input type.");
+		}
+	}
+	catch (error) {
+		document.getElementById("weekinputtest").textContent = "FAIL";
+	}
+	
+	/* Input of type Time test */
+	try {
+		let input_time_test = document.createElement("input");
+		input_time_test.type = "time";
+		if (input_time_test.type === "time") {
+			var tests_passed = 0;
+			input_time_test.value = "bad-time";
+			if (input_time_test.value === "") { tests_passed++; }
+			let min_time_test = "min" in input_time_test;
+			if (min_time_test) { tests_passed++; }
+			let max_time_test = "max" in input_time_test;
+			if (max_time_test) { tests_passed++; }
+			let step_time_test = "step" in input_time_test;
+			if (step_time_test) { tests_passed++; }
+			if ("stepDown" in input_time_test) { tests_passed++; }
+			if ("stepUp" in input_time_test) { tests_passed++; }
+			if ("valueAsDate" in input_time_test) { tests_passed++; }
+			if ("valueAsNumber" in input_time_test) { tests_passed++; }
+			document.getElementById("timeinputtest").textContent = (tests_passed === 8) ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("timeinputtest").textContent = "FAIL";
+		}
+	}
+	catch (error) {
+		document.getElementById("timeinputtest").textContent = "FAIL";
+	}
+	
+	/* Input of type Local Date and Time test */
+	try {
+		let input_dtl_test = document.createElement("input");
+		input_dtl_test.type = "datetime-local";
+		if (input_dtl_test.type === "datetime-local") {
+			var tests_passed = 0;
+			input_dtl_test.value = "bad-dtl";
+			if (input_dtl_test.value === "") {
+				input_dtl_test.value = "1998-04-26T12:34";
+				if (input_dtl_test.value === "1998-04-26T12:34") { tests_passed++; }
+			}
+			let min_dtl_test = "min" in input_dtl_test;
+			if (min_dtl_test) { tests_passed++; }
+			let max_dtl_test = "max" in input_dtl_test;
+			if (max_dtl_test) { tests_passed++; }
+			let step_dtl_test = "step" in input_dtl_test;
+			if (step_dtl_test) { tests_passed++; }
+			if ("stepDown" in input_dtl_test) { tests_passed++; }
+			if ("stepUp" in input_dtl_test) { tests_passed++; }
+			if ("valueAsDate" in input_dtl_test) { tests_passed++; }
+			document.getElementById("dtlinputtest").textContent = (tests_passed === 7) ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("dtlinputtest").textContent = "FAIL";
+			console.log("Input of type \"datetime-local\": Your browser does not support the local date and time input type.");
+		}
+	}
+	catch (error) {
+		document.getElementById("dtlinputtest").textContent = "FAIL";
+	}
+	
+	/* Input of type Number test */
+	try {
+		let input_number_test = document.createElement("input");
+		input_number_test.type = "number";
+		if (input_number_test.type === "number") {
+			var tests_passed = 0;
+			input_number_test.value = "bad-number";
+			if (input_number_test.value === "") { tests_passed++; }
+			let min_number_test = "min" in input_number_test;
+			if (min_number_test) { tests_passed++; }
+			let max_number_test = "max" in input_number_test;
+			if (max_number_test) { tests_passed++; }
+			let step_number_test = "step" in input_number_test;
+			if (step_number_test) { tests_passed++; }
+			if ("stepDown" in input_number_test) { tests_passed++; }
+			if ("stepUp" in input_number_test) { tests_passed++; }
+			if ("valueAsDate" in input_number_test) { tests_passed++; }
+			document.getElementById("numberinputtest").textContent = (tests_passed === 7) ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("numberinputtest").textContent = "FAIL";
+		}
+	}
+	catch (error) {
+		document.getElementById("numberinputtest").textContent = "FAIL";
+	}
+	
+	/* Input of type Range test */
+	try {
+		let input_range_test = document.createElement("input");
+		input_range_test.type = "range";
+		if (input_range_test.type === "range") {
+			var tests_passed = 0;
+			input_range_test.value = "bad-range";
+			if (!isNaN(input_range_test.value)) { tests_passed++; }
+			let min_range_test = "min" in input_range_test;
+			if (min_range_test) { tests_passed++; }
+			let max_range_test = "max" in input_range_test;
+			if (max_range_test) { tests_passed++; }
+			let step_range_test = "step" in input_range_test;
+			if (step_range_test) { tests_passed++; }
+			if ("stepDown" in input_range_test) { tests_passed++; }
+			if ("stepUp" in input_range_test) { tests_passed++; }
+			if ("valueAsDate" in input_range_test) { tests_passed++; }
+			document.getElementById("rangeinputtest").textContent = (tests_passed === 7) ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("rangeinputtest").textContent = "FAIL";
+		}
+	}
+	catch (error) {
+		document.getElementById("rangeinputtest").textContent = "FAIL";
+	}
+	
+	/* Input of type Color test */
+	try {
+		let input_color_test = document.createElement("input");
+		input_color_test.type = "color";
+		if (input_color_test.type === "color") {
+			var tests_passed = 0;
+			input_color_test.value = "bad-color";
+			if (input_color_test.value === "#000000") {
+				input_color_test.value = "#AbCdEf";
+				if (input_color_test.value === "#abcdef") { tests_passed++; }
+			}
+			document.getElementById("colorinputtest").textContent = (tests_passed === 1) ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("colorinputtest").textContent = "FAIL";
+		}
+	}
+	catch (error) {
+		document.getElementById("colorinputtest").textContent = "FAIL";
+	}
+	
+	/* Input of type Checkbox test */
+	try {
+		let input_checkbox_test = document.createElement("input");
+		input_checkbox_test.type = "checkbox";
+		if (input_checkbox_test.type === "checkbox") {
+			if ("indeterminate" in input_checkbox_test) {
+				document.getElementById("checkboxinputtest").textContent = "PASS";
+			}
+			else {
+				document.getElementById("checkboxinputtest").textContent = "PARTIAL";
+			}
+		}
+		else {
+			document.getElementById("checkboxinputtest").textContent = "FAIL";
+		}
+	}
+	catch (error) {
+		document.getElementById("checkboxinputtest").textContent = "FAIL";
+	}
+	
+	/* Input of type Image test */
+	try {
+		let input_image_test = document.createElement("input");
+		input_image_test.type = "image";
+		if (input_image_test.type === "image") {
+			var tests_passed = 0;
+			if ("width" in input_image_test) { tests_passed++; }
+			if ("height" in input_image_test) { tests_passed++; }
+			document.getElementById("imageinputtest").textContent = (tests_passed === 2) ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("imageinputtest").textContent = "FAIL";
+		}
+	}
+	catch (error) {
+		document.getElementById("imageinputtest").textContent = "FAIL";
+	}
+	
+	/* Input of type File test */
+	try {
+		let input_file_test = document.createElement("input");
+		input_file_test.type = "file";
+		if (input_file_test.type === "file") {
+			var tests_passed = 0;
+			let files_file_test = "files" in input_file_test;
+			if (files_file_test) { tests_passed++; }
+			let accept_file_test = "accept" in input_file_test;
+			if (accept_file_test) { tests_passed++; }
+			let capture_file_test = "capture" in input_file_test;
+			if (capture_file_test) { tests_passed++; }
+			else { console.log("Input of type \"file\": Your browser does not support the \"capture\" attribute. If you are using a desktop browser, this doesn't matter as much. Its real importance is on mobile."); }
+			let multiple_file_test = "multiple" in input_file_test;
+			if (multiple_file_test) { tests_passed++; }
+			document.getElementById("fileinputtest").textContent = (tests_passed === 4) ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("fileinputtest").textContent = "FAIL";
+		}
+	}
+	catch (error) {
+		document.getElementById("fileinputtest").textContent = "FAIL";
+	}
+	
+	/* Textarea tag test */
+	// Test for "maxlength" attribute moved to manual testing.
+	try {
+		let textarea_tag_test = !(document.createElement("textarea") instanceof HTMLUnknownElement);
+		if (textarea_tag_test === true) {
+			sample_textarea = document.createElement("textarea");
+			let textarea_wrap = "wrap" in sample_textarea;
+			if (textarea_wrap) {
+				document.getElementById("textareatest").textContent = (textarea_wrap) ? "PASS" : "PARTIAL";
+			}
+		}
+		else {
+			document.getElementById("textareatest").textContent = "FAIL";
+		}
+	}
+	catch (error) {
+		document.getElementById("textareatest").textContent = "FAIL";
+	}
+	
+	/* Select tag test */
+	try {
+		let select_tag_test = !(document.createElement("select") instanceof HTMLUnknownElement);
+		if (select_tag_test === true) {
+			sample_select = document.createElement("select");
+			let select_required = "required" in sample_select;
+			if (select_required) {
+				document.getElementById("selecttest").textContent = select_required ? "PASS" : "PARTIAL";
+			}
+		}
+		else {
+			document.getElementById("selecttest").textContent = "FAIL";
+		}
+	}
+	catch (error) {
+		document.getElementById("selecttest").textContent = "FAIL";
+	}
+	
+	/* Fieldset tag test */
+	try {
+		let fieldset_tag_test = !(document.createElement("fieldset") instanceof HTMLUnknownElement);
+		if (fieldset_tag_test === true) {
+			sample_fieldset = document.createElement("fieldset");
+			let fieldset_disabled = "disabled" in sample_fieldset;
+			document.getElementById("fieldsettest").textContent = fieldset_disabled ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("fieldsettest").textContent = "FAIL";
+		}
+	}
+	catch (error) {
+		document.getElementById("fieldsettest").textContent = "FAIL";
+	}
+	
+	/* Datalist tag test */
+	try {
+		let datalist_tag_test = !(document.createElement("datalist") instanceof HTMLUnknownElement);
+		document.getElementById("datalisttest").textContent = datalist_tag_test ? "PASS" : "PARTIAL";
+	}
+	catch (error) {
+		document.getElementById("datalisttest").textContent = "FAIL";
+	}
+	
+	/* Output tag test */
+	try {
+		let output_tag_test = !(document.createElement("output") instanceof HTMLUnknownElement);
+		document.getElementById("outputtest").textContent = output_tag_test ? "PASS" : "PARTIAL";
+	}
+	catch (error) {
+		document.getElementById("outputtest").textContent = "FAIL";
+	}
+	
+	/* Progress tag test */
+	try {
+		let progress_tag_test = !(document.createElement("progress") instanceof HTMLUnknownElement);
+		document.getElementById("progresstest").textContent = progress_tag_test ? "PASS" : "PARTIAL";
+	}
+	catch (error) {
+		document.getElementById("progresstest").textContent = "FAIL";
+	}
+	
+	/* Meter tag test */
+	try {
+		let meter_tag_test = !(document.createElement("meter") instanceof HTMLUnknownElement);
+		document.getElementById("metertest").textContent = meter_tag_test ? "PASS" : "PARTIAL";
+	}
+	catch (error) {
+		document.getElementById("metertest").textContent = "FAIL";
+	}
+	
+	/* Field validation test */
+	try {
+		var sample_input = document.createElement("input");
+		var tests_passed = 0;
+		let pattern_test = "pattern" in sample_input;
+		if (pattern_test) { tests_passed++; }
+		let required_test = "required" in sample_input;
+		if (required_test) { tests_passed++; }
+		document.getElementById("fieldvalidtest").textContent = (tests_passed === 2) ? "PASS" : "FAIL";
+	}
+	catch (error) {
+		document.getElementById("fieldvalidtest").textContent = "FAIL";
+	}
+	
+	/* Association of controls and forms test */
+	// Removed for manual testing.
+	// This invloved testing for the "control" property in the "label," while testing for
+	// "form," "formaction," "formenctype," "formmethod," "formnovalidate," "formtaget," and
+	// "labels" prperties on either "image" or "submit."
+	
+	/* Autofocus attribute test */
+	try {
+		var sample_input = document.createElement("input");
+		sample_input.type = "text";
+		let autofocus_test = "autofocus" in sample_input;
+		document.getElementById("autofocustest").textContent = autofocus_test ? "PASS" : "FAIL";
+	}
+	catch (error) {
+		document.getElementById("autofocustest").textContent = "FAIL";
+	}
+	
+	/* Autocomplete attribute test */
+	try {
+		var sample_input = document.createElement("input");
+		sample_input.type = "text";
+		let autocomplete_test = "autocomplete" in sample_input;
+		document.getElementById("autocomptest").textContent = autocomplete_test ? "PASS" : "FAIL";
+	}
+	catch (error) {
+		document.getElementById("autocomptest").textContent = "FAIL";
+	}
+	
+	/* Placeholder attribute test */
+	try {
+		var sample_input = document.createElement("input");
+		sample_input.type = "text";
+		let placeholder_test = "placeholder" in sample_input;
+		document.getElementById("placeholdertest").textContent = placeholder_test ? "PASS" : "FAIL";
+	}
+	catch (error) {
+		document.getElementById("placeholdertest").textContent = "FAIL";
+	}
+	
+	/* Multiple attribute test */
+	try {
+		var sample_input = document.createElement("input");
+		sample_input.type = "email";
+		let multiple_test = "multiple" in sample_input;
+		document.getElementById("multipletest").textContent = multiple_test ? "PASS" : "FAIL";
+	}
+	catch (error) {
+		document.getElementById("multipletest").textContent = "FAIL";
+	}
+	
+	/* Dirname attribute test */
+	// Removed for manual testing.
+	
+	/* Valid CSS Selector test */
+	try {
+		var sample_form = document.createElement("form");
+		var sample_input = document.createElement("input");
+		sample_input.className = "valid_test";
+		sample_input.type = "text";
+		sample_input.value = "TEST";
+		sample_form.appendChild(sample_input);
+		document.body.appendChild(sample_form);
+		let computed_style = window.getComputedStyle(sample_input);
+		let css_valid_test = computed_style.backgroundColor;
+		document.body.removeChild(sample_form);
+		document.getElementById("cssvalidtest").textContent = (css_valid_test === "rgb(240, 255, 240)") ? "PASS" : "FAIL";
+	}
+	catch (error) {
+		document.getElementById("cssvalidtest").textContent = "FAIL";
+	}
+	
+	/* Invalid CSS Selector test */
+	try {
+		var sample_form = document.createElement("form");
+		var sample_input = document.createElement("input");
+		sample_input.className = "invalid_test";
+		sample_input.type = "email";
+		sample_input.value = "bad-email";
+		sample_form.appendChild(sample_input);
+		document.body.appendChild(sample_form);
+		let computed_style = window.getComputedStyle(sample_input);
+		let css_invalid_test = computed_style.backgroundColor;
+		document.body.removeChild(sample_form);
+		document.getElementById("cssinvalidtest").textContent = (css_invalid_test === "rgb(255, 250, 250)") ? "PASS" : "FAIL";
+	}
+	catch (error) {
+		document.getElementById("cssinvalidtest").textContent = "FAIL";
+	}
+	
+	/* Optional CSS Selector test */
+	try {
+		var sample_form = document.createElement("form");
+		var sample_input = document.createElement("input");
+		sample_input.className = "optional_test";
+		sample_input.type = "text";
+		sample_input.value = "TEST";
+		sample_form.appendChild(sample_input);
+		document.body.appendChild(sample_form);
+		let computed_style = window.getComputedStyle(sample_input);
+		let css_optional_test = computed_style.backgroundColor;
+		document.body.removeChild(sample_form);
+		document.getElementById("cssoptionaltest").textContent = (css_optional_test === "rgb(255, 255, 240)") ? "PASS" : "FAIL";
+	}
+	catch (error) {
+		document.getElementById("cssoptionaltest").textContent = "FAIL";
+	}
+	
+	/* Required CSS Selector test */
+	try {
+		var sample_form = document.createElement("form");
+		var sample_input = document.createElement("input");
+		sample_input.className = "required_test";
+		sample_input.type = "text";
+		sample_input.value = "TEST";
+		sample_input.setAttribute("required", "");
+		sample_form.appendChild(sample_input);
+		document.body.appendChild(sample_form);
+		let computed_style = window.getComputedStyle(sample_input);
+		let css_required_test = computed_style.backgroundColor;
+		document.body.removeChild(sample_form);
+		document.getElementById("cssrequiredtest").textContent = (css_required_test === "rgb(255, 228, 225)") ? "PASS" : "FAIL";
+	}
+	catch (error) {
+		document.getElementById("cssrequiredtest").textContent = "FAIL";
+	}
+	
+	/* In-range CSS Selector test */
+	try {
+		var sample_form = document.createElement("form");
+		var sample_input = document.createElement("input");
+		sample_input.className = "inrange_test";
+		sample_input.type = "number";
+		sample_input.setAttribute("min", 1);
+		sample_input.setAttribute("max", 10);
+		sample_input.value = 5;
+		sample_form.appendChild(sample_input);
+		document.body.appendChild(sample_form);
+		let computed_style = window.getComputedStyle(sample_input);
+		let css_inrange_test = computed_style.backgroundColor;
+		document.body.removeChild(sample_form);
+		document.getElementById("cssinrangetest").textContent = (css_inrange_test === "rgb(240, 255, 240)") ? "PASS" : "FAIL";
+	}
+	catch (error) {
+		document.getElementById("cssinrangetest").textContent = "FAIL";
+	}
+	
+	/* Out-of-range CSS Selector test */
+	try {
+		var sample_form = document.createElement("form");
+		var sample_input = document.createElement("input");
+		sample_input.className = "oor_test";
+		sample_input.type = "number";
+		sample_input.setAttribute("min", 1);
+		sample_input.setAttribute("max", 10);
+		sample_input.value = 12;
+		sample_form.appendChild(sample_input);
+		document.body.appendChild(sample_form);
+		let computed_style = window.getComputedStyle(sample_input);
+		let css_oor_test = computed_style.backgroundColor;
+		document.body.removeChild(sample_form);
+		document.getElementById("cssoortest").textContent = (css_oor_test === "rgb(255, 228, 225)") ? "PASS" : "FAIL";
+	}
+	catch (error) {
+		document.getElementById("cssoortest").textContent = "FAIL";
+	}
+	
+	/* Read-write CSS Selector test */
+	try {
+		var sample_form = document.createElement("form");
+		var sample_input = document.createElement("input");
+		sample_input.className = "rw_test";
+		sample_input.type = "text";
+		sample_input.value = "TEST";
+		sample_form.appendChild(sample_input);
+		document.body.appendChild(sample_form);
+		let computed_style = window.getComputedStyle(sample_input);
+		let css_rw_test = computed_style.backgroundColor;
+		document.body.removeChild(sample_form);
+		document.getElementById("cssrwtest").textContent = (css_rw_test === "rgb(240, 255, 240)") ? "PASS" : "FAIL";
+	}
+	catch (error) {
+		document.getElementById("cssrwtest").textContent = "FAIL";
+	}
+	
+	/* Read-only CSS Selector test */
+	try {
+		var sample_form = document.createElement("form");
+		var sample_input = document.createElement("input");
+		sample_input.className = "ro_test";
+		sample_input.type = "text";
+		sample_input.value = "TEST";
+		sample_input.setAttribute("readonly", "");
+		sample_form.appendChild(sample_input);
+		document.body.appendChild(sample_form);
+		let computed_style = window.getComputedStyle(sample_input);
+		let css_ro_test = computed_style.backgroundColor;
+		document.body.removeChild(sample_form);
+		document.getElementById("cssrotest").textContent = (css_ro_test === "rgb(211, 211, 211)") ? "PASS" : "FAIL";
+	}
+	catch (error) {
+		document.getElementById("cssrotest").textContent = "FAIL";
+	}
+	
+	/* On Input event test */
+	try {
+		var sample_input = document.createElement("input");
+		sample_input.type = "text";
+		if ("oninput" in sample_input) {
+			document.getElementById("oninputtest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("oninputtest").textContent = "FAIL";
+		}
+	}
+	catch (error) {
+		document.getElementById("oninputtest").textContent = "FAIL";
+	}
+	
+	/* On Change event test */
+	try {
+		var sample_input = document.createElement("input");
+		sample_input.type = "text";
+		if ("onchange" in sample_input) {
+			document.getElementById("onchangetest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("onchangetest").textContent = "FAIL";
+		}
+	}
+	catch (error) {
+		document.getElementById("onchangetest").textContent = "FAIL";
+	}
+	
+	/* On Invalid event test */
+	try {
+		var sample_input = document.createElement("input");
+		sample_input.type = "text";
+		if ("oninvalid" in sample_input) {
+			document.getElementById("invalideventtest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("invalideventtest").textContent = "FAIL";
+		}
+	}
+	catch (error) {
+		document.getElementById("invalideventtest").textContent = "FAIL";
+	}
+	
+	/* Form validation test */
+	try {
+		var sample_form = document.createElement("form");
+		var sample_input = document.createElement("input");
+		sample_input.type = "text";
+		sample_input.value = "TEST";
+		sample_form.appendChild(sample_input);
+		var tests_passed = 0;
+		let check_validity_test = "checkValidity" in sample_input;
+		if (check_validity_test) { tests_passed++; }
+		let no_validate_test = "noValidate" in sample_form;
+		if (no_validate_test) { tests_passed++; }
+		document.getElementById("formvalidationtest").textContent = (tests_passed === 2) ? "PASS" : "FAIL";
+	}
+	catch (error) {
+		document.getElementById("formvalidationtest").textContent = "FAIL";
+	}
+	
+	/* WEB COMPONENTS API */
+	
+	/* Custom elements test */
+	try {
+		let custom_elements_test = "customElements" in window;
+		document.getElementById("customelementtest").textContent = custom_elements_test ? "PASS" : "FAIL";
+	}
+	catch (error) {
+		document.getElementById("customelementtest").textContent = "FAIL";
+	}
+	
+	/* Shadow trees test */
+	try {
+		let sample_div = document.createElement("div");
+		let shadow_tree_test = "attachShadow" in sample_div;
+		document.getElementById("shadowtreetest").textContent = shadow_tree_test ? "PASS" : "FAIL";
+	}
+	catch (error) {
+		document.getElementById("shadowtreetest").textContent = "FAIL";
+	}
+	
+	/* Template tag test */
+	try {
+		let template_test = !(document.createElement("template") instanceof HTMLUnknownElement);
+		document.getElementById("templatetest").textContent = template_test ? "PASS" : "FAIL";
+	}
+	catch (error) {
+		document.getElementById("templatetest").textContent = "FAIL";
+	}
+	
+	/* Slot tag test */
+	try {
+		let slot_tag_test = !(document.createElement("slot") instanceof HTMLUnknownElement);
+		if (slot_tag_test === true) {
+			sample_template = document.createElement("template");
+			sample_slot = document.createElement("slot");
+			sample_template.appendChild(sample_slot);
+			let slot_test = "name" in sample_slot;
+			document.getElementById("slottest").textContent = slot_test ? "PASS" : "FAIL";
+		}
+		else {
+			document.getElementById("slottest").textContent = "FAIL";
+			console.log("<slot>: Your browser does not support the slot element.");
+		}
+	}
+	catch (error) {
+		document.getElementById("slottest").textContent = "FAIL";
 	}
 };

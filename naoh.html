@@ -10,6 +10,15 @@
 			body { background-color: azure; font-family: serif; font-size: 16px; color: black; }
 			table { margin: 0 auto; }
 			td { width: 400px; }
+			/*CSS PSUEDO-CLASSES FOR TESTING*/
+			.valid_test:valid { background-color: honeydew; }
+			.invalid_test:invalid { background-color: snow; }
+			.optional_test:optional { background-color: ivory; }
+			.required_test:required { background-color: mistyrose; }
+			.inrange_test:in-range { background-color: honeydew; }
+			.oor_test:out-of-range { background-color: mistyrose; }
+			.rw_test:read-write { background-color: honeydew; }
+			.ro_test:read-only { background-color: lightgray; }
 		</style>
 	</head>
 	<body>
@@ -41,7 +50,7 @@
 			</tr>
 		</table>
 		<h3>Element tests</h3>
-		<table id = "parse_results">
+		<table id = "element_results">
 			<tr>
 				<td>Embedding custom non-visible data</td>
 				<td id = "datasettest"></td>
@@ -139,7 +148,197 @@
 				<td id = "iahtmltest"></td>
 			</tr>
 		</table>
+		<h3>Forms Tests</h3>
+		<table id = "forms_results">
+			<tr>
+				<td>Input of type "text"</td>
+				<td id = "textinputtest"></td>
+			</tr>
+			<tr>
+				<td>Input of type "search"</td>
+				<td id = "searchinputtest"></td>
+			</tr>
+			<tr>
+				<td>Input of type "tel"</td>
+				<td id = "telinputtest"></td>
+			</tr>
+			<tr>
+				<td>Input of type "url"</td>
+				<td id = "urlinputtest"></td>
+			</tr>
+			<tr>
+				<td>Input of type "email"</td>
+				<td id = "emailinputtest"></td>
+			</tr>
+			<tr>
+				<td>Input of type "date"</td>
+				<td id = "dateinputtest"></td>
+			</tr>
+			<tr>
+				<td>Input of type "month"</td>
+				<td id = "monthinputtest"></td>
+			</tr>
+			<tr>
+				<td>Input of type "week"</td>
+				<td id = "weekinputtest"></td>
+			</tr>
+			<tr>
+				<td>Input of type "time"</td>
+				<td id = "timeinputtest"></td>
+			</tr>
+			<tr>
+				<td>Input of type "datetime-local"</td>
+				<td id = "dtlinputtest"></td>
+			</tr>
+			<tr>
+				<td>Input of type "number"</td>
+				<td id = "numberinputtest"></td>
+			</tr>
+			<tr>
+				<td>Input of type "range"</td>
+				<td id = "rangeinputtest"></td>
+			</tr>
+			<tr>
+				<td>Input of type "color"</td>
+				<td id = "colorinputtest"></td>
+			</tr>
+			<tr>
+				<td>Input of type "checkbox"</td>
+				<td id = "checkboxinputtest"></td>
+			</tr>
+			<tr>
+				<td>Input of type "image"</td>
+				<td id = "imageinputtest"></td>
+			</tr>
+			<tr>
+				<td>Input of type "file"</td>
+				<td id = "fileinputtest"></td>
+			</tr>
+			<tr>
+				<td>&lt;textarea&gt;</td>
+				<td id = "textareatest"></td>
+			</tr>
+			<tr>
+				<td>&lt;select&gt;</td>
+				<td id = "selecttest"></td>
+			</tr>
+			<tr>
+				<td>&lt;fieldset&gt;</td>
+				<td id = "fieldsettest"></td>
+			</tr>
+			<tr>
+				<td>&lt;datalist&gt;</td>
+				<td id = "datalisttest"></td>
+			</tr>
+			<tr>
+				<td>&lt;output&gt;</td>
+				<td id = "outputtest"></td>
+			</tr>
+			<tr>
+				<td>&lt;progress&gt;</td>
+				<td id = "progresstest"></td>
+			</tr>
+			<tr>
+				<td>&lt;meter&gt;</td>
+				<td id = "metertest"></td>
+			</tr>
+			<tr>
+				<td>Field validation test</td>
+				<td id = "fieldvalidtest"></td>
+			</tr>
+			<!--<tr>
+				<td>Association of controls and forms test</td>
+				<td id = "assoctest"></td>
+			</tr> Removed for manual testing.-->
+			<tr>
+				<td>"autofocus" attribute</td>
+				<td id = "autofocustest"></td>
+			</tr>
+			<tr>
+				<td>"autocomplete" attribute</td>
+				<td id = "autocomptest"></td>
+			</tr>
+			<tr>
+				<td>"placeholder" attribute</td>
+				<td id = "placeholdertest"></td>
+			</tr>
+			<tr>
+				<td>"multiple" attribute</td>
+				<td id = "multipletest"></td>
+			</tr>
+			<!--<tr>
+				<td>"dirname" attribute</td>
+				<td id = "dirnametest"></td>
+			</tr> Removed for manual testing.-->
+			<tr>
+				<td>"valid" CSS Selector</td>
+				<td id = "cssvalidtest"></td>
+			</tr>
+			<tr>
+				<td>"invalid" CSS Selector</td>
+				<td id = "cssinvalidtest"></td>
+			</tr>
+			<tr>
+				<td>"optional" CSS Selector</td>
+				<td id = "cssoptionaltest"></td>
+			</tr>
+			<tr>
+				<td>"required" CSS Selector</td>
+				<td id = "cssrequiredtest"></td>
+			</tr>
+			<tr>
+				<td>"in-range" CSS Selector</td>
+				<td id = "cssinrangetest"></td>
+			</tr>
+			<tr>
+				<td>"out-of-range" CSS Selector</td>
+				<td id = "cssoortest"></td>
+			</tr>
+			<tr>
+				<td>"read-write" CSS Selector</td>
+				<td id = "cssrwtest"></td>
+			</tr>
+			<tr>
+				<td>"read-only" CSS Selector</td>
+				<td id = "cssrotest"></td>
+			</tr>
+			<tr>
+				<td>"oninput" event</td>
+				<td id = "oninputtest"></td>
+			</tr>
+			<tr>
+				<td>"onchange" event</td>
+				<td id = "onchangetest"></td>
+			</tr>
+			<tr>
+				<td>"oninvalid" event</td>
+				<td id = "invalideventtest"></td>
+			</tr>
+			<tr>
+				<td>Form validation test</td>
+				<td id = "formvalidationtest"></td>
+			</tr>
+		</table>
+		<h3>Web Components API Test</h3>
+		<table id = "web_components_test_results">
+			<tr>
+				<td>Custom elements test</td>
+				<td id = "customelementtest"></td>
+			</tr>
+			<tr>
+				<td>Shadow trees test</td>
+				<td id = "shadowtreetest"></td>
+			</tr>
+			<tr>
+				<td>&lt;template&gt;</td>
+				<td id = "templatetest"></td>
+			</tr>
+			<tr>
+				<td>&lt;slot&gt;</td>
+				<td id = "slottest"></td>
+			</tr>
+		</table>
 		<p></p>
-		<small>Copyright &copy; 2024 Mac Young. Licensed under the Zero-Clause BSD License, Sodium-Hydroxide is Free Software.</small>
+		<small>Copyright &copy; 2024 Mac Young. Licensed under the <a href="LICENSE.txt">Zero-Clause BSD License</a>, Sodium-Hydroxide is Free Software.</small>
 	</body>
 </html>
