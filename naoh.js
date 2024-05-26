@@ -942,6 +942,9 @@ window.onload = function() {
 		let css_rw_test = computed_style.backgroundColor;
 		document.body.removeChild(sample_form);
 		document.getElementById("cssrwtest").textContent = (css_rw_test === "rgb(240, 255, 240)") ? "PASS" : "FAIL";
+		if (document.getElementById("cssrwtest").textContent === "FAIL") {
+			console.log("\"read-write\" CSS Selector: Your browser does not support the \"read-write\" CSS Selector.");
+		}
 	}
 	catch (error) {
 		document.getElementById("cssrwtest").textContent = "FAIL";
@@ -961,6 +964,9 @@ window.onload = function() {
 		let css_ro_test = computed_style.backgroundColor;
 		document.body.removeChild(sample_form);
 		document.getElementById("cssrotest").textContent = (css_ro_test === "rgb(211, 211, 211)") ? "PASS" : "FAIL";
+		if (document.getElementById("cssrotest").textContent === "FAIL") {
+			console.log("\"read-only\" CSS Selector: Your browser does not support the \"read-only\" CSS Selector.");
+		}
 	}
 	catch (error) {
 		document.getElementById("cssrotest").textContent = "FAIL";
@@ -1076,5 +1082,270 @@ window.onload = function() {
 	}
 	catch (error) {
 		document.getElementById("slottest").textContent = "FAIL";
+	}
+	
+	/* LOCATION AND ORIENTATION */
+	
+	/* Geolocation test */
+	try {
+		document.getElementById("geolocationtest").textContent = "Testing...";
+		if (window.isSecureContext) {
+			if ("geolocation" in navigator) {
+				navigator.geolocation.getCurrentPosition(
+					() => document.getElementById("geolocationtest").textContent = "PASS",
+					(error) => {
+						switch (error.code) {
+							case error.PERMISSION_DENIED:
+								document.getElementById("geolocationtest").textContent = "PASS (Check console)";
+								console.log("Geolocation test: You have chosen to block access to your location. Nevertheless, your browser supports the Geolocation API, which is all that really matters here.");
+								break;
+							case error.POSITION_UNAVAILABLE:
+								document.getElementById("geolocationtest").textContent = "PASS (Check console)";
+								console.log("Geolocation test: Your browser supports the Geolocation API, but your position could not be obtained. The Geolocation server your browser is using could be at fault.");
+								break;
+							case error.TIMEOUT:
+								document.getElementById("geolocationtest").textContent = "PASS (Check console)";
+								console.log("Geolocation test: Your browser supports the Geolocation API, but the request timed out.");
+								break;
+							default:
+								document.getElementById("geolocationtest").textContent = "PASS (Check console)";
+								console.log("Geolocation test: Your browser supports the Geolocation API, but there was an error in processing the request for the current position.");
+						}
+					},
+					{timeout: 10000}
+				);
+			}
+			else {
+				document.getElementById("geolocationtest").textContent = "FAIL";
+				console.log("Geolocation test: Your browser does not support the Geolocation API.");
+			}
+		}
+		else {
+			document.getElementById("geolocationtest").textContent = "FAIL";
+			console.log("Geolocation test: Geolocation requires a secure context in order to operate.");
+		}
+	}
+	catch (error) {
+		document.getElementById("geolocationtest").textContent = "FAIL";
+	}
+	
+	/* Device orientation test */
+	try {
+		if (window.isSecureContext) {
+			document.getElementById("devorienttest").textContent = (window.DeviceOrientationEvent) ? "PASS" : "FAIL";
+		}
+		else {
+			document.getElementById("devorienttest").textContent = "FAIL";
+			console.log("Device orientation test: The orientation sensor requires a secure context in order to operate.");
+		}
+	}
+	catch (error) {
+		document.getElementById("devorienttest").textContent = "FAIL";
+	}
+	
+	/* Device motion test */
+	try {
+		if (window.isSecureContext) {
+			document.getElementById("devmotiontest").textContent = (window.DeviceMotionEvent) ? "PASS" : "FAIL";
+		}
+		else {
+			document.getElementById("devmotiontest").textContent = "FAIL";
+			console.log("Device motion test: The motion sensor requires a secure context in order to operate.");
+		}
+	}
+	catch (error) {
+		document.getElementById("devmotiontest").textContent = "FAIL";
+	}
+	
+	/* INPUT AND OUTPUT */
+	
+	/* Gamepad test */
+	try {
+		if (window.isSecureContext) {
+			if ("getGamepads" in navigator) {
+				var gamepads = navigator.getGamepads();
+				if (gamepads.length > 0 && gamepads[0] !== null) {
+					var sample_gamepad = gamepads[0];
+					var tests_passed = 0;
+					let axes_test = "axes" in sample_gamepad;
+					if (axes_test) { tests_passed++; }
+					let buttons_test = "buttons" in sample_gamepad;
+					if (buttons_test) { tests_passed++; }
+					let connected_test = "connected" in sample_gamepad;
+					if (connected_test) { tests_passed++; }
+					let haptic_actuators_test = "hapticActuators" in sample_gamepad;
+					if (haptic_actuators_test) { tests_passed++; }
+					else { console.log("Gamepaad test: Your browser does not support the \"hapticActuators\" property."); }
+					let id_test = "id" in sample_gamepad;
+					if (id_test) { tests_passed++; }
+					let index_test = "index" in sample_gamepad;
+					if (index_test) { tests_passed++; }
+					let mapping_test = "mapping" in sample_gamepad;
+					if (mapping_test) { tests_passed++; }
+					let timestamp_test = "timestamp" in sample_gamepad;
+					if (timestamp_test) { tests_passed++; }
+					document.getElementById("gamepadtest").textContent = (tests_passed === 8) ? "PASS" : "PARTIAL";
+				}
+				else {
+					document.getElementById("gamepadtest").textContent = "NOT CONNECTED";
+					console.log("Gamepad test: Your device does not have a gamepad connected to it. Your browser does support the Gamepad API on its own, though.");
+				}
+			}
+			else {
+				document.getElementById("gamepadtest").textContent = "FAIL";
+				console.log("Gamepad test: Your browser does not support the Gamepad API.");
+			}
+		}
+		else {
+			document.getElementById("gamepadtest").textContent = "FAIL";
+			console.log("Gamepad test: The Gamepad API requires a secure context in order to operate.");
+		}
+	}
+	catch (error) {
+		document.getElementById("gamepadtest").textContent = "FAIL";
+	}
+	
+	/* Pointer events test */
+	try {
+		if (window.PointerEvent) {
+			var sample_pointer_event = new PointerEvent("pointerdown");
+			var tests_passed = 0;
+			let coalesced_test = "getCoalescedEvents" in sample_pointer_event;
+			if (coalesced_test) { tests_passed++; }
+			else { console.log("Pointer events test: Your browser does not support coalesced pointer events."); }
+			let predicted_test = "getPredictedEvents" in sample_pointer_event;
+			if (predicted_test) { tests_passed++; }
+			else { console.log("Pointer events test: Your browser does not support predicted pointer events."); }
+			let height_test = "height" in sample_pointer_event;
+			if (height_test) { tests_passed++; }
+			let primary_test = "isPrimary" in sample_pointer_event;
+			if (primary_test) { tests_passed++; }
+			let pointer_id_test = "pointerId" in sample_pointer_event;
+			if (pointer_id_test) { tests_passed++; }
+			let pointer_type_test = "pointerType" in sample_pointer_event;
+			if (pointer_type_test) { tests_passed++; }
+			let pressure_test = "pressure" in sample_pointer_event;
+			if (pressure_test) { tests_passed++; }
+			let tangential_pressure_test = "tangentialPressure" in sample_pointer_event;
+			if (tangential_pressure_test) { tests_passed++; }
+			let tiltx_test = "tiltX" in sample_pointer_event;
+			if (tiltx_test) { tests_passed++; }
+			let tilty_test = "tiltY" in sample_pointer_event;
+			if (tilty_test) { tests_passed++; }
+			let twist_test = "twist" in sample_pointer_event;
+			if (twist_test) { tests_passed++; }
+			let width_test = "width" in sample_pointer_event;
+			if (width_test) { tests_passed++; }
+			document.getElementById("pointereventstest").textContent = (tests_passed === 12) ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("pointereventstest").textContent = "FAIL";
+			console.log("Pointer events test: Your browser does not support pointer events.");
+		}
+	}
+	catch (error) {
+		document.getElementById("pointereventstest").textContent = "FAIL";
+	}
+	
+	/* Pointer Lock API test */
+	try {
+		let pointer_lock_test = "requestPointerLock" in document.documentElement;
+		let pointer_exit_lock_test = "exitPointerLock" in document;
+		if (pointer_lock_test == true && pointer_exit_lock_test == true) {
+			document.getElementById("pointerlocktest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("pointerlocktest").textContent = "FAIL";
+			console.log("Pointer lock test: Your browser does not support the Pointer Lock API.");
+		}
+	}
+	catch (error) {
+		document.getElementById("pointerlocktest").textContent = "FAIL";
+	}
+	
+	/* Fullscreen test */
+	// Tests for navigationUI and returns for promises are to be done manually.
+	try {
+		var tests_passed = 0;
+		if ("fullscreenElement" in document) {
+			tests_passed++;
+			if ("fullscreenEnabled" in document) { tests_passed++; }
+			if ("exitFullscreen" in document) { tests_passed++; }
+			if ("requestFullscreen" in document.documentElement) { tests_passed++; }
+			document.getElementById("fullscreentest").textContent = (tests_passed === 4) ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("fullscreentest").textContent = "FAIL";
+			console.log("Fullscreen test: Your browser does not support the Fullscreen API.");
+		}
+	}
+	catch (error) {
+		document.getElementById("fullscreentest").textContent = "FAIL";
+	}
+	
+	/* Web notifications test */
+	try {
+		if (window.isSecureContext) {
+			if ("Notification" in window) {
+				Notification.requestPermission().then(permission => {
+					if (permission === "granted" || permission === "denied" || permission === "default") {
+						var sample_notification = new Notification("You should not see this notification. It's silent.", { silent: true });
+						var tests_passed = 0;
+						let badge_test = "badge" in sample_notification;
+						if (badge_test) { tests_passed++; }
+						else { console.log("Web notifications test: Your browser does not support the \"badge\" property."); }
+						let body_test = "body" in sample_notification;
+						if (body_test) { tests_passed++; }
+						let click_test = "onclick" in sample_notification;
+						if (click_test) { tests_passed++; }
+						let close_test = "close" in sample_notification;
+						if (close_test) { tests_passed++; }
+						let data_test = "data" in sample_notification;
+						if (data_test) { tests_passed++; }
+						let dir_test = "dir" in sample_notification;
+						if (dir_test) { tests_passed++; }
+						let error_test = "onerror" in sample_notification;
+						if (error_test) { tests_passed++; }
+						let icon_test = "icon" in sample_notification;
+						if (icon_test) { tests_passed++; }
+						let lang_test = "lang" in sample_notification;
+						if (lang_test) { tests_passed++; }
+						let require_interact_test = "requireInteraction" in sample_notification;
+						if (require_interact_test) { tests_passed++; }
+						else { console.log("Web notifications test: Your browser does not support the \"requireInteraction\" property."); }
+						let show_test = "onshow" in sample_notification;
+						if (show_test) { tests_passed++; }
+						let silent_test = "silent" in sample_notification;
+						if (silent_test) { tests_passed++; }
+						else { console.log("Web notifications test: Your browser does not support the \"silent\" property."); }
+						let tag_test = "tag" in sample_notification;
+						if (tag_test) { tests_passed++; }
+						let title_test = "title" in sample_notification;
+						if (title_test) { tests_passed++; }
+						let close_func_test = typeof sample_notification.close === "function";
+						if (close_func_test) {
+							tests_passed++;
+							sample_notification.close();
+						}
+						document.getElementById("webnotificationstest").textContent = (tests_passed === 15) ? "PASS" : "PARTIAL";
+					}
+					else {
+						document.getElementById("webnotificationstest").textContent = "FAIL";
+						console.log("Web notifications test: There was an error in requesting permission.");
+					}
+				});
+			}
+			else {
+				document.getElementById("webnotificationstest").textContent = "FAIL";
+				console.log("Web notifications test: Your browser does not support web notifications.");
+			}
+		}
+		else {
+			document.getElementById("webnotificationstest").textContent = "FAIL";
+			console.log("Web notifications test: Web notifications require a secure context in order to operate.");
+		}
+	}
+	catch (error) {
+		document.getElementById("webnotificationstest").textContent = "FAIL";
 	}
 };
