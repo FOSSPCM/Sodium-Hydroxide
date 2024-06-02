@@ -1163,33 +1163,7 @@ window.onload = function() {
 	try {
 		if (window.isSecureContext) {
 			if ("getGamepads" in navigator) {
-				var gamepads = navigator.getGamepads();
-				if (gamepads.length > 0 && gamepads[0] !== null) {
-					var sample_gamepad = gamepads[0];
-					var tests_passed = 0;
-					let axes_test = "axes" in sample_gamepad;
-					if (axes_test) { tests_passed++; }
-					let buttons_test = "buttons" in sample_gamepad;
-					if (buttons_test) { tests_passed++; }
-					let connected_test = "connected" in sample_gamepad;
-					if (connected_test) { tests_passed++; }
-					let haptic_actuators_test = "hapticActuators" in sample_gamepad;
-					if (haptic_actuators_test) { tests_passed++; }
-					else { console.log("Gamepaad test: Your browser does not support the \"hapticActuators\" property."); }
-					let id_test = "id" in sample_gamepad;
-					if (id_test) { tests_passed++; }
-					let index_test = "index" in sample_gamepad;
-					if (index_test) { tests_passed++; }
-					let mapping_test = "mapping" in sample_gamepad;
-					if (mapping_test) { tests_passed++; }
-					let timestamp_test = "timestamp" in sample_gamepad;
-					if (timestamp_test) { tests_passed++; }
-					document.getElementById("gamepadtest").textContent = (tests_passed === 8) ? "PASS" : "PARTIAL";
-				}
-				else {
-					document.getElementById("gamepadtest").textContent = "NOT CONNECTED";
-					console.log("Gamepad test: Your device does not have a gamepad connected to it. Your browser does support the Gamepad API on its own, though.");
-				}
+				document.getElementById("gamepadtest").textContent = "PASS";
 			}
 			else {
 				document.getElementById("gamepadtest").textContent = "FAIL";
@@ -1347,5 +1321,616 @@ window.onload = function() {
 	}
 	catch (error) {
 		document.getElementById("webnotificationstest").textContent = "FAIL";
+	}
+	
+	/* CODEC DETECTION TEST */
+	
+	try {
+		var sample_audio = document.createElement("audio");
+		let au_test = sample_audio.canPlayType("audio/basic");
+		if (au_test === "probably" || au_test === "maybe") {
+			document.getElementById("autest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("autest").textContent = "FAIL";
+			console.log("Au: Your browser does not support the Au file format.");
+		}
+	}
+	catch (error) {
+		document.getElementById("autest").textContent = "FAIL";
+	}
+	
+	/* AUDIO TESTS */
+	
+	/* Audio tag test */
+	try {
+		let audio_test = !(document.createElement("audio") instanceof HTMLUnknownElement);
+		if (audio_test === true) {
+			let sample_audio = document.createElement("audio");
+			let codec_detect_test = "canPlayType" in sample_audio;
+			if (codec_detect_test) {
+				document.getElementById("audiotest").textContent = "PASS";
+			}
+			else {
+				document.getElementById("audiotest").textContent = "FAIL";
+				console.log("<audio>: Your browser does not support codec detection.");
+			}
+		}
+		else {
+			document.getElementById("audiotest").textContent = "FAIL";
+			console.log("<audio>: Your browser does not support the \"audio\" tag.");
+		}
+	}
+	catch (error) {
+		document.getElementById("audiotest").textContent = "FAIL";
+	}
+	
+	/* Loop audio test */
+	try {
+		var sample_audio = document.createElement("audio");
+		let loop_audio_test = "loop" in sample_audio;
+		document.getElementById("loopaudiotest").textContent = loop_audio_test ? "PASS" : "FAIL";
+	}
+	catch (error) {
+		document.getElementById("loopaudiotest").textContent = "FAIL";
+	}
+	
+	/* Background preload test */
+	try {
+		var sample_audio = document.createElement("audio");
+		let background_preload_test = "preload" in sample_audio;
+		document.getElementById("bgpreloadtest").textContent = background_preload_test ? "PASS" : "FAIL";
+	}
+	catch (error) {
+		document.getElementById("bgpreloadtest").textContent = "FAIL";
+	}
+	
+	/* Web Audio API test */
+	try {
+		if (window.AudioContext) {
+			let sample_audiocontext = new AudioContext();
+			var tests_passed = 0;
+			let lh_test = "latencyHint" in sample_audiocontext;
+			if (lh_test) { tests_passed++; }
+			else { console.log("Web Audio API test: Your browser does not support the latencyHint option."); }
+			let sr_test = "sampleRate" in sample_audiocontext;
+			if (sr_test) { tests_passed++; }
+			let bl_test = "baseLatency" in sample_audiocontext;
+			if (bl_test) { tests_passed++; }
+			let cmes_test = typeof sample_audiocontext.createMediaElementSource === "function";
+			if (cmes_test) { tests_passed++; }
+			let cmsd_test = typeof sample_audiocontext.createMediaStreamDestination === "function";
+			if (cmsd_test) { tests_passed++; }
+			let cmss_test = typeof sample_audiocontext.createMediaStreamSource === "function";
+			if (cmss_test) { tests_passed++; }
+			let cmsts_test = typeof sample_audiocontext.createMediaStreamTrackSource === "function";
+			if (cmsts_test) { tests_passed++; }
+			else { console.log("Web Audio API test: Your browser does not support the createMediaStreamTrackSource method."); }
+			let getot_test = typeof sample_audiocontext.gotOutputTimestamp === "function";
+			if (getot_test) { tests_passed++; }
+			let output_latency_test = "outputLatency" in sample_audiocontext;
+			if (output_latency_test) { tests_passed++; }
+			let resume_test = typeof sample_audiocontext.resume === "function";
+			if (resume_test) { tests_passed++; }
+			let suspend_test = typeof sample_audiocontext.suspend === "function";
+			if (suspend_test) { tests_passed++; }
+			let close_func_test = typeof sample_audiocontext.close === "function";
+			if (close_func_test) {
+				tests_passed++;
+				sample_audiocontext.close();
+			}
+			document.getElementById("webaudiotest").textContent = (tests_passed === 11) ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("webaudiotest").textContent = "FAIL";
+			console.log("Web Audio API test: Your browser does not support the Web Audio API.");
+		}
+	}
+	catch (error) {
+		document.getElementById("webaudiotest").textContent = "FAIL";
+	}
+	
+	/* Speech Synthesis test */
+	try {
+		if (window.speechSynthesis) {
+			document.getElementById("speechsynthtest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("speechsynthtest").textContent = "FAIL";
+			console.log("Speech Synthesis test: Your browser does not support speech synthesis.");
+		}
+	}
+	catch (error) {
+		document.getElementById("speechsynthtest").textContent = "FAIL";
+	}
+	
+	/* AAC-LC in ADTS test */
+	try {
+		var sample_audio = document.createElement("audio");
+		let aaclc_adts_test = sample_audio.canPlayType("audio/aac; codecs=mp4a.40.02");
+		if (aaclc_adts_test === "probably" || aaclc_adts_test === "maybe") {
+			document.getElementById("aaclcadtstest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("aaclcadtstest").textContent = "FAIL";
+			console.log("AAC-LC in ADTS: Your browser does not support AAC-LC in ADTS containers.");
+		}
+	}
+	catch (error) {
+		document.getElementById("aaclcadtstest").textContent = "FAIL";
+	}
+	
+	/* AAC-LC in MP4 test */
+	try {
+		var sample_audio = document.createElement("audio");
+		let aaclc_mp4_test = sample_audio.canPlayType("audio/mp4; codecs=mp4a.40.02");
+		if (aaclc_mp4_test === "probably" || aaclc_mp4_test === "maybe") {
+			document.getElementById("aaclcmp4test").textContent = "PASS";
+		}
+		else {
+			document.getElementById("aaclcmp4test").textContent = "FAIL";
+			console.log("AAC-LC in MP4: Your browser does not support AAC-LC in MP4 containers.");
+		}
+	}
+	catch (error) {
+		document.getElementById("aaclcmp4test").textContent = "FAIL";
+	}
+	
+	/* Au test */
+	try {
+		var sample_audio = document.createElement("audio");
+		let au_test = sample_audio.canPlayType("audio/basic");
+		if (au_test === "probably" || au_test === "maybe") {
+			document.getElementById("autest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("autest").textContent = "FAIL";
+			console.log("Au: Your browser does not support the Au file format.");
+		}
+	}
+	catch (error) {
+		document.getElementById("autest").textContent = "FAIL";
+	}
+	
+	/* Dolby Digital test */
+	try {
+		var sample_audio = document.createElement("audio");
+		let ac3_test = sample_audio.canPlayType("audio/ac3; codecs:'ac3'");
+		if (ac3_test === "probably" || ac3_test === "maybe") {
+			document.getElementById("ac3test").textContent = "PASS";
+		}
+		else {
+			document.getElementById("ac3test").textContent = "FAIL";
+			console.log("Dolby Digital: Your browser does not support Dolby Digital AC-3.");
+		}
+	}
+	catch (error) {
+		document.getElementById("ac3test").textContent = "FAIL";
+	}
+	
+	/* Dolby Digital Plus test */
+	try {
+		var sample_audio = document.createElement("audio");
+		let eac3_test = sample_audio.canPlayType("audio/eac3; codecs:'eac3'");
+		if (eac3_test === "probably" || eac3_test === "maybe") {
+			document.getElementById("eac3test").textContent = "PASS";
+		}
+		else {
+			document.getElementById("eac3test").textContent = "FAIL";
+			console.log("Dolby Digital Plus: Your browser does not support Dolby Digital Plus E-AC-3.");
+		}
+	}
+	catch (error) {
+		document.getElementById("eac3test").textContent = "FAIL";
+	}
+	
+	/* FLAC test */
+	try {
+		var sample_audio = document.createElement("audio");
+		let flac_test = sample_audio.canPlayType("audio/flac");
+		if (flac_test === "probably" || flac_test === "maybe") {
+			document.getElementById("flactest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("flactest").textContent = "FAIL";
+			console.log("FLAC: Your browser does not support FLAC.");
+		}
+	}
+	catch (error) {
+		document.getElementById("flactest").textContent = "FAIL";
+	}
+	
+	/* FLAC in Ogg test */
+	try {
+		var sample_audio = document.createElement("audio");
+		let flac_ogg_test = sample_audio.canPlayType("audio/ogg; codecs:flac");
+		if (flac_ogg_test === "probably" || flac_ogg_test === "maybe") {
+			document.getElementById("flacoggtest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("flacoggtest").textContent = "FAIL";
+			console.log("FLAC in Ogg: Your browser does not support FLAC in Ogg containers.");
+		}
+	}
+	catch (error) {
+		document.getElementById("flacoggtest").textContent = "FAIL";
+	}
+	
+	/* MP3 test */
+	try {
+		var sample_audio = document.createElement("audio");
+		let mp3_test = sample_audio.canPlayType("audio/mpeg");
+		if (mp3_test === "probably" || mp3_test === "maybe") {
+			document.getElementById("mp3test").textContent = "PASS";
+		}
+		else {
+			document.getElementById("mp3test").textContent = "FAIL";
+			console.log("MP3: Your browser does not support MP3.");
+		}
+	}
+	catch (error) {
+		document.getElementById("mp3test").textContent = "FAIL";
+	}
+	
+	/* Ogg Vorbis test */
+	try {
+		var sample_audio = document.createElement("audio");
+		let ogg_vorbis_test = sample_audio.canPlayType("audio/ogg; codecs:vorbis");
+		if (ogg_vorbis_test === "probably" || ogg_vorbis_test === "maybe") {
+			document.getElementById("vorbistest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("vorbistest").textContent = "FAIL";
+			console.log("Ogg Vorbis: Your browser does not support Vorbis in Ogg containers.");
+		}
+	}
+	catch (error) {
+		document.getElementById("vorbistest").textContent = "FAIL";
+	}
+	
+	/* Vorbis in WebM test */
+	try {
+		var sample_audio = document.createElement("audio");
+		let vorbis_webm_test = sample_audio.canPlayType("audio/webm; codecs:vorbis");
+		if (vorbis_webm_test === "probably" || vorbis_webm_test === "maybe") {
+			document.getElementById("vorbiswebmtest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("vorbiswebmtest").textContent = "FAIL";
+			console.log("Vorbis in WebM: Your browser does not support Vorbis in WebM containers.");
+		}
+	}
+	catch (error) {
+		document.getElementById("vorbiswebmtest").textContent = "FAIL";
+	}
+	
+	/* Opus in Ogg test */
+	try {
+		var sample_audio = document.createElement("audio");
+		let opus_ogg_test = sample_audio.canPlayType("audio/ogg; codecs:opus");
+		if (opus_ogg_test === "probably" || opus_ogg_test === "maybe") {
+			document.getElementById("opustest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("opustest").textContent = "FAIL";
+			console.log("Opus in Ogg: Your browser does not support Opus in Ogg containers.");
+		}
+	}
+	catch (error) {
+		document.getElementById("opustest").textContent = "FAIL";
+	}
+	
+	/* Opus in CAF test */
+	try {
+		var sample_audio = document.createElement("audio");
+		let opus_caf_test = sample_audio.canPlayType("audio/x-caf; codecs:opus");
+		if (opus_caf_test === "probably" || opus_caf_test === "maybe") {
+			document.getElementById("opusxcaftest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("opusxcaftest").textContent = "FAIL";
+			console.log("Opus in CAF: Your browser does not support Opus in CAF containers.");
+		}
+	}
+	catch (error) {
+		document.getElementById("opusxcaftest").textContent = "FAIL";
+	}
+	
+	/* Opus in WebM test */
+	try {
+		var sample_audio = document.createElement("audio");
+		let opus_webm_test = sample_audio.canPlayType("audio/webm; codecs:opus");
+		if (opus_webm_test === "probably" || opus_webm_test === "maybe") {
+			document.getElementById("opuswebmtest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("opuswebmtest").textContent = "FAIL";
+			console.log("Opus in WebM: Your browser does not support Opus in WebM containers.");
+		}
+	}
+	catch (error) {
+		document.getElementById("opuswebmtest").textContent = "FAIL";
+	}
+	
+	/* WAVE test */
+	try {
+		var sample_audio = document.createElement("audio");
+		let wave_test = sample_audio.canPlayType("audio/wav");
+		if (wave_test === "probably" || wave_test === "maybe") {
+			document.getElementById("wavetest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("wavetest").textContent = "FAIL";
+			console.log("WAVE: Your browser does not support the Waveform Audio File Format.");
+		}
+	}
+	catch (error) {
+		document.getElementById("wavetest").textContent = "FAIL";
+	}
+	
+	/* VIDEO TESTS */
+	
+	/* Video tag test */
+	try {
+		let video_test = !(document.createElement("video") instanceof HTMLUnknownElement);
+		document.getElementById("videotest").textContent = video_test ? "PASS" : "FAIL";
+	}
+	catch (error) {
+		document.getElementById("videotest").textContent = "FAIL";
+	}
+	
+	/* Track tag test */
+	try {
+		let track_test = !(document.createElement("video") instanceof HTMLUnknownElement);
+		if (track_test === true) {
+			let sample_track = document.createElement("track");
+			let kind_test = "kind" in sample_track;
+			document.getElementById("tracktest").textContent = kind_test ? "PASS" : "FAIL";
+			if (kind_test === false) { console.log("<track>: Your browser does not the \"kind\" attribute."); }
+		}
+		else {
+			document.getElementById("tracktest").textContent = "FAIL";
+			console.log("<track>: Your browser does not support the \"track\" element.");
+		}
+	}
+	catch (error) {
+		document.getElementById("tracktest").textContent = "FAIL";
+	}
+	
+	/* Poster images test */
+	try {
+		var sample_video = document.createElement("video");
+		let poster_test = "poster" in sample_video;
+		if (poster_test === true) {
+			document.getElementById("posterimagetest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("posterimagestest").textContent = "FAIL";
+			console.log("Poster images test: Your browser does not support the \"poster\" attribute in the \"video\" element.");
+		}
+	}
+	catch (error) {
+		document.getElementById("posterimagestest").textContent = "FAIL";
+	}
+	
+	/* AV1 in MP4 test */
+	try {
+		var sample_video = document.createElement("video");
+		let av1_mp4_test = sample_video.canPlayType("video/mp4; codecs:'av01.0.05H.10, opus'");
+		if (av1_mp4_test === "probably" || av1_mp4_test === "maybe") {
+			document.getElementById("av1mp4test").textContent = "PASS";
+		}
+		else {
+			document.getElementById("av1mp4test").textContent = "FAIL";
+			console.log("AV1 in MP4: Your browser does not support AV1 in MP4 containers. Please note your browser must also support Opus to pass this test.");
+		}
+	}
+	catch (error) {
+		document.getElementById("av1mp4test").textContent = "FAIL";
+	}
+	
+	/* AV1 in WebM test */
+	try {
+		var sample_video = document.createElement("video");
+		let av1_webm_test = sample_video.canPlayType("video/webm; codecs:'av01.0.05H.10, opus'");
+		if (av1_webm_test === "probably" || av1_webm_test === "maybe") {
+			document.getElementById("av1webmtest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("av1webmtest").textContent = "FAIL";
+			console.log("AV1 in WebM: Your browser does not support AV1 in WebM containers. Please note your browser must also support Opus to pass this test.");
+		}
+	}
+	catch (error) {
+		document.getElementById("av1webmtest").textContent = "FAIL";
+	}
+	
+	/* H.264 High Profile in MP4 test */
+	try {
+		var sample_video = document.createElement("video");
+		let h264_mp4_test = sample_video.canPlayType("video/mp4; codecs:'avc1.640028, mp4a.40.2'");
+		if (h264_mp4_test === "probably" || h264_mp4_test === "maybe") {
+			document.getElementById("h264mp4test").textContent = "PASS";
+		}
+		else {
+			document.getElementById("h264mp4test").textContent = "FAIL";
+			console.log("H.264 High Profile in MP4: Your browser does not support H.264 High Profile in MP4 containers. Please note your browser must also support AAC-LC to pass this test.");
+		}
+	}
+	catch (error) {
+		document.getElementById("h264mp4test").textContent = "FAIL";
+	}
+	
+	/* H.264 High Profile in MPEG Transport Stream test */
+	try {
+		var sample_video = document.createElement("video");
+		let h264_ts_test = sample_video.canPlayType("video/mp2t; codecs:'avc1.640028, mp4a.40.2'");
+		if (h264_ts_test === "probably" || h264_ts_test === "maybe") {
+			document.getElementById("h264tstest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("h264tstest").textContent = "FAIL";
+			console.log("H.264 High Profile in MPEG Transport Stream: Your browser does not support H.264 High Profile in MPEG Transport Streams. Please note your browser must also support AAC-LC to pass this test.");
+		}
+	}
+	catch (error) {
+		document.getElementById("h264tstest").textContent = "FAIL";
+	}
+	
+	/* H.264 High Profile with AC-3 and E-AC-3 test */
+	try {
+		var sample_video = document.createElement("video");
+		var tests_passed = 0;
+		let h264_mp4dd_test = sample_video.canPlayType("video/mp4; codecs:'avc1.640028, ac3'");
+		if (h264_mp4dd_test === "probably" || h264_mp4dd_test === "maybe") { tests_passed++; }
+		else {
+			console.log("H.264 High Profile with Dolby Digital and Dolby Digital Plus: Your browser does not support H.264 High Profile paired with Dolby Digital in MP4 containers.");
+		}
+		let h264_mp4ddp_test = sample_video.canPlayType("video/mp4; codecs:'avc1.640028, eac3'");
+		if (h264_mp4ddp_test === "probably" || h264_mp4ddp_test === "maybe") { tests_passed++; }
+		else {
+			console.log("H.264 High Profile with Dolby Digital and Dolby Digital Plus: Your browser does not support H.264 High Profile paired with Dolby Digital Plus in MP4 containers.");
+		}
+		let h264_tsdd_test = sample_video.canPlayType("video/mp2t; codecs:'avc1.640028, ac3'");
+		if (h264_tsdd_test === "probably" || h264_tsdd_test === "maybe") { tests_passed++; }
+		else {
+			console.log("H.264 High Profile with Dolby Digital and Dolby Digital Plus: Your browser does not support H.264 High Profile paired with Dolby Digital in MPEG Transport Streams.");
+		}
+		let h264_tsddp_test = sample_video.canPlayType("video/mp2t; codecs:'avc1.640028, eac3'");
+		if (h264_tsddp_test === "probably" || h264_tsddp_test === "maybe") { tests_passed++; }
+		else {
+			console.log("H.264 High Profile with Dolby Digital and Dolby Digital Plus: Your browser does not support H.264 High Profile paired with Dolby Digital Plus in MPEG Transport Streams.");
+		}
+		if (tests_passed > 0) {
+			document.getElementById("h264ac3test").textContent = (tests_passed === 4) ? "PASS" : "PARTIAL";
+		}
+		else { document.getElementById("h264ac3test").textContent = "FAIL"; }
+	}
+	catch (error) {
+		document.getElementById("h264ac3test").textContent = "FAIL";
+	}
+	
+	/* Ogg Theora test */
+	try {
+		var sample_video = document.createElement("video");
+		let ogg_theora_test = sample_video.canPlayType("video/ogg; codecs:'theora, vorbis'");
+		if (ogg_theora_test === "probably" || ogg_theora_test === "maybe") {
+			document.getElementById("theoratest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("theoratest").textContent = "FAIL";
+			console.log("Ogg Theora: Your browser does not support Theora in Ogg containers. Please note your browser must also support Vorbis to pass this test.");
+		}
+	}
+	catch (error) {
+		document.getElementById("theoratest").textContent = "FAIL";
+	}
+	
+	/* VP8 test */
+	try {
+		var sample_video = document.createElement("video");
+		let vp8_test = sample_video.canPlayType("video/webm; codecs:'vp8, vorbis'");
+		if (vp8_test === "probably" || vp8_test === "maybe") {
+			document.getElementById("vp8test").textContent = "PASS";
+		}
+		else {
+			document.getElementById("vp8test").textContent = "FAIL";
+			console.log("VP8: Your browser does not support VP8 in WebM containers. Please note your browser must also support Vorbis to pass this test.");
+		}
+	}
+	catch (error) {
+		document.getElementById("vp8test").textContent = "FAIL";
+	}
+	
+	/* VP9 test */
+	try {
+		var sample_video = document.createElement("video");
+		let vp9_test = sample_video.canPlayType("video/webm; codecs:'vp9, opus'");
+		if (vp9_test === "probably" || vp9_test === "maybe") {
+			document.getElementById("vp9test").textContent = "PASS";
+		}
+		else {
+			document.getElementById("vp9test").textContent = "FAIL";
+			console.log("VP9: Your browser does not support VP9 in WebM containers. Please note your browser must also support Opus to pass this test.");
+		}
+	}
+	catch (error) {
+		document.getElementById("vp9test").textContent = "FAIL";
+	}
+	
+	/* STREAMING TESTS */
+	
+	/* Media Source Extensions test */
+	try {
+		let mse_test = !!window.MediaSource && !!window.SourceBuffer && !!window.MediaSource.isTypeSupported;
+		if (mse_test === true) {
+			document.getElementById("msetest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("msetest").textContent = "FAIL";
+			console.log("Media Source Extensions test: Your browser does not support Media Source Extensions.");
+		}
+	}
+	catch (error) {
+		document.getElementById("msetest").textContent = "FAIL";
+	}
+	
+	/* HTTP live streaming test */
+	try {
+		var sample_video = document.createElement("video");
+		let hls_test = sample_video.canPlayType("application/vnd.apple.mpegurl") || sample_video.canPlayType("application/x-mpegURL");
+		if (hls_test === true) {
+			document.getElementById("hlstest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("hlstest").textContent = "FAIL";
+			console.log("HTTP live streaming test: Your browser does not support HLS natively. It can still be used via a JavaScript library, so it doesn't matter as much.");
+		}
+	}
+	catch (error) {
+		document.getElementById("hlstest").textContent = "FAIL";
+	}
+	
+	/* RESPONSIVE IMAGES TESTS */
+	
+	/* Picture tag test */
+	try {
+		let picture_test = !(document.createElement("picture") instanceof HTMLUnknownElement);
+		document.getElementById("picturetest").textContent = picture_test ? "PASS" : "FAIL";
+	}
+	catch (error) {
+		document.getElementById("picturetest").textContent = "FAIL";
+	}
+	
+	/* Sizes attribute test */
+	try {
+		var sample_source = document.createElement("source");
+		let sizes_test = "sizes" in sample_source;
+		if (sizes_test === true) {
+			document.getElementById("sizestest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("sizestest").textContent = "FAIL";
+			console.log("\"sizes\" attribute: Your browser does not support the \"sizes\" attribute.");
+		}
+	}
+	catch (error) {
+		document.getElementById("sizestest").textContent = "FAIL";
+	}
+	
+	/* Srcset attribute test */
+	try {
+		var sample_source = document.createElement("source");
+		let srcset_test = "srcset" in sample_source;
+		if (srcset_test === true) {
+			document.getElementById("srcsettest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("srcsettest").textContent = "FAIL";
+			console.log("\"srcset\" attribute: Your browser does not support the \"srcset\" attribute.");
+		}
+	}
+	catch (error) {
+		document.getElementById("srcsettest").textContent = "FAIL";
 	}
 };
