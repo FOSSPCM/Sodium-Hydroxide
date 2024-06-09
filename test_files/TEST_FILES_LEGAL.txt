@@ -1,0 +1,133 @@
+Attribution and Licenses for test files.
+
+"spinfox.apng"
+This depicts the logo for Mozilla Firefox, specifically from 2004 to 2009, with the fox itself spinning
+around a blue glass globe. This image is animated.
+
+Copyright (C) Mozilla Corporation. All rights reserved. Licensed under the Mozilla Public License version 1.1,
+the GNU General Public License version 2 or at your option, any later version; and the GNU Lesser General Public
+License version 2.1 or at your option, any later version. This is a tri-license. You may select the license of
+your choice.
+
+The Firefox logo is a registered trademark of Mozilla.
+
+For more information and license text, you may find them here:
+	MPL v1.1: https://www.mozilla.org/MPL/1.1/
+	GNU GPL v2: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+	GNU LGPL v2.1: https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html
+	Mozilla's trademark policy: https://www.mozilla.org/en-US/foundation/trademarks/policy/
+	
+"my_avif.avif"
+This depicts the AVIF logo.
+
+Copyright © 2019 The Alliance for Open Media
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that 
+the following conditions are met:
+
+1.	Redistributions of source code must retain the above copyright notice, this list of conditions and the 
+	following disclaimer.
+2. 	Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the 
+	following disclaimer in the documentation and/or other materials provided with the distribution.
+3. 	Neither the name of The Alliance for Open Media nor the names of its contributors may be used to endorse 
+	or promote products derived from this software without specific prior written permission.
+
+This software is provided by The Alliance for Open Media "as is" and any express or implied warranties, 
+including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose 
+are disclaimed. In no event shall The Alliance for Open Media be liable for any direct, indirect, incidental, 
+special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods 
+or services; loss of use, data, or profits; or business interruption) however caused and on any theory of 
+liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any 
+way out of the use of this software, even if advised of the possibility of such damage.
+
+"star-12bpc-with-alpha.avif"
+This depicts a yellow five-pointed star spinning. This image is animated.
+
+I did not create this work, but I do not remember who did and I have not found the original creator yet.
+This is fair use. Once I find the original creator, I will give the original creator the proper attribution.
+
+"windowslogo.bmp"
+This depicts the Windows logo, specifically from 1995 to 2001, on a white background.
+
+This image was created by the Microsoft Corporation. This image is in the public domain and is therefore
+not copyrighted.
+
+The Windows logo is a registered trademark of Microsoft Corporation.
+
+"leaf.cur"
+This image depicts a green leaf.
+
+Copyright (C) 2013 Vlasta. All Rights Reserved. Licensed under the Creative Commons - Attribution license
+(CC-BY).
+
+For more information license text, you may find them here:
+	https://creativecommons.org/licenses/by/4.0/
+	
+"Rotating_earth.gif"
+This depicts the earth rotating on a starry background. This image in animated.
+
+Copyright (C) Marvel. All rights reserved. Licensed under the GNU Free Documentation License version 1.2 or
+at your option, any later version; and the Creative Commons Attribution-ShareAlike (CC-BY-SA) 3.0 Unported 
+license. This is a dual-license. You may select the license of your choice.
+
+For more information and license text, you may find them here:
+	GNU FDL v1.2: https://commons.wikimedia.org/wiki/Commons:GNU_Free_Documentation_License,_version_1.2
+	CC-BY-SA 3.0 Unported: https://creativecommons.org/licenses/by-sa/3.0/deed.en
+
+Marvel is a user on Wikimedia Commons.
+
+"my_ico.ico"
+This depicts a globe with a sword either inside it or behind it. The original author describes it as "MIRROR 
+icon."
+
+Copyright (C) Sat'Rain. All rights reserved. Licensed under the GNU Free Documentation License version 1.2 or
+at your option, any later version; the Creative Commons Attribution-ShareAlike (CC-BY-SA) 3.0 Unported license,
+and the Creative Commons Attribution-ShareAlike (CC-BY-SA) 2.5 Generic, 2.0 Generic, and 1.0 Generic licenses. 
+This is a multi-license. You may select the license of your choice.
+
+For more information and license text, you may find them here:
+	GNU FDL v1.2: https://commons.wikimedia.org/wiki/Commons:GNU_Free_Documentation_License,_version_1.2
+	CC-BY-SA 3.0 Unported: https://creativecommons.org/licenses/by-sa/3.0/deed.en
+	CC-BY-SA 2.5 Generic: https://creativecommons.org/licenses/by-sa/2.5/deed.en
+	CC-BY-SA 2.0 Generic: https://creativecommons.org/licenses/by-sa/2.0/deed.en
+	CC-BY-SA 1.0 Generic: https://creativecommons.org/licenses/by-sa/1.0/deed.en
+	
+"my_jpeg.jpg"
+This depicts the JPEG logo.
+
+This image was created by the Joint Photographic Experts Group. This image is in the public domain and is 
+therefore not copyrighted.
+
+The JPEG logo is a trademark of the Joint Photographic Experts Group.
+
+"my_jxl.jxl"
+This depicts the JPEG-XL logo.
+
+This image was created by the Joint Photographic Experts Group. This image is in the public domain and is 
+therefore not copyrighted.
+
+The JPEG-XL logo is a trademark of the Joint Photographic Experts Group.
+
+"pnglogo.png"
+This depicts the logo of PNG.
+
+Copyright (C) Greg Roelofs.
+
+I do not own this image. This is fair use.
+
+"my_tiff.tiff"
+This image depcis the wordmark logo of TIFF.
+
+This image was made by an unknown author. This image is in the public domain and is therefore not copyrighted.
+
+TIFF is a trademark of Adobe Inc.
+
+"my_webp.webp"
+This image depicts the WebP logo.
+
+Copyright (C) 2012 Simo99. All rights reserved. Copyright (C) Google LLC. All rights reserved. Licensed under
+the Creative Commons Attribution (CC-BY) 4.0 International License license and the Apache License, Version 2.0.
+
+For more information and license text, you may find them here:
+	CC-BY 4.0 International: https://creativecommons.org/licenses/by/4.0/deed.en
+	Apache v2.0: https://www.apache.org/licenses/LICENSE-2.0
