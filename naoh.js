@@ -281,6 +281,30 @@ window.onload = function() {
 		document.getElementById("hiddentest").textContent = "FAIL";
 	}
 	
+	/* Translate attribute test */
+	try {
+		var sample_p = document.createElement("p");
+		let translate_test = "translate" in sample_p;
+		document.getElementById("translatetest").textContent = translate_test ? "PASS" : "FAIL";
+	}
+	catch (error) {
+		document.getElementById("translatetest").textContent = "FAIL";
+	}
+	
+	/* Access Key Label property test */
+	// The accesskey attribute is removed for manual testing.
+	try {
+		var sample_p = document.createElement("p");
+		let access_key_label_test = "accessKeyLabel" in sample_p;
+		document.getElementById("accesskeylabeltest").textContent = access_key_label_test ? "PASS" : "FAIL";
+		if (!access_key_label_test) {
+			console.log("\"accessKeyLabel\" property: Your browser does not support the \"accessKeyLabel\" property.");
+		}
+	}
+	catch (error) {
+		document.getElementById("accesskeylabeltest").textContent = "FAIL";
+	}
+	
 	/* outerHTML property test */
 	try {
 		if ("outerHTML" in document.createElement("div")) {
@@ -1460,22 +1484,6 @@ window.onload = function() {
 		document.getElementById("aaclcadtstest").textContent = "FAIL";
 	}
 	
-	/* AAC-LC in MP4 test */
-	try {
-		var sample_audio = document.createElement("audio");
-		let aaclc_mp4_test = sample_audio.canPlayType("audio/mp4; codecs=mp4a.40.02");
-		if (aaclc_mp4_test === "probably" || aaclc_mp4_test === "maybe") {
-			document.getElementById("aaclcmp4test").textContent = "PASS";
-		}
-		else {
-			document.getElementById("aaclcmp4test").textContent = "FAIL";
-			console.log("AAC-LC in MP4: Your browser does not support AAC-LC in MP4 containers.");
-		}
-	}
-	catch (error) {
-		document.getElementById("aaclcmp4test").textContent = "FAIL";
-	}
-	
 	/* Au test */
 	try {
 		var sample_audio = document.createElement("audio");
@@ -1490,6 +1498,22 @@ window.onload = function() {
 	}
 	catch (error) {
 		document.getElementById("autest").textContent = "FAIL";
+	}
+	
+	/* CAF test */
+	try {
+		var sample_audio = document.createElement("audio");
+		let opus_caf_test = sample_audio.canPlayType("audio/x-caf; codecs:opus");
+		if (opus_caf_test === "probably" || opus_caf_test === "maybe") {
+			document.getElementById("xcaftest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("xcaftest").textContent = "FAIL";
+			console.log("CAF: Your browser does not support the X-CAF mime type.");
+		}
+	}
+	catch (error) {
+		document.getElementById("xcaftest").textContent = "FAIL";
 	}
 	
 	/* Dolby Digital test */
@@ -1541,7 +1565,7 @@ window.onload = function() {
 	}
 	
 	/* FLAC in Ogg test */
-	try {
+	/*try {
 		var sample_audio = document.createElement("audio");
 		let flac_ogg_test = sample_audio.canPlayType("audio/ogg; codecs:flac");
 		if (flac_ogg_test === "probably" || flac_ogg_test === "maybe") {
@@ -1554,6 +1578,22 @@ window.onload = function() {
 	}
 	catch (error) {
 		document.getElementById("flacoggtest").textContent = "FAIL";
+	}*/
+	
+	/* M4A test */
+	try {
+		var sample_audio = document.createElement("audio");
+		let aaclc_mp4_test = sample_audio.canPlayType("audio/mp4; codecs=mp4a.40.02");
+		if (aaclc_mp4_test === "probably" || aaclc_mp4_test === "maybe") {
+			document.getElementById("m4atest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("m4atest").textContent = "FAIL";
+			console.log("M4A: Your browser does not support the MP4 audio mimetype.");
+		}
+	}
+	catch (error) {
+		document.getElementById("m4atest").textContent = "FAIL";
 	}
 	
 	/* MP3 test */
@@ -1572,24 +1612,24 @@ window.onload = function() {
 		document.getElementById("mp3test").textContent = "FAIL";
 	}
 	
-	/* Ogg Vorbis test */
+	/* Ogg Audio test */
 	try {
 		var sample_audio = document.createElement("audio");
 		let ogg_vorbis_test = sample_audio.canPlayType("audio/ogg; codecs:vorbis");
 		if (ogg_vorbis_test === "probably" || ogg_vorbis_test === "maybe") {
-			document.getElementById("vorbistest").textContent = "PASS";
+			document.getElementById("oggaudiotest").textContent = "PASS";
 		}
 		else {
-			document.getElementById("vorbistest").textContent = "FAIL";
-			console.log("Ogg Vorbis: Your browser does not support Vorbis in Ogg containers.");
+			document.getElementById("oggaudiotest").textContent = "FAIL";
+			console.log("Ogg Audio: Your browser does not support the Ogg audio media type.");
 		}
 	}
 	catch (error) {
-		document.getElementById("vorbistest").textContent = "FAIL";
+		document.getElementById("oggaudiotest").textContent = "FAIL";
 	}
 	
 	/* Vorbis in WebM test */
-	try {
+	/*try {
 		var sample_audio = document.createElement("audio");
 		let vorbis_webm_test = sample_audio.canPlayType("audio/webm; codecs:vorbis");
 		if (vorbis_webm_test === "probably" || vorbis_webm_test === "maybe") {
@@ -1602,10 +1642,10 @@ window.onload = function() {
 	}
 	catch (error) {
 		document.getElementById("vorbiswebmtest").textContent = "FAIL";
-	}
+	}*/
 	
 	/* Opus in Ogg test */
-	try {
+	/*try {
 		var sample_audio = document.createElement("audio");
 		let opus_ogg_test = sample_audio.canPlayType("audio/ogg; codecs:opus");
 		if (opus_ogg_test === "probably" || opus_ogg_test === "maybe") {
@@ -1618,39 +1658,7 @@ window.onload = function() {
 	}
 	catch (error) {
 		document.getElementById("opustest").textContent = "FAIL";
-	}
-	
-	/* Opus in CAF test */
-	try {
-		var sample_audio = document.createElement("audio");
-		let opus_caf_test = sample_audio.canPlayType("audio/x-caf; codecs:opus");
-		if (opus_caf_test === "probably" || opus_caf_test === "maybe") {
-			document.getElementById("opusxcaftest").textContent = "PASS";
-		}
-		else {
-			document.getElementById("opusxcaftest").textContent = "FAIL";
-			console.log("Opus in CAF: Your browser does not support Opus in CAF containers.");
-		}
-	}
-	catch (error) {
-		document.getElementById("opusxcaftest").textContent = "FAIL";
-	}
-	
-	/* Opus in WebM test */
-	try {
-		var sample_audio = document.createElement("audio");
-		let opus_webm_test = sample_audio.canPlayType("audio/webm; codecs:opus");
-		if (opus_webm_test === "probably" || opus_webm_test === "maybe") {
-			document.getElementById("opuswebmtest").textContent = "PASS";
-		}
-		else {
-			document.getElementById("opuswebmtest").textContent = "FAIL";
-			console.log("Opus in WebM: Your browser does not support Opus in WebM containers.");
-		}
-	}
-	catch (error) {
-		document.getElementById("opuswebmtest").textContent = "FAIL";
-	}
+	}*/
 	
 	/* WAVE test */
 	try {
@@ -1666,6 +1674,22 @@ window.onload = function() {
 	}
 	catch (error) {
 		document.getElementById("wavetest").textContent = "FAIL";
+	}
+	
+	/* WebM Audio test */
+	try {
+		var sample_audio = document.createElement("audio");
+		let opus_webm_test = sample_audio.canPlayType("audio/webm; codecs:opus");
+		if (opus_webm_test === "probably" || opus_webm_test === "maybe") {
+			document.getElementById("webmaudiotest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("webmaudiotest").textContent = "FAIL";
+			console.log("WebM Audio: Your browser does not support the WebM audio mime type.");
+		}
+	}
+	catch (error) {
+		document.getElementById("webmaudiotest").textContent = "FAIL";
 	}
 	
 	/* VIDEO TESTS */
@@ -1713,24 +1737,24 @@ window.onload = function() {
 		document.getElementById("posterimagestest").textContent = "FAIL";
 	}
 	
-	/* AV1 in MP4 test */
+	/* MP4 test */
 	try {
 		var sample_video = document.createElement("video");
 		let av1_mp4_test = sample_video.canPlayType("video/mp4; codecs:'av01.0.05H.10, opus'");
 		if (av1_mp4_test === "probably" || av1_mp4_test === "maybe") {
-			document.getElementById("av1mp4test").textContent = "PASS";
+			document.getElementById("mp4test").textContent = "PASS";
 		}
 		else {
-			document.getElementById("av1mp4test").textContent = "FAIL";
-			console.log("AV1 in MP4: Your browser does not support AV1 in MP4 containers. Please note your browser must also support Opus to pass this test.");
+			document.getElementById("mp4test").textContent = "FAIL";
+			console.log("MP4: Your browser does not support the MP4 video mime type.");
 		}
 	}
 	catch (error) {
-		document.getElementById("av1mp4test").textContent = "FAIL";
+		document.getElementById("mp4test").textContent = "FAIL";
 	}
 	
 	/* AV1 in WebM test */
-	try {
+	/*try {
 		var sample_video = document.createElement("video");
 		let av1_webm_test = sample_video.canPlayType("video/webm; codecs:'av01.0.05H.10, opus'");
 		if (av1_webm_test === "probably" || av1_webm_test === "maybe") {
@@ -1743,10 +1767,10 @@ window.onload = function() {
 	}
 	catch (error) {
 		document.getElementById("av1webmtest").textContent = "FAIL";
-	}
+	}*/
 	
 	/* H.264 High Profile in MP4 test */
-	try {
+	/*try {
 		var sample_video = document.createElement("video");
 		let h264_mp4_test = sample_video.canPlayType("video/mp4; codecs:'avc1.640028, mp4a.40.2'");
 		if (h264_mp4_test === "probably" || h264_mp4_test === "maybe") {
@@ -1759,26 +1783,26 @@ window.onload = function() {
 	}
 	catch (error) {
 		document.getElementById("h264mp4test").textContent = "FAIL";
-	}
+	}*/
 	
-	/* H.264 High Profile in MPEG Transport Stream test */
+	/* MPEG Transport Stream test */
 	try {
 		var sample_video = document.createElement("video");
 		let h264_ts_test = sample_video.canPlayType("video/mp2t; codecs:'avc1.640028, mp4a.40.2'");
 		if (h264_ts_test === "probably" || h264_ts_test === "maybe") {
-			document.getElementById("h264tstest").textContent = "PASS";
+			document.getElementById("tstest").textContent = "PASS";
 		}
 		else {
-			document.getElementById("h264tstest").textContent = "FAIL";
-			console.log("H.264 High Profile in MPEG Transport Stream: Your browser does not support H.264 High Profile in MPEG Transport Streams. Please note your browser must also support AAC-LC to pass this test.");
+			document.getElementById("tstest").textContent = "FAIL";
+			console.log("MPEG Transport Stream: Your browser does not support the MP2T mime type.");
 		}
 	}
 	catch (error) {
-		document.getElementById("h264tstest").textContent = "FAIL";
+		document.getElementById("tstest").textContent = "FAIL";
 	}
 	
 	/* H.264 High Profile with AC-3 and E-AC-3 test */
-	try {
+	/*try {
 		var sample_video = document.createElement("video");
 		var tests_passed = 0;
 		let h264_mp4dd_test = sample_video.canPlayType("video/mp4; codecs:'avc1.640028, ac3'");
@@ -1808,26 +1832,26 @@ window.onload = function() {
 	}
 	catch (error) {
 		document.getElementById("h264ac3test").textContent = "FAIL";
-	}
+	}*/
 	
-	/* Ogg Theora test */
+	/* Ogg video test */
 	try {
 		var sample_video = document.createElement("video");
 		let ogg_theora_test = sample_video.canPlayType("video/ogg; codecs:'theora, vorbis'");
 		if (ogg_theora_test === "probably" || ogg_theora_test === "maybe") {
-			document.getElementById("theoratest").textContent = "PASS";
+			document.getElementById("oggvideotest").textContent = "PASS";
 		}
 		else {
-			document.getElementById("theoratest").textContent = "FAIL";
-			console.log("Ogg Theora: Your browser does not support Theora in Ogg containers. Please note your browser must also support Vorbis to pass this test.");
+			document.getElementById("oggvideotest").textContent = "FAIL";
+			console.log("Ogg video: Your browser does not support The Ogg audio mime type.");
 		}
 	}
 	catch (error) {
-		document.getElementById("theoratest").textContent = "FAIL";
+		document.getElementById("oggvideotest").textContent = "FAIL";
 	}
 	
 	/* VP8 test */
-	try {
+	/*try {
 		var sample_video = document.createElement("video");
 		let vp8_test = sample_video.canPlayType("video/webm; codecs:'vp8, vorbis'");
 		if (vp8_test === "probably" || vp8_test === "maybe") {
@@ -1840,22 +1864,22 @@ window.onload = function() {
 	}
 	catch (error) {
 		document.getElementById("vp8test").textContent = "FAIL";
-	}
+	}*/
 	
-	/* VP9 test */
+	/* WebM video test */
 	try {
 		var sample_video = document.createElement("video");
 		let vp9_test = sample_video.canPlayType("video/webm; codecs:'vp9, opus'");
 		if (vp9_test === "probably" || vp9_test === "maybe") {
-			document.getElementById("vp9test").textContent = "PASS";
+			document.getElementById("webmvideotest").textContent = "PASS";
 		}
 		else {
-			document.getElementById("vp9test").textContent = "FAIL";
-			console.log("VP9: Your browser does not support VP9 in WebM containers. Please note your browser must also support Opus to pass this test.");
+			document.getElementById("webmvideotest").textContent = "FAIL";
+			console.log("WebM video: Your browser does not support the WebM video mime type.");
 		}
 	}
 	catch (error) {
-		document.getElementById("vp9test").textContent = "FAIL";
+		document.getElementById("webmvideotest").textContent = "FAIL";
 	}
 	
 	/* STREAMING TESTS */
@@ -1932,5 +1956,257 @@ window.onload = function() {
 	}
 	catch (error) {
 		document.getElementById("srcsettest").textContent = "FAIL";
+	}
+	
+	/* RASTER IMAGE FORMATS TESTS */
+	
+	/* APNG test */
+	try {
+		var sample_apng = new Image();
+		sample_apng.src = "test_files/spinfox.apng";
+		sample_apng.style.display = "none";
+		document.body.appendChild(sample_apng);
+		sample_apng.onload = () => {
+			let apng_test = sample_apng.width > 0 && sample_apng.height > 0 
+			&& sample_apng.src.includes("test_files/spinfox.apng");
+			document.getElementById("apngtest").textContent = apng_test ? "PASS" : "FAIL";
+			if (!apng_test) {
+				console.log("APNG: Your browser does not support Animated PNGs.");
+			}
+			document.body.removeChild(sample_apng);
+		};
+		sample_apng.onerror = () => {
+			document.getElementById("apngtest").textContent = "FAIL";
+			console.log("APNG: Your browser does not support Animated PNGs.");
+			document.body.removeChild(sample_apng);
+		};
+	}
+	catch (error) {
+		document.getElementById("apngtest").textContent = "FAIL";
+	}
+	
+	/* AVIF test */
+	try {
+		var sample_avif = new Image();
+		sample_avif.src = "test_files/my_avif.avif";
+		sample_avif.style.display = "none";
+		document.body.appendChild(sample_avif);
+		sample_avif.onload = () => {
+			let avif_test = sample_avif.width > 0 && sample_avif.height > 0 
+			&& sample_avif.src.includes("test_files/my_avif.avif");
+			document.getElementById("aviftest").textContent = avif_test ? "PASS" : "FAIL";
+			if (!avif_test) {
+				console.log("AVIF: Your browser does not support AVIF.");
+			}
+			document.body.removeChild(sample_avif);
+		};
+		sample_avif.onerror = () => {
+			document.getElementById("aviftest").textContent = "FAIL";
+			console.log("AVIF: Your browser does not support AVIF.");
+			document.body.removeChild(sample_avif);
+		};
+	}
+	catch (error) {
+		document.getElementById("aviftest").textContent = "FAIL";
+	}
+	
+	/* GIF test */
+	try {
+		var sample_gif = new Image();
+		sample_gif.src = "test_files/Rotating_earth.gif";
+		sample_gif.style.display = "none";
+		document.body.appendChild(sample_gif);
+		sample_gif.onload = () => {
+			let gif_test = sample_gif.width > 0 && sample_gif.height > 0 
+			&& sample_gif.src.includes("test_files/Rotating_earth.gif");
+			document.getElementById("giftest").textContent = gif_test ? "PASS" : "FAIL";
+			if (!gif_test) {
+				console.log("GIF: Your browser does not support GIF.");
+			}
+			document.body.removeChild(sample_gif);
+		};
+		sample_gif.onerror = () => {
+			document.getElementById("giftest").textContent = "FAIL";
+			console.log("GIF: Your browser does not support GIF.");
+			document.body.removeChild(sample_gif);
+		};
+	}
+	catch (error) {
+		document.getElementById("giftest").textContent = "FAIL";
+	}
+	
+	/* ICO and CUR test */
+	try {
+		var sample_ico = new Image();
+		sample_ico.src = "test_files/my_ico.ico";
+		sample_ico.style.display = "none";
+		document.body.appendChild(sample_ico);
+		sample_ico.onload = () => {
+			let ico_test = sample_ico.width > 0 && sample_ico.height > 0 
+			&& sample_ico.src.includes("test_files/my_ico.ico");
+			document.getElementById("icotest").textContent = ico_test ? "PASS" : "FAIL";
+			if (!ico_test) {
+				console.log("ICO & CUR: Your browser does not support ICO. It wouldn't support CUR either.");
+			}
+			document.body.removeChild(sample_ico);
+		};
+		sample_ico.onerror = () => {
+			document.getElementById("icotest").textContent = "FAIL";
+			console.log("ICO & CUR: Your browser does not support ICO. It wouldn't support CUR either.");
+			document.body.removeChild(sample_ico);
+		};
+	}
+	catch (error) {
+		document.getElementById("icotest").textContent = "FAIL";
+	}
+	
+	/* JPEG test */
+	try {
+		var sample_jpeg = new Image();
+		sample_jpeg.src = "test_files/my_jpeg.jpg";
+		sample_jpeg.style.display = "none";
+		document.body.appendChild(sample_jpeg);
+		sample_jpeg.onload = () => {
+			let jpeg_test = sample_jpeg.width > 0 && sample_jpeg.height > 0 
+			&& sample_jpeg.src.includes("test_files/my_jpeg.jpg");
+			document.getElementById("jpegtest").textContent = jpeg_test ? "PASS" : "FAIL";
+			if (!jpeg_test) {
+				console.log("JPEG: Your browser does not support JPEG.");
+			}
+			document.body.removeChild(sample_jpeg);
+		};
+		sample_jpeg.onerror = () => {
+			document.getElementById("jpegtest").textContent = "FAIL";
+			console.log("JPEG: Your browser does not support JPEG.");
+			document.body.removeChild(sample_jpeg);
+		};
+	}
+	catch (error) {
+		document.getElementById("jpegtest").textContent = "FAIL";
+	}
+	
+	/* JPEG-XL test */
+	try {
+		var sample_jpegxl = new Image();
+		sample_jpegxl.src = "test_files/my_jxl.jxl";
+		sample_jpegxl.style.display = "none";
+		document.body.appendChild(sample_jpegxl);
+		sample_jpegxl.onload = () => {
+			let jpegxl_test = sample_jpegxl.width > 0 && sample_jpegxl.height > 0 
+			&& sample_jpegxl.src.includes("test_files/my_jxl.jxl");
+			document.getElementById("jpegxltest").textContent = jpegxl_test ? "PASS" : "FAIL";
+			if (!jpegxl_test) {
+				console.log("JPEG-XL: Your browser does not support JPEG-XL.");
+			}
+			document.body.removeChild(sample_jpegxl);
+		};
+		sample_jpegxl.onerror = () => {
+			document.getElementById("jpegxltest").textContent = "FAIL";
+			console.log("JPEG-XL: Your browser does not support JPEG-XL.");
+			document.body.removeChild(sample_jpegxl);
+		};
+	}
+	catch (error) {
+		document.getElementById("jpegxltest").textContent = "FAIL";
+	}
+	
+	/* PNG test */
+	try {
+		var sample_png = new Image();
+		sample_png.src = "test_files/pnglogo.png";
+		sample_png.style.display = "none";
+		document.body.appendChild(sample_png);
+		sample_png.onload = () => {
+			let png_test = sample_png.width > 0 && sample_png.height > 0 
+			&& sample_png.src.includes("test_files/pnglogo.png");
+			document.getElementById("pngtest").textContent = png_test ? "PASS" : "FAIL";
+			if (!png_test) {
+				console.log("PNG: Your browser does not support PNG.");
+			}
+			document.body.removeChild(sample_png);
+		};
+		sample_png.onerror = () => {
+			document.getElementById("pngtest").textContent = "FAIL";
+			console.log("PNG: Your browser does not support PNG.");
+			document.body.removeChild(sample_png);
+		};
+	}
+	catch (error) {
+		document.getElementById("pngtest").textContent = "FAIL";
+	}
+	
+	/* TIFF test */
+	try {
+		var sample_tiff = new Image();
+		sample_tiff.src = "test_files/my_tiff.tiff";
+		sample_tiff.style.display = "none";
+		document.body.appendChild(sample_tiff);
+		sample_tiff.onload = () => {
+			let tiff_test = sample_tiff.width > 0 && sample_tiff.height > 0 
+			&& sample_tiff.src.includes("test_files/my_tiff.tiff");
+			document.getElementById("tifftest").textContent = tiff_test ? "PASS" : "FAIL";
+			if (!tiff_test) {
+				console.log("TIFF: Your browser does not support TIFF.");
+			}
+			document.body.removeChild(sample_tiff);
+		};
+		sample_tiff.onerror = () => {
+			document.getElementById("tifftest").textContent = "FAIL";
+			console.log("TIFF: Your browser does not support TIFF.");
+			document.body.removeChild(sample_tiff);
+		};
+	}
+	catch (error) {
+		document.getElementById("tifftest").textContent = "FAIL";
+	}
+	
+	/* WebP test */
+	try {
+		var sample_webp = new Image();
+		sample_webp.src = "test_files/my_webp.webp";
+		sample_webp.style.display = "none";
+		document.body.appendChild(sample_webp);
+		sample_webp.onload = () => {
+			let webp_test = sample_webp.width > 0 && sample_webp.height > 0 
+			&& sample_webp.src.includes("test_files/my_webp.webp");
+			document.getElementById("webptest").textContent = webp_test ? "PASS" : "FAIL";
+			if (!webp_test) {
+				console.log("WebP: Your browser does not support WebP.");
+			}
+			document.body.removeChild(sample_webp);
+		};
+		sample_webp.onerror = () => {
+			document.getElementById("webptest").textContent = "FAIL";
+			console.log("WebP: Your browser does not support WebP.");
+			document.body.removeChild(sample_webp);
+		};
+	}
+	catch (error) {
+		document.getElementById("webptest").textContent = "FAIL";
+	}
+	
+	/* Windows Bitmap test */
+	try {
+		var sample_bmp = new Image();
+		sample_bmp.src = "test_files/windowslogo.bmp";
+		sample_bmp.style.display = "none";
+		document.body.appendChild(sample_bmp);
+		sample_bmp.onload = () => {
+			let bmp_test = sample_bmp.width > 0 && sample_bmp.height > 0 
+			&& sample_bmp.src.includes("test_files/windowslogo.bmp");
+			document.getElementById("windowsbmptest").textContent = bmp_test ? "PASS" : "FAIL";
+			if (!bmp_test) {
+				console.log("Windows Bitmap: Your browser does not support Windows Bitmap images.");
+			}
+			document.body.removeChild(sample_bmp);
+		};
+		sample_bmp.onerror = () => {
+			document.getElementById("windowsbmptest").textContent = "FAIL";
+			console.log("Windows Bitmap: Your browser does not support Windows Bitmap images.");
+			document.body.removeChild(sample_bmp);
+		};
+	}
+	catch (error) {
+		document.getElementById("windowsbmptest").textContent = "FAIL";
 	}
 };
