@@ -2209,4 +2209,532 @@ window.onload = function() {
 	catch (error) {
 		document.getElementById("windowsbmptest").textContent = "FAIL";
 	}
+	
+	/* VECTOR GRAPHICS TESTS */
+	
+	/* SVG tag test */
+	try {
+		let sample_svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+		let svg_test = sample_svg instanceof SVGSVGElement;
+		document.getElementById("svgtest").textContent = svg_test ? "PASS" : "FAIL";
+	}
+	catch (error) {
+		document.getElementById("svgtest").textContent = "FAIL";
+	}
+	
+	/* SVG as an image test */
+	try {
+		var sample_svg = new Image();
+		sample_svg.src = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'></svg>";
+		sample_svg.style.display = "none";
+		document.body.appendChild(sample_svg);
+		sample_svg.onload = () => {
+			document.getElementById("svgasimagetest").textContent = "PASS";
+			document.body.removeChild(sample_svg);
+		};
+		sample_svg.onerror = () => {
+			document.getElementById("svgasimagetest").textContent = "FAIL";
+			console.log("SVG as an image: Your browser does not support SVG as an image.");
+			document.body.removeChild(sample_svg);
+		};
+	}
+	catch (error) {
+		document.getElementById("svgasimagetest").textContent = "FAIL";
+	}
+	
+	/* Foreign Object tag test */
+	try {
+		let sample_svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+		if (sample_svg instanceof SVGSVGElement) {
+			let sample_fo = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+			sample_svg.appendChild(sample_fo);
+			let fo_test = sample_fo instanceof SVGForeignObjectElement;
+			document.getElementById("foreignobjecttest").textContent = fo_test ? "PASS" : "FAIL";
+		}
+		else {
+			document.getElementById("foreignobjecttest").textContent = "FAIL";
+			console.log("<foreignObject>: Your browser does not support the foreignObject element.");
+		}
+	}
+	catch (error) {
+		document.getElementById("foreignobjecttest").textContent = "FAIL";
+	}
+	
+	/* Filter tag test */
+	try {
+		let sample_svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+		if (sample_svg instanceof SVGSVGElement) {
+			let sample_filter = document.createElementNS("http://www.w3.org/2000/svg", "filter");
+			sample_svg.appendChild(sample_filter);
+			let filter_test = sample_filter instanceof SVGFilterElement;
+			document.getElementById("svgfiltertest").textContent = filter_test ? "PASS" : "FAIL";
+		}
+		else {
+			document.getElementById("svgfiltertest").textContent = "FAIL";
+			console.log("<filter>: Your browser does not support the foreignObject element.");
+		}
+	}
+	catch (error) {
+		document.getElementById("svgfiltertest").textContent = "FAIL";
+	}
+	
+	/* 2D AND 3D GRAPHICS TEST */
+	
+	/* Canvas tag test */
+	try {
+		let canvas_test = !(document.createElement("canvas") instanceof HTMLUnknownElement);
+		document.getElementById("canvastest").textContent = canvas_test ? "PASS" : "FAIL";
+	}
+	catch (error) {
+		document.getElementById("canvastest").textContent = "FAIL";
+	}
+	
+	/* Canvas text test */
+	try {
+		let canvas_supported = !(document.createElement("canvas") instanceof HTMLUnknownElement);
+		if (canvas_supported === true) {
+			var sample_canvas = document.createElement("canvas");
+			var canvas_context = sample_canvas.getContext("2d");
+			var tests_passed = 0;
+			if ("font" in canvas_context) { tests_passed++; }
+			else { console.log("Canvas text test: Your browser does not support the \"font\" property."); }
+			if (typeof canvas_context.fillText === "function") { tests_passed++; }
+			else { console.log("Canvas text test: Your browser does not support the \"fillText\" method."); }
+			if (typeof canvas_context.strokeText === "function") { tests_passed++; }
+			else { console.log("Canvas text test: Your browser does not support the \"strokeText\" method."); }
+			document.getElementById("canvastexttest").textContent = tests_passed === 3 ? "PASS" : "FAIL";
+		}
+		else {
+			document.getElementById("canvastexttest").textContent = "FAIL";
+		}
+	}
+	catch (error) {
+		document.getElementById("canvastexttest").textContent = "FAIL";
+	}
+	
+	/* Path2D test */
+	try {
+		let path2d_test = typeof Path2D !== "undefined";
+		document.getElementById("path2dtest").textContent = path2d_test ? "PASS" : "FAIL";
+		if (path2d_test === false) {
+			console.log("Path2D test: Your browser does not support Path2D.");
+		}
+	}
+	catch (error) {
+		document.getElementById("path2dtest").textContent = "FAIL";
+	}
+	
+	/* Canvas ellipse Test */
+	try {
+		let canvas_supported = !(document.createElement("canvas") instanceof HTMLUnknownElement);
+		if (canvas_supported === true) {
+			var sample_canvas = document.createElement("canvas");
+			var canvas_context = sample_canvas.getContext("2d");
+			if (typeof canvas_context.ellipse === "function") {
+				document.getElementById("canvasellipsetest").textContent = "PASS";
+			}
+			else {
+				document.getElementById("canvasellipsetest").textContent = "FAIL";
+				console.log("Canvas ellipse test: Your browser does not support the \"ellipse\" method.");
+			}
+		}
+		else {
+			document.getElementById("canvasellipsetest").textContent = "FAIL";
+		}
+	}
+	catch (error) {
+		document.getElementById("canvasellipsetest").textContent = "FAIL";
+	}
+	
+	/* Canvas dashed lines Test */
+	try {
+		let canvas_supported = !(document.createElement("canvas") instanceof HTMLUnknownElement);
+		if (canvas_supported === true) {
+			var sample_canvas = document.createElement("canvas");
+			var canvas_context = sample_canvas.getContext("2d");
+			if (typeof canvas_context.setLineDash === "function") {
+				document.getElementById("canvasdltest").textContent = "PASS";
+			}
+			else {
+				document.getElementById("canvasdltest").textContent = "FAIL";
+				console.log("Canvas dashed lines test: Your browser does not support the \"setLineDash\" method.");
+			}
+		}
+		else {
+			document.getElementById("canvasdltest").textContent = "FAIL";
+		}
+	}
+	catch (error) {
+		document.getElementById("canvasdltest").textContent = "FAIL";
+	}
+	
+	/* Canvas dashed lines Test */
+	try {
+		let canvas_supported = !(document.createElement("canvas") instanceof HTMLUnknownElement);
+		if (canvas_supported === true) {
+			var sample_canvas = document.createElement("canvas");
+			var canvas_context = sample_canvas.getContext("2d");
+			if (typeof canvas_context.setLineDash === "function") {
+				document.getElementById("canvasdltest").textContent = "PASS";
+			}
+			else {
+				document.getElementById("canvasdltest").textContent = "FAIL";
+				console.log("Canvas dashed lines test: Your browser does not support the \"setLineDash\" method.");
+			}
+		}
+		else {
+			document.getElementById("canvasdltest").textContent = "FAIL";
+		}
+	}
+	catch (error) {
+		document.getElementById("canvasdltest").textContent = "FAIL";
+	}
+	
+	/* Canvas focus rings Test */
+	try {
+		let canvas_supported = !(document.createElement("canvas") instanceof HTMLUnknownElement);
+		if (canvas_supported === true) {
+			var sample_canvas = document.createElement("canvas");
+			var canvas_context = sample_canvas.getContext("2d");
+			if (typeof canvas_context.drawFocusIfNeeded === "function") {
+				document.getElementById("canvasfrtest").textContent = "PASS";
+			}
+			else {
+				document.getElementById("canvasfrtest").textContent = "FAIL";
+				console.log("Canvas focus rings test: Your browser does not support the \"drawFocusIfNeeded\" method.");
+			}
+		}
+		else {
+			document.getElementById("canvasfrtest").textContent = "FAIL";
+		}
+	}
+	catch (error) {
+		document.getElementById("canvasfrtest").textContent = "FAIL";
+	}
+	
+	/* WebGL test */
+	try {
+		let canvas_supported = !(document.createElement("canvas") instanceof HTMLUnknownElement);
+		if (canvas_supported === true) {
+			var sample_canvas = document.createElement("canvas");
+			var webgl_test = sample_canvas.getContext("webgl");
+			if (!!webgl_test) {
+				document.getElementById("webgltest").textContent = "PASS";
+			}
+			else {
+				document.getElementById("webgltest").textContent = "FAIL";
+				console.log("WebGL test: Your browser does not support WebGL.");
+			}
+		}
+		else {
+			document.getElementById("webgltest").textContent = "FAIL";
+		}
+	}
+	catch (error) {
+		document.getElementById("webgltest").textContent = "FAIL";
+	}
+	
+	/* WebGL 2.0 test */
+	try {
+		let canvas_supported = !(document.createElement("canvas") instanceof HTMLUnknownElement);
+		if (canvas_supported === true) {
+			var sample_canvas = document.createElement("canvas");
+			var webgl2_test = sample_canvas.getContext("webgl2");
+			if (!!webgl2_test) {
+				document.getElementById("webgl2test").textContent = "PASS";
+			}
+			else {
+				document.getElementById("webgl2test").textContent = "FAIL";
+				console.log("WebGL 2.0 test: Your browser does not support WebGL.");
+			}
+		}
+		else {
+			document.getElementById("webgl2test").textContent = "FAIL";
+		}
+	}
+	catch (error) {
+		document.getElementById("webgl2test").textContent = "FAIL";
+	}
+	
+	/* WebGPU test */
+	try {
+		if (window.isSecureContext) {
+			if ("gpu" in navigator) {
+				document.getElementById("webgputest").textContent = "PASS";
+			}
+			else {
+				document.getElementById("webgputest").textContent = "FAIL";
+				console.log("WebGPU test: Your browser does not support WebGPU.");
+			}
+		}
+		else {
+			document.getElementById("webgputest").textContent = "FAIL";
+			console.log("WebGPU test: WebGPU requires a secure context in order to operate.");
+		}
+	}
+	catch (error) {
+		document.getElementById("webgputest").textContent = "FAIL";
+	}
+	
+	/* WebXR test */
+	try {
+		if (window.isSecureContext) {
+			if ("xr" in navigator) {
+				document.getElementById("webxrtest").textContent = "PASS";
+			}
+			else {
+				document.getElementById("webxrtest").textContent = "FAIL";
+				console.log("WebXR test: Your browser does not support WebXR.");
+			}
+		}
+		else {
+			document.getElementById("webxrtest").textContent = "FAIL";
+			console.log("WebXR test: WebXR requires a secure context in order to operate.");
+		}
+	}
+	catch (error) {
+		document.getElementById("webxrtest").textContent = "FAIL";
+	}
+	
+	/* OFFSCREEN GRAPHICS TESTS */
+	
+	/* Bitmap renderer context test */
+	try {
+		let canvas_supported = !(document.createElement("canvas") instanceof HTMLUnknownElement);
+		if (canvas_supported === true) {
+			var sample_canvas = document.createElement("canvas");
+			var brc_test = sample_canvas.getContext("bitmaprenderer");
+			if (!!brc_test) {
+				document.getElementById("brctest").textContent = "PASS";
+			}
+			else {
+				document.getElementById("brctest").textContent = "FAIL";
+				console.log("Bitmap renderer context test: Your browser does not support the \"ImageBitmapRenderingContext\" interface.");
+			}
+		}
+		else {
+			document.getElementById("brctest").textContent = "FAIL";
+		}
+	}
+	catch (error) {
+		document.getElementById("brctest").textContent = "FAIL";
+	}
+	
+	/* Bitmap data test */
+	try {
+		if ("ImageBitmap" in window) {
+			var sample_canvas = document.createElement("canvas");
+			createImageBitmap(sample_canvas).then(bitmap_data => {
+				var tests_passed = 0;
+				let height_test = "height" in bitmap_data;
+				if (height_test) { tests_passed++; }
+				else { console.log("Bitmap data test: Your browser does not support the \"height\" property."); }
+				let width_test = "width" in bitmap_data;
+				if (width_test) { tests_passed++; }
+				else { console.log("Bitmap data test: Your browser does not support the \"width\" property."); }
+				let close_func_test = typeof bitmap_data.close === "function";
+				if (close_func_test) { tests_passed++; }
+				document.getElementById("bitmapdatatest").textContent = (tests_passed === 3) ? "PASS" : "PARTIAL";
+			});
+		}
+		else {
+			document.getElementById("bitmapdatatest").textContent = "FAIL";
+			console.log("Bitmap data test: Your browser does not support the \"ImageBitmap\" interface.");
+		}
+	}
+	catch (error) {
+		document.getElementById("bitmapdatatest").textContent = "FAIL";
+	}
+	
+	/* Offscreen Canvas API test */
+	try {
+		if ("OffscreenCanvas" in window) {
+			document.getElementById("offscreentest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("offscreentest").textContent = "FAIL";
+			console.log("Offscreen Canvas API test: Your browser does not support the Offscreen Canvas API.");
+		}
+	}
+	catch (error) {
+		document.getElementById("offscreentest").textContent = "FAIL";
+	}
+	
+	/* 2D support in Offscreen Canvas */
+	try {
+		if ("OffscreenCanvas" in window) {
+			var sample_off_canvas = new OffscreenCanvas(0, 0);
+			var twod_off_test = sample_off_canvas.getContext("2d");
+			document.getElementById("2doffscreentest").textContent = (!!twod_off_test) ? "PASS" : "FAIL";
+			if (twod_off_test === false) {
+				console.log("2D support in Offscreen Canvas: Your browser does not support 2D graphics in an Offscreen Canvas.");
+			}
+		}
+		else {
+			document.getElementById("2doffscreentest").textContent = "FAIL";
+			console.log("2D support in Offscreen Canvas: Your browser does not support the Offscreen Canvas API.");
+		}
+	}
+	catch (error) {
+		document.getElementById("2doffscreentest").textContent = "FAIL";
+	}
+	
+	/* 3D support in Offscreen Canvas */
+	try {
+		if ("OffscreenCanvas" in window) {
+			var sample_off_canvas = new OffscreenCanvas(0, 0);
+			var threed_off_test = sample_off_canvas.getContext("webgl");
+			document.getElementById("3doffscreentest").textContent = (!!threed_off_test) ? "PASS" : "FAIL";
+			if (threed_off_test === false) {
+				console.log("3D support in Offscreen Canvas: Your browser does not support 3D graphics (via WebGL) in an Offscreen Canvas.");
+			}
+		}
+		else {
+			document.getElementById("3doffscreentest").textContent = "FAIL";
+			console.log("3D support in Offscreen Canvas: Your browser does not support the Offscreen Canvas API.");
+		}
+	}
+	catch (error) {
+		document.getElementById("3doffscreentest").textContent = "FAIL";
+	}
+	
+	/* ANIMATION TESTS */
+	
+	/* requestAnimationFrame method */
+	try {
+		if (typeof window.requestAnimationFrame === "function") {
+			document.getElementById("animationframetest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("animationframetest").textContent = "FAIL";
+			console.log("\"requestAnimationFrame\" method: Your browser does not support the \"requestAnimationFrame\" method.");
+		}
+	}
+	catch (error) {
+		document.getElementById("animationframetest").textContent = "FAIL";
+	}
+	
+	/* Web Animations API test */
+	try {
+		sample_div = document.createElement("div");
+		if ("animate" in sample_div && "Animation" in window && "KeyframeEffect" in window && "timeline" in document) {
+			document.getElementById("webanimationstest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("webanimationstest").textContent = "FAIL";
+			console.log("Web Animations API test: Your browser does not support the Web Animations API.");
+		}
+	}
+	catch (error) {
+		document.getElementById("webanimationstest").textContent = "FAIL";
+	}
+	
+	/* CSS3 TESTS */
+	
+	/* text-shadow property test */
+	try {
+		var sample_div = document.createElement("div");
+		sample_div.className = "shadow_test";
+		sample_div.textContent = "TEST";
+		document.body.appendChild(sample_div);
+		let computed_style = window.getComputedStyle(sample_div);
+		let css_text_shadow_test = computed_style.getPropertyValue("text-shadow");
+		document.body.removeChild(sample_div);
+		document.getElementById("csstextshadowtest").textContent = (css_text_shadow_test !== "none") ? "PASS" : "FAIL";
+	}
+	catch (error) {
+		document.getElementById("csstextshadowtest").textContent = "FAIL";
+	}
+	
+	/* flexbox property test */
+	try {
+		var sample_div = document.createElement("div");
+		sample_div.className = "flexbox_test";
+		sample_div.textContent = "TEST";
+		document.body.appendChild(sample_div);
+		let computed_style = window.getComputedStyle(sample_div);
+		let css_flexbox_test = computed_style.display === "flexbox";
+		document.body.removeChild(sample_div);
+		document.getElementById("cssflexboxtest").textContent = (css_flexbox_test !== "none") ? "PASS" : "FAIL";
+	}
+	catch (error) {
+		document.getElementById("cssflexboxtest").textContent = "FAIL";
+	}
+	
+	/* grid property test */
+	try {
+		var sample_div = document.createElement("div");
+		sample_div.className = "grid_test";
+		sample_div.textContent = "TEST";
+		document.body.appendChild(sample_div);
+		let computed_style = window.getComputedStyle(sample_div);
+		let css_grid_test = computed_style.display === "grid";
+		document.body.removeChild(sample_div);
+		document.getElementById("cssgridtest").textContent = (css_grid_test !== "none") ? "PASS" : "FAIL";
+	}
+	catch (error) {
+		document.getElementById("cssgridtest").textContent = "FAIL";
+	}
+	
+	/* CSS Subgrids test */
+	try {
+		var sample_div = document.createElement("div");
+		sample_div.className = "grid_test";
+		sample_div.textContent = "TEST";
+		var second_sample_div = document.createElement("div");
+		second_sample_div.className = "subgrid_test";
+		sample_div.appendChild(second_sample_div);
+		document.body.appendChild(sample_div);
+		let computed_style = window.getComputedStyle(second_sample_div);
+		let css_subgrid_test = (computed_style.gridTemplateColumns === "subgrid [] []" && computed_style.gridTemplateRows === "subgrid [] []");
+		document.body.removeChild(sample_div);
+		document.getElementById("csssubgridtest").textContent = css_subgrid_test ? "PASS" : "FAIL";
+	}
+	catch (error) {
+		document.getElementById("csssubgridtest").textContent = "FAIL";
+	}
+	
+	/* offset-anchor property test */
+	try {
+		var sample_img = document.createElement("img");
+		sample_img.className = "offset_anchor_test";
+		document.body.appendChild(sample_img);
+		let computed_style = window.getComputedStyle(sample_img);
+		let css_offsetanchor_test = computed_style.offsetAnchor === "100% 50%";
+		document.body.removeChild(sample_img);
+		document.getElementById("cssoffsetanchortest").textContent = (css_offsetanchor_test) ? "PASS" : "FAIL";
+	}
+	catch (error) {
+		document.getElementById("cssoffsetanchortest").textContent = "FAIL";
+	}
+	
+	/* COMMUNICATION TEST */
+	
+	/* Server-sent events test */
+	// 
+	try {
+		if ("EventSource" in window) {
+			// Commented out due to issues with connecting to a valid event source URI.
+			// Best moved to manual testing with a simple server written in Python or C++ or something.
+			/*var sample_event_source = new EventSource("", { withCredentials: true });
+			var tests_passed = 0;
+			if ("withCredentials" in sample_event_source) { tests_passed++; }
+			if ("url" in sample_event_source) { tests_passed++; }
+			if ("readyState" in sample_event_source) { tests_passed++; }
+			if ("withCredentials" in EventSource.prototype) { tests_passed++; }
+			if (typeof sample_event_source.close === "function") {
+				tests_passed++;
+				sample_event_source.close();
+			}
+			document.getElementById("ssetest").textContent = (tests_passed === 5) ? "PASS" : "PARTIAL";*/
+			document.getElementById("ssetest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("ssetest").textContent = "FAIL";
+			console.log("Server-sent events test: Your browser does not support server-sent events.");
+		}
+	}
+	catch (error) {
+		document.getElementById("ssetest").textContent = "FAIL";
+	}
 };

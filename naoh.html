@@ -19,6 +19,15 @@
 			.oor_test:out-of-range { background-color: mistyrose; }
 			.rw_test:read-write { background-color: honeydew; }
 			.ro_test:read-only { background-color: lightgray; }
+			.shadow_test { text-shadow: 2px 2px 2px gainsboro; }
+			.flexbox_test { display: flex }
+			.grid_test { display: grid }
+			.subgrid_test {
+				display: grid;
+				grid-template-columns: subgrid;
+				grid-template-rows: subgrid;
+			}
+			.offset_anchor_test { offset-anchor: right center; }
 		</style>
 	</head>
 	<body>
@@ -443,7 +452,7 @@
 				<td id = "mp3test"></td>
 			</tr>
 			<tr>
-				<td>Ogg Audio</td>
+				<td>Ogg audio</td>
 				<td id = "oggaudiotest"></td>
 			</tr>
 			<tr>
@@ -553,6 +562,168 @@
 			<tr>
 				<td>Windows Bitmap</td>
 				<td id = "windowsbmptest"></td>
+			</tr>
+		</table>
+		<h3>Vector graphics tests</h3>
+		<table id = "vector_graphics_test_results">
+			<tr>
+				<td>&lt;svg&gt;</td>
+				<td id = "svgtest"></td>
+			</tr>
+			<tr>
+				<td>SVG as an image</td>
+				<td id = "svgasimagetest"></td>
+			</tr>
+			<tr>
+				<td>&lt;foreignObject&gt;</td>
+				<td id = "foreignobjecttest"></td>
+			</tr>
+			<tr>
+				<td>&lt;filter&gt;</td>
+				<td id = "svgfiltertest"></td>
+			</tr>
+		</table>
+		<h3>2D and 3D graphics tests</h3>
+		<table id = "graphics_test_results">
+			<tr>
+				<td>&lt;canvas&gt;</td>
+				<td id = "canvastest"></td>
+			</tr>
+			<tr>
+				<td>Canvas text test</td>
+				<td id = "canvastexttest"></td>
+			</tr>
+			<tr>
+				<td>Path2D test</td>
+				<td id = "path2dtest"></td>
+			</tr>
+			<tr>
+				<td>Canvas ellipse test</td>
+				<td id = "canvasellipsetest"></td>
+			</tr>
+			<tr>
+				<td>Canvas dashed lines test</td>
+				<td id = "canvasdltest"></td>
+			</tr>
+			<tr>
+				<td>Canvas focus rings test</td>
+				<td id = "canvasfrtest"></td>
+			</tr>
+			<tr>
+				<td>WebGL test</td>
+				<td id = "webgltest"></td>
+			</tr>
+			<tr>
+				<td>WebGL 2.0 test</td>
+				<td id = "webgl2test"></td>
+			</tr>
+			<tr>
+				<td>WebGPU test</td>
+				<td id = "webgputest"></td>
+			</tr>
+			<tr>
+				<td>WebXR test</td>
+				<td id = "webxrtest"></td>
+			</tr>
+		</table>
+		<h3>Offscreen graphics tests</h3>
+		<table id = "offscreen_graphics_test_results">
+			<tr>
+				<td>Bitmap renderer context test</td>
+				<td id = "brctest"></td>
+			</tr>
+			<tr>
+				<td>Bitmap Data test</td>
+				<td id = "bitmapdatatest"></td>
+			</tr>
+			<tr>
+				<td>Offscreen Canvas API test</td>
+				<td id = "offscreentest"></td>
+			</tr>
+			<tr>
+				<td>2D support in Offscreen Canvas</td>
+				<td id = "2doffscreentest"></td>
+			</tr>
+			<tr>
+				<td>3D support in Offscreen Canvas</td>
+				<td id = "3doffscreentest"></td>
+			</tr>
+		</table>
+		<h3>Animation tests</h3>
+		<table id = "animation_test_results">
+			<tr>
+				<td>"requestAnimationFrame" method</td>
+				<td id = "animationframetest"></td>
+			</tr>
+			<tr>
+				<td>Web Animations API test</td>
+				<td id = "webanimationstest"></td>
+			</tr>
+		</table>
+		<h3>CSS3 tests</h3>
+		<table id = "animation_test_results">
+			<tr>
+				<td>"text-shadow" CSS Property</td>
+				<td id = "csstextshadowtest"></td>
+			</tr>
+			<tr>
+				<td>"flexbox" CSS Property</td>
+				<td id = "cssflexboxtest"></td>
+			</tr>
+			<tr>
+				<td>"grid" CSS Property</td>
+				<td id = "cssgridtest"></td>
+			</tr>
+			<tr>
+				<td>CSS subgrids</td>
+				<td id = "csssubgridtest"></td>
+			</tr>
+			<tr>
+				<td>"offset-anchor" CSS Property</td>
+				<td id = "cssoffsetanchortest"></td>
+			</tr>
+		</table>
+		<h3>Communication tests</h3>
+		<table id = "animation_test_results">
+			<tr>
+				<td>Server-sent events test</td>
+				<td id = "ssetest"></td>
+			</tr>
+			<tr>
+				<td>Beacon test</td>
+				<td id = "beacontest"></td>
+			</tr>
+			<tr>
+				<td>Fetch test</td>
+				<td id = "fetchtest"></td>
+			</tr>
+			<tr>
+				<td>Upload files via XMLHttpRequest Level 2</td>
+				<td id = "ufxl2test"></td>
+			</tr>
+			<tr>
+				<td>Test response type</td>
+				<td id = "testresponsetest"></td>
+			</tr>
+			<tr>
+				<td>Document response type</td>
+				<td id = "documentresponsetest"></td>
+			</tr>
+			<tr>
+				<td>ArrayBuffer response type</td>
+				<td id = "arraybufferresponsetest"></td>
+			</tr>
+			<tr>
+				<td>Blob response type</td>
+				<td id = "blobresponsetest"></td>
+			</tr>
+			<tr>
+				<td>WebSocket API test</td>
+				<td id = "websockettest"></td>
+			</tr>
+			<tr>
+				<td>ArrayBuffer and Blob via WebSockets</td>
+				<td id = "abbwebsockettest"></td>
 			</tr>
 		</table>
 		<p></p>
