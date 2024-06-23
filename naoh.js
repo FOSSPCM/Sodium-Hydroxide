@@ -2737,4 +2737,155 @@ window.onload = function() {
 	catch (error) {
 		document.getElementById("ssetest").textContent = "FAIL";
 	}
+	
+	/* Beacon API Test */
+	try {
+		if ("sendBeacon" in navigator) {
+			document.getElementById("beacontest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("beacontest").textContent = "FAIL";
+			console.log("Beacon test: Your browser does not support the Beacon API.");
+		}
+	}
+	catch (error) {
+		document.getElementById("beacontest").textContent = "FAIL";
+	}
+	
+	/* Fetch API Test */
+	try {
+		if ("fetch" in window) {
+			document.getElementById("fetchtest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("fetchtest").textContent = "FAIL";
+			console.log("Fetch test: Your browser does not support the Fetch API.");
+		}
+	}
+	catch (error) {
+		document.getElementById("fetchtest").textContent = "FAIL";
+	}
+	
+	/* Upload files via XMLHttpRequest Level 2 Test */
+	try {
+		if ("XMLHttpRequest" in window && "FormData" in window) {
+			let ufxl2_test = new XMLHttpRequest();
+			if ("upload" in ufxl2_test) {
+				document.getElementById("ufxl2test").textContent = "PASS";
+			}
+			else {
+				document.getElementById("ufxl2test").textContent = "FAIL";
+				console.log("Upload files via XMLHttpRequest Level 2: Your browser does not support XMLHttpRequest Level 2.");
+			}
+		}
+		else {
+			document.getElementById("ufxl2test").textContent = "FAIL";
+			console.log("Upload files via XMLHttpRequest Level 2: Your browser does not support XMLHttpRequest or FormData.");
+		}
+	}
+	catch (error) {
+		document.getElementById("ufxl2test").textContent = "FAIL";
+	}
+	
+	/* Text response type test */
+	try {
+		let sample_xhr = new XMLHttpRequest();
+		sample_xhr.open("GET", "/", true);
+		sample_xhr.responseType = "text";
+		if (sample_xhr.responseType === "text") {
+			document.getElementById("textresponsetest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("textresponsetest").textContent = "FAIL";
+			console.log("Text response type: Your browser does not support the text response type.");
+		}
+	}
+	catch (error) {
+		document.getElementById("textresponsetest").textContent = "FAIL";
+	}
+	
+	/* Document response type test */
+	try {
+		let sample_xhr = new XMLHttpRequest();
+		sample_xhr.open("GET", "/", true);
+		sample_xhr.responseType = "document";
+		if (sample_xhr.responseType === "document") {
+			document.getElementById("documentresponsetest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("documentresponsetest").textContent = "FAIL";
+			console.log("Document response type: Your browser does not support the document response type.");
+		}
+	}
+	catch (error) {
+		document.getElementById("documentresponsetest").textContent = "FAIL";
+	}
+	
+	/* ArrayBuffer response type test */
+	try {
+		let sample_xhr = new XMLHttpRequest();
+		sample_xhr.open("GET", "/", true);
+		sample_xhr.responseType = "arraybuffer";
+		if (sample_xhr.responseType === "arraybuffer") {
+			document.getElementById("arraybufferresponsetest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("arraybufferresponsetest").textContent = "FAIL";
+			console.log("ArrayBuffer response type: Your browser does not support the arrayBuffer response type.");
+		}
+	}
+	catch (error) {
+		document.getElementById("arraybufferresponsetest").textContent = "FAIL";
+	}
+	
+	/* Blob response type test */
+	try {
+		let sample_xhr = new XMLHttpRequest();
+		sample_xhr.open("GET", "/", true);
+		sample_xhr.responseType = "blob";
+		if (sample_xhr.responseType === "blob") {
+			document.getElementById("blobresponsetest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("blobresponsetest").textContent = "FAIL";
+			console.log("Blob response type: Your browser does not support the blob response type.");
+		}
+	}
+	catch (error) {
+		document.getElementById("blobresponsetest").textContent = "FAIL";
+	}
+	
+	/* JSON response type test */
+	try {
+		let sample_xhr = new XMLHttpRequest();
+		sample_xhr.open("GET", "/", true);
+		sample_xhr.responseType = "json";
+		if (sample_xhr.responseType === "json") {
+			document.getElementById("jsonresponsetest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("jsonresponsetest").textContent = "FAIL";
+			console.log("JSON response type: Your browser does not support the \"json\" response type.");
+		}
+	}
+	catch (error) {
+		document.getElementById("jsonresponsetest").textContent = "FAIL";
+	}
+	
+	/* WebSocket API test */
+	try {
+		if ("WebSocket" in window) {
+			document.getElementById("websockettest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("websockettest").textContent = "FAIL";
+			console.log("WebSocket API test: Your browser does not support the WebSocket API.");
+		}
+	}
+	catch (error) {
+		document.getElementById("websockettest").textContent = "FAIL";
+	}
+	
+	/* STREAMS TESTS */
+	
 };
