@@ -2888,4 +2888,332 @@ window.onload = function() {
 	
 	/* STREAMS TESTS */
 	
+	/* Readable streams test */
+	try {
+		if ("ReadableStream" in window) {
+			var tests_passed = 0;
+			let sample_rs = new ReadableStream();
+			let get_reader_test = typeof sample_rs.getReader === "function";
+			if (get_reader_test === true) { tests_passed++; }
+			else { console.log("Readable streams: Your browser does not support the \"getReader\" function."); }
+			if ("locked" in sample_rs) { tests_passed++; }
+			else { console.log("Readable streams: Your browser does not support the \"locked\" property."); }
+			let pipe_through_test = typeof sample_rs.pipeThrough === "function";
+			if (pipe_through_test === true) { tests_passed++; }
+			else { console.log("Readable streams: Your browser does not support the \"pipeThrough\" function."); }
+			let pipe_to_test = typeof sample_rs.pipeTo === "function";
+			if (pipe_to_test === true) { tests_passed++; }
+			else { console.log("Readable streams: Your browser does not support the \"pipeTo\" function."); }
+			let tee_test = typeof sample_rs.tee === "function";
+			if (tee_test === true) { tests_passed++; }
+			else { console.log("Readable streams: Your browser does not support the \"tee\" function."); }
+			let values_test = typeof sample_rs.values === "function";
+			if (values_test === true) { tests_passed++; }
+			else { console.log("Readable streams: Your browser does not support the \"values\" function."); }
+			let cancel_test = typeof sample_rs.cancel === "function";
+			if (cancel_test === true) { tests_passed++; }
+			else { console.log("Readable streams: Your browser does not support the \"cancel\" function."); }
+			let from_test = typeof sample_rs.from === "function";
+			if (from_test === true) { tests_passed++; }
+			else { console.log("Readable streams: Your browser does not support the \"from\" static function."); }
+			document.getElementById("readablestreamtest").textContent = (tests_passed === 7) ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("readablestreamtest").textContent = "FAIL";
+			console.log("Readable streams: Your browser does not support readable streams.");
+		}
+	}
+	catch (error) {
+		document.getElementById("readablestreamtest").textContent = "FAIL";
+	}
+	
+	/* Writable streams test */
+	try {
+		if ("WritableStream" in window) {
+			var tests_passed = 0;
+			let sample_ws = new WritableStream();
+			let get_writer_test = typeof sample_ws.getWriter === "function";
+			if (get_writer_test === true) { tests_passed++; }
+			else { console.log("Writable streams: Your browser does not support the \"getReader\" function."); }
+			if ("locked" in sample_ws) { tests_passed++; }
+			else { console.log("Writable streams: Your browser does not support the \"locked\" property."); }
+			let abort_test = typeof sample_ws.abort === "function";
+			if (abort_test === true) { tests_passed++; }
+			else { console.log("Writable streams: Your browser does not support the \"abort\" function."); }
+			let close_test = typeof sample_ws.close === "function";
+			if (close_test === true) { tests_passed++; }
+			else { console.log("Writable streams: Your browser does not support the \"close\" function."); }
+			document.getElementById("writablestreamtest").textContent = (tests_passed === 4) ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("writablestreamtest").textContent = "FAIL";
+			console.log("Writable streams: Your browser does not support writable streams.");
+		}
+	}
+	catch (error) {
+		document.getElementById("writablestreamtest").textContent = "FAIL";
+	}
+	
+	/* WEB APPLICATIONS TESTS */
+	
+	/* Service workers test */
+	try {
+		if ("serviceWorker" in navigator) {
+			document.getElementById("serviceworkerstest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("serviceworkerstest").textContent = "FAIL";
+			console.log("Service Workers: Your browser does not support service workers.");
+		}
+	}
+	catch (error) {
+		document.getElementById("serviceworkerstest").textContent = "FAIL";
+	}
+	
+	/* Push messages test */
+	try {
+		if ("PushManager" in window) {
+			document.getElementById("pushmessagestest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("pushmessagestest").textContent = "FAIL";
+			console.log("Push messages: Your browser does not support push messages.");
+		}
+	}
+	catch (error) {
+		document.getElementById("pushmessagestest").textContent = "FAIL";
+	}
+	
+	/* Web-based protocol handlers test */
+	try {
+		if ("registerProtocolHandler" in navigator) {
+			document.getElementById("webprotocoltest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("webprotocoltest").textContent = "FAIL";
+			console.log("Web protocol handlers: Your browser does not support web-based protocol handlers.");
+		}
+	}
+	catch (error) {
+		document.getElementById("webprotocoltest").textContent = "FAIL";
+	}
+	
+	/* STORAGE TESTS */
+	
+	/* Session storage test */
+	try {
+		if ("sessionStorage" in window) {
+			document.getElementById("sessionstoragetest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("sessionstoragetest").textContent = "FAIL";
+			console.log("Session storage test: Your browser does not support session storage.");
+		}
+	}
+	catch (error) {
+		document.getElementById("sessionstoragetest").textContent = "FAIL";
+	}
+	
+	/* Local storage test */
+	try {
+		if ("localStorage" in window) {
+			document.getElementById("localstoragetest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("localstoragetest").textContent = "FAIL";
+			console.log("Local storage test: Your browser does not support local storage.");
+		}
+	}
+	catch (error) {
+		document.getElementById("localstoragetest").textContent = "FAIL";
+	}
+	
+	/* IndexedDB test */
+	try {
+		if ("indexedDB" in window) {
+			document.getElementById("indexeddbtest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("indexeddbtest").textContent = "FAIL";
+			console.log("IndexedDB test: Your browser does not support IndexedDB.");
+		}
+	}
+	catch (error) {
+		document.getElementById("indexeddbtest").textContent = "FAIL";
+	}
+	
+	/* IDBObjectStore test */
+	try {
+		let request = indexedDB.open("testDatabase", 1);
+
+		request.onerror = function(event) {
+			document.getElementById("objectstoretest").textContent = "FAIL";
+		};
+
+		request.onsuccess = function(event) {
+			let db = event.target.result;
+			let transaction = db.transaction(["testStore"], "readwrite");
+			let objectstore_test = transaction.objectStore("testStore");
+			if (objectstore_test instanceof IDBObjectStore) {
+				document.getElementById("objectstoretest").textContent = "PASS";
+			}
+			else {
+				document.getElementById("objectstoretest").textContent = "FAIL";
+			}
+			db.close();
+			indexedDB.deleteDatabase("testDatabase");
+		};
+
+		request.onupgradeneeded = function(event) {
+			const db = event.target.result;
+			if (!db.objectStoreNames.contains("testStore")) {
+				db.createObjectStore("testStore", { keyPath: "id" });
+			}
+		};
+	}
+	catch (error) {
+		document.getElementById("objectstoretest").textContent = "FAIL";
+	}
+	
+	/* FILES TESTS */
+	
+	/* File interface test */
+	try {
+		if (typeof File !== "undefined") {
+			var tests_passed = 0;
+			let sample_file = new File(["content"], "test_files/test.txt", { lastModified: Date.now() });
+			if ("lastModified" in sample_file) { tests_passed++; }
+			else { console.log("File interface test: Your browser does not support the \"lastModified\" property."); }
+			if ("name" in sample_file) { tests_passed++; }
+			else { console.log("File interface test: Your browser does not support the \"name\" property."); }
+			document.getElementById("fileintertest").textContent = (tests_passed === 2) ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("fileintertest").textContent = "FAIL";
+			console.log("File interface test: Your browser does not support the File interface.");
+		}
+	}
+	catch (error) {
+		document.getElementById("fileintertest").textContent = "FAIL";
+	}
+	
+	/* FileReader interface test */
+	try {
+		if (typeof FileReader !== "undefined") {
+			var tests_passed = 0;
+			let sample_filereader = new FileReader();
+			if ("abort" in sample_filereader) { tests_passed++; }
+			else { console.log("FileReader interface test: Your browser does not support the \"abort\" method."); }
+			if ("error" in sample_filereader) { tests_passed++; }
+			else { console.log("FileReader interface test: Your browser does not support the \"error\" property."); }
+			if ("onabort" in sample_filereader) { tests_passed++; }
+			else { console.log("FileReader interface test: Your browser does not support the \"onabort\" event."); }
+			if ("onerror" in sample_filereader) { tests_passed++; }
+			else { console.log("FileReader interface test: Your browser does not support the \"onerror\" event."); }
+			if ("onload" in sample_filereader) { tests_passed++; }
+			else { console.log("FileReader interface test: Your browser does not support the \"onload\" event."); }
+			if ("onloadend" in sample_filereader) { tests_passed++; }
+			else { console.log("FileReader interface test: Your browser does not support the \"onloadend\" event."); }
+			if ("onloadstart" in sample_filereader) { tests_passed++; }
+			else { console.log("FileReader interface test: Your browser does not support the \"onloadstart\" event."); }
+			if ("onprogress" in sample_filereader) { tests_passed++; }
+			else { console.log("FileReader interface test: Your browser does not support the \"onprogress\" event."); }
+			if ("readAsArrayBuffer" in sample_filereader) { tests_passed++; }
+			else { console.log("FileReader interface test: Your browser does not support the \"readAsArrayBuffer\" method."); }
+			if ("readAsDataURL" in sample_filereader) { tests_passed++; }
+			else { console.log("FileReader interface test: Your browser does not support the \"readAsDataURL\" method."); }
+			if ("readAsText" in sample_filereader) { tests_passed++; }
+			else { console.log("FileReader interface test: Your browser does not support the \"readAsText\" method."); }
+			if ("readyState" in sample_filereader) { tests_passed++; }
+			else { console.log("FileReader interface test: Your browser does not support the \"readyState\" property."); }
+			if ("result" in sample_filereader) { tests_passed++; }
+			else { console.log("FileReader interface test: Your browser does not support the \"result\" property."); }
+			document.getElementById("frintertest").textContent = (tests_passed === 13) ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("frintertest").textContent = "FAIL";
+			console.log("FileReader interface test: Your browser does not support the FileReader interface.");
+		}
+	}
+	catch (error) {
+		document.getElementById("frintertest").textContent = "FAIL";
+	}
+	
+	/* Create a Blob from a file test */
+	try {
+		if ("Blob" in window) {
+			let sample_blob = new Blob(["The fish was delish and it made quite a dish."], { type: "text/plain" });
+			if (sample_blob.size === 45 && sample_blob.type === "text/plain") {
+				document.getElementById("blobfromfiletest").textContent = "PASS";
+			}
+			else {
+				document.getElementById("blobfromfiletest").textContent = "FAIL";
+				console.log("Create a Blob from a file: Your browser does not support creating a Blob from a file.");
+			}
+		}
+		else {
+			document.getElementById("blobfromfiletest").textContent = "FAIL";
+			console.log("Create a Blob from a file: Your browser does not support the Blob interface.");
+		}
+	}
+	catch (error) {
+		document.getElementById("blobfromfiletest").textContent = "FAIL";
+	}
+	
+	/* Create a Data URL from a Blob test */
+	try {
+		let sample_blob = new Blob(["The fish was delish and it made quite a dish."], { type: "text/plain" });
+		let sample_reader = new FileReader();
+		sample_reader.onload = (event) => {
+			let dataurl_test = (event.target.result).startsWith("data:");
+			document.getElementById("dataurlfromblobtest").textContent = dataurl_test ? "PASS" : "FAIL";
+			if (dataurl_test === false) {
+				console.log("Create a Data URL from a Blob: Your browser does not support creation of Data URLs from Blobs.");
+			}
+		}
+		sample_reader.onerror = () => {
+			document.getElementById("dataurlfromblobtest").textContent = "FAIL";
+			console.log("Create a Data URL from a Blob: There was an error in trying to read a Blob.");
+		}
+		sample_reader.readAsDataURL(sample_blob);
+	}
+	catch (error) {
+		document.getElementById("dataurlfromblobtest").textContent = "FAIL";
+	}
+	
+	/* Create an ArrayBuffer from a Blob test */
+	try {
+		let sample_blob = new Blob(["The fish was delish and it made quite a dish."], { type: "text/plain" });
+		let sample_reader = new FileReader();
+		sample_reader.onload = (event) => {
+			let arraybuffer_test = (event.target.result) instanceof ArrayBuffer;
+			document.getElementById("arraybufferfromblobtest").textContent = arraybuffer_test ? "PASS" : "FAIL";
+			if (arraybuffer_test === false) {
+				console.log("Create an ArrayBuffer from a Blob: Your browser does not support creation of ArrayBuffers from Blobs.");
+			}
+		}
+		sample_reader.onerror = () => {
+			document.getElementById("arraybufferfromblobtest").textContent = "FAIL";
+			console.log("Create an ArrayBuffer from a Blob: There was an error in trying to read a Blob.");
+		}
+		sample_reader.readAsArrayBuffer(sample_blob);
+	}
+	catch (error) {
+		document.getElementById("arraybufferfromblobtest").textContent = "FAIL";
+	}
+	
+	/* Create a Blob URL from a Blob test */
+	try {
+		let sample_blob = new Blob(["The fish was delish and it made quite a dish."], { type: "text/plain" });
+		let sample_bloburl = URL.createObjectURL(sample_blob);
+		let bloburl_test = (typeof sample_bloburl === "string" && sample_bloburl.startsWith("blob:"));
+		document.getElementById("bloburlfromblobtest").textContent = bloburl_test ? "PASS" : "FAIL";
+		if (bloburl_test === false) {
+			console.log("Create Blob URL from a Blob: Your browser does not support creation of Blob URLs from Blobs.");
+		}
+		URL.revokeObjectURL(sample_blob);
+	}
+	catch (error) {
+		document.getElementById("bloburlfromblobtest").textContent = "FAIL";
+	}
 };
