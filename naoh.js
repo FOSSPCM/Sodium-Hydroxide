@@ -10,10 +10,17 @@ window.onload = function() {
 	/* DOCTYPE Standards Mode test */
 	try {
 		let is_HTML5_mode = document.compatMode === "CSS1Compat";
-		document.getElementById("doctypetest").textContent = is_HTML5_mode ? "PASS" : "FAIL";
+		if (is_HTML5_mode === true) {
+			document.getElementById("doctypetest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("doctypetest").textContent = "FAIL";
+			console.log("<!DOCTYPE> triggers standards mode: Your browser did not enter HTML5 standards mode.");
+		}
 	}
 	catch (error) {
 		document.getElementById("doctypetest").textContent = "FAIL";
+		console.log("<!DOCTYPE> triggers standards mode: There was an error in running this test. If you suspect this to be a bug in the test, please file a bug report.");
 	}
 	
 	/* HTML Tokenizer test */
@@ -22,9 +29,11 @@ window.onload = function() {
 		let tokenizer_test = document.createElement("div");
 		tokenizer_test.innerHTML = validhtml5;
 		document.getElementById("tokentest").textContent = (tokenizer_test.childNodes.length > 0) ? "PASS" : "FAIL";
+		if (tokenizer_test <= 0) { console.log("HTML Tokenizer test: Your browser did not tokenize correctly."); }
 	}
 	catch (error) {
 		document.getElementById("tokentest").textContent = "FAIL";
+		console.log("HTML Tokenizer test: There was an error in running this test. If you suspect this to be a bug in the test, please file a bug report.");
 	}
 	
 	/* HTML Tree building test */
@@ -33,9 +42,11 @@ window.onload = function() {
 		try {
 			let tree_building_works = document.createElement("div") instanceof HTMLDivElement;
 			tree_test_element.textContent = tree_building_works ? "PASS" : "FAIL";
+			if (tree_building_works === false) { console.log("HTML Tree building test: Your browser does not support HTML Tree building."); }
 		}
 		catch (error) {
 			tree_test_element.textContent = "FAIL";
+			console.log("HTML Tree building test: There was an error in running this test. If you suspect this to be a bug in the test, please file a bug report.");
 		}
 	}
 	
@@ -43,18 +54,22 @@ window.onload = function() {
 	try {
 		let svg_works = !!document.createElementNS && !! document.createElementNS("http://www.w3.org/2000/svg", "svg").createSVGRect;
 		document.getElementById("insvgtest").textContent = svg_works ? "PASS" : "FAIL";
+		if (svg_works === false) { console.log("Inline SVG: Your browser does not support inline SVG."); }
 	}
 	catch (error) {
 		document.getElementById("insvgtest").textContent = "FAIL";
+		console.log("Inline SVG: There was an error in running this test. If you suspect this to be a bug in the test, please file a bug report.");
 	}
 	
 	/* Inline MathML test */
 	try {
 		let mathml_works = !!document.createElement("math") && !! document.createElement("math").style && "textContent" in document.createElement("math");
 		document.getElementById("inmathmltest").textContent = mathml_works ? "PASS" : "FAIL";
+		if (mathml_works === false) { console.log("Inline MathML: Your browser does not support MathML."); }
 	}
 	catch (error) {
 		document.getElementById("inmathmltest").textContent = "FAIL";
+		console.log("Inline MathML: There was an error in running this test. If you suspect this to be a bug in the test, please file a bug report.");
 	}
 	
 	/* ELEMENTS */
@@ -1116,8 +1131,10 @@ window.onload = function() {
 		if (window.isSecureContext) {
 			if ("geolocation" in navigator) {
 				navigator.geolocation.getCurrentPosition(
-					() => document.getElementById("geolocationtest").textContent = "PASS",
-					(error) => {
+					function() {
+						document.getElementById("geolocationtest").textContent = "PASS";
+					},
+					function(error) {
 						switch (error.code) {
 							case error.PERMISSION_DENIED:
 								document.getElementById("geolocationtest").textContent = "PASS (Check console)";
@@ -1285,7 +1302,7 @@ window.onload = function() {
 	try {
 		if (window.isSecureContext) {
 			if ("Notification" in window) {
-				Notification.requestPermission().then(permission => {
+				Notification.requestPermission().then(function(permission) {
 					if (permission === "granted" || permission === "denied" || permission === "default") {
 						var sample_notification = new Notification("You should not see this notification. It's silent.", { silent: true });
 						var tests_passed = 0;
@@ -1364,7 +1381,7 @@ window.onload = function() {
 		document.getElementById("autest").textContent = "FAIL";
 	}
 	
-	/* AUDIO TESTS */
+	/* AUDIO */
 	
 	/* Audio tag test */
 	try {
@@ -1692,7 +1709,7 @@ window.onload = function() {
 		document.getElementById("webmaudiotest").textContent = "FAIL";
 	}
 	
-	/* VIDEO TESTS */
+	/* VIDEO */
 	
 	/* Video tag test */
 	try {
@@ -1882,7 +1899,7 @@ window.onload = function() {
 		document.getElementById("webmvideotest").textContent = "FAIL";
 	}
 	
-	/* STREAMING TESTS */
+	/* STREAMING */
 	
 	/* Media Source Extensions test */
 	try {
@@ -1915,7 +1932,7 @@ window.onload = function() {
 		document.getElementById("hlstest").textContent = "FAIL";
 	}
 	
-	/* RESPONSIVE IMAGES TESTS */
+	/* RESPONSIVE IMAGES */
 	
 	/* Picture tag test */
 	try {
@@ -1958,7 +1975,7 @@ window.onload = function() {
 		document.getElementById("srcsettest").textContent = "FAIL";
 	}
 	
-	/* RASTER IMAGE FORMATS TESTS */
+	/* RASTER IMAGE FORMATS */
 	
 	/* APNG test */
 	try {
@@ -1966,7 +1983,7 @@ window.onload = function() {
 		sample_apng.src = "test_files/spinfox.apng";
 		sample_apng.style.display = "none";
 		document.body.appendChild(sample_apng);
-		sample_apng.onload = () => {
+		sample_apng.onload = function() {
 			let apng_test = sample_apng.width > 0 && sample_apng.height > 0 
 			&& sample_apng.src.includes("test_files/spinfox.apng");
 			document.getElementById("apngtest").textContent = apng_test ? "PASS" : "FAIL";
@@ -1975,7 +1992,7 @@ window.onload = function() {
 			}
 			document.body.removeChild(sample_apng);
 		};
-		sample_apng.onerror = () => {
+		sample_apng.onerror = function() {
 			document.getElementById("apngtest").textContent = "FAIL";
 			console.log("APNG: Your browser does not support Animated PNGs.");
 			document.body.removeChild(sample_apng);
@@ -1991,7 +2008,7 @@ window.onload = function() {
 		sample_avif.src = "test_files/my_avif.avif";
 		sample_avif.style.display = "none";
 		document.body.appendChild(sample_avif);
-		sample_avif.onload = () => {
+		sample_avif.onload = function() {
 			let avif_test = sample_avif.width > 0 && sample_avif.height > 0 
 			&& sample_avif.src.includes("test_files/my_avif.avif");
 			document.getElementById("aviftest").textContent = avif_test ? "PASS" : "FAIL";
@@ -2000,7 +2017,7 @@ window.onload = function() {
 			}
 			document.body.removeChild(sample_avif);
 		};
-		sample_avif.onerror = () => {
+		sample_avif.onerror = function() {
 			document.getElementById("aviftest").textContent = "FAIL";
 			console.log("AVIF: Your browser does not support AVIF.");
 			document.body.removeChild(sample_avif);
@@ -2016,7 +2033,7 @@ window.onload = function() {
 		sample_gif.src = "test_files/Rotating_earth.gif";
 		sample_gif.style.display = "none";
 		document.body.appendChild(sample_gif);
-		sample_gif.onload = () => {
+		sample_gif.onload = function() {
 			let gif_test = sample_gif.width > 0 && sample_gif.height > 0 
 			&& sample_gif.src.includes("test_files/Rotating_earth.gif");
 			document.getElementById("giftest").textContent = gif_test ? "PASS" : "FAIL";
@@ -2025,7 +2042,7 @@ window.onload = function() {
 			}
 			document.body.removeChild(sample_gif);
 		};
-		sample_gif.onerror = () => {
+		sample_gif.onerror = function() {
 			document.getElementById("giftest").textContent = "FAIL";
 			console.log("GIF: Your browser does not support GIF.");
 			document.body.removeChild(sample_gif);
@@ -2041,7 +2058,7 @@ window.onload = function() {
 		sample_ico.src = "test_files/my_ico.ico";
 		sample_ico.style.display = "none";
 		document.body.appendChild(sample_ico);
-		sample_ico.onload = () => {
+		sample_ico.onload = function() {
 			let ico_test = sample_ico.width > 0 && sample_ico.height > 0 
 			&& sample_ico.src.includes("test_files/my_ico.ico");
 			document.getElementById("icotest").textContent = ico_test ? "PASS" : "FAIL";
@@ -2050,7 +2067,7 @@ window.onload = function() {
 			}
 			document.body.removeChild(sample_ico);
 		};
-		sample_ico.onerror = () => {
+		sample_ico.onerror = function() {
 			document.getElementById("icotest").textContent = "FAIL";
 			console.log("ICO & CUR: Your browser does not support ICO. It wouldn't support CUR either.");
 			document.body.removeChild(sample_ico);
@@ -2066,7 +2083,7 @@ window.onload = function() {
 		sample_jpeg.src = "test_files/my_jpeg.jpg";
 		sample_jpeg.style.display = "none";
 		document.body.appendChild(sample_jpeg);
-		sample_jpeg.onload = () => {
+		sample_jpeg.onload = function() {
 			let jpeg_test = sample_jpeg.width > 0 && sample_jpeg.height > 0 
 			&& sample_jpeg.src.includes("test_files/my_jpeg.jpg");
 			document.getElementById("jpegtest").textContent = jpeg_test ? "PASS" : "FAIL";
@@ -2075,7 +2092,7 @@ window.onload = function() {
 			}
 			document.body.removeChild(sample_jpeg);
 		};
-		sample_jpeg.onerror = () => {
+		sample_jpeg.onerror = function() {
 			document.getElementById("jpegtest").textContent = "FAIL";
 			console.log("JPEG: Your browser does not support JPEG.");
 			document.body.removeChild(sample_jpeg);
@@ -2091,7 +2108,7 @@ window.onload = function() {
 		sample_jpegxl.src = "test_files/my_jxl.jxl";
 		sample_jpegxl.style.display = "none";
 		document.body.appendChild(sample_jpegxl);
-		sample_jpegxl.onload = () => {
+		sample_jpegxl.onload = function() {
 			let jpegxl_test = sample_jpegxl.width > 0 && sample_jpegxl.height > 0 
 			&& sample_jpegxl.src.includes("test_files/my_jxl.jxl");
 			document.getElementById("jpegxltest").textContent = jpegxl_test ? "PASS" : "FAIL";
@@ -2100,7 +2117,7 @@ window.onload = function() {
 			}
 			document.body.removeChild(sample_jpegxl);
 		};
-		sample_jpegxl.onerror = () => {
+		sample_jpegxl.onerror = function() {
 			document.getElementById("jpegxltest").textContent = "FAIL";
 			console.log("JPEG-XL: Your browser does not support JPEG-XL.");
 			document.body.removeChild(sample_jpegxl);
@@ -2116,7 +2133,7 @@ window.onload = function() {
 		sample_png.src = "test_files/pnglogo.png";
 		sample_png.style.display = "none";
 		document.body.appendChild(sample_png);
-		sample_png.onload = () => {
+		sample_png.onload = function() {
 			let png_test = sample_png.width > 0 && sample_png.height > 0 
 			&& sample_png.src.includes("test_files/pnglogo.png");
 			document.getElementById("pngtest").textContent = png_test ? "PASS" : "FAIL";
@@ -2125,7 +2142,7 @@ window.onload = function() {
 			}
 			document.body.removeChild(sample_png);
 		};
-		sample_png.onerror = () => {
+		sample_png.onerror = function() {
 			document.getElementById("pngtest").textContent = "FAIL";
 			console.log("PNG: Your browser does not support PNG.");
 			document.body.removeChild(sample_png);
@@ -2141,7 +2158,7 @@ window.onload = function() {
 		sample_tiff.src = "test_files/my_tiff.tiff";
 		sample_tiff.style.display = "none";
 		document.body.appendChild(sample_tiff);
-		sample_tiff.onload = () => {
+		sample_tiff.onload = function() {
 			let tiff_test = sample_tiff.width > 0 && sample_tiff.height > 0 
 			&& sample_tiff.src.includes("test_files/my_tiff.tiff");
 			document.getElementById("tifftest").textContent = tiff_test ? "PASS" : "FAIL";
@@ -2150,7 +2167,7 @@ window.onload = function() {
 			}
 			document.body.removeChild(sample_tiff);
 		};
-		sample_tiff.onerror = () => {
+		sample_tiff.onerror = function() {
 			document.getElementById("tifftest").textContent = "FAIL";
 			console.log("TIFF: Your browser does not support TIFF.");
 			document.body.removeChild(sample_tiff);
@@ -2166,7 +2183,7 @@ window.onload = function() {
 		sample_webp.src = "test_files/my_webp.webp";
 		sample_webp.style.display = "none";
 		document.body.appendChild(sample_webp);
-		sample_webp.onload = () => {
+		sample_webp.onload = function() {
 			let webp_test = sample_webp.width > 0 && sample_webp.height > 0 
 			&& sample_webp.src.includes("test_files/my_webp.webp");
 			document.getElementById("webptest").textContent = webp_test ? "PASS" : "FAIL";
@@ -2175,7 +2192,7 @@ window.onload = function() {
 			}
 			document.body.removeChild(sample_webp);
 		};
-		sample_webp.onerror = () => {
+		sample_webp.onerror = function() {
 			document.getElementById("webptest").textContent = "FAIL";
 			console.log("WebP: Your browser does not support WebP.");
 			document.body.removeChild(sample_webp);
@@ -2191,7 +2208,7 @@ window.onload = function() {
 		sample_bmp.src = "test_files/windowslogo.bmp";
 		sample_bmp.style.display = "none";
 		document.body.appendChild(sample_bmp);
-		sample_bmp.onload = () => {
+		sample_bmp.onload = function() {
 			let bmp_test = sample_bmp.width > 0 && sample_bmp.height > 0 
 			&& sample_bmp.src.includes("test_files/windowslogo.bmp");
 			document.getElementById("windowsbmptest").textContent = bmp_test ? "PASS" : "FAIL";
@@ -2200,7 +2217,7 @@ window.onload = function() {
 			}
 			document.body.removeChild(sample_bmp);
 		};
-		sample_bmp.onerror = () => {
+		sample_bmp.onerror = function() {
 			document.getElementById("windowsbmptest").textContent = "FAIL";
 			console.log("Windows Bitmap: Your browser does not support Windows Bitmap images.");
 			document.body.removeChild(sample_bmp);
@@ -2210,7 +2227,7 @@ window.onload = function() {
 		document.getElementById("windowsbmptest").textContent = "FAIL";
 	}
 	
-	/* VECTOR GRAPHICS TESTS */
+	/* VECTOR GRAPHICS */
 	
 	/* SVG tag test */
 	try {
@@ -2228,11 +2245,11 @@ window.onload = function() {
 		sample_svg.src = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'></svg>";
 		sample_svg.style.display = "none";
 		document.body.appendChild(sample_svg);
-		sample_svg.onload = () => {
+		sample_svg.onload = function() {
 			document.getElementById("svgasimagetest").textContent = "PASS";
 			document.body.removeChild(sample_svg);
 		};
-		sample_svg.onerror = () => {
+		sample_svg.onerror = function() {
 			document.getElementById("svgasimagetest").textContent = "FAIL";
 			console.log("SVG as an image: Your browser does not support SVG as an image.");
 			document.body.removeChild(sample_svg);
@@ -2496,7 +2513,7 @@ window.onload = function() {
 		document.getElementById("webxrtest").textContent = "FAIL";
 	}
 	
-	/* OFFSCREEN GRAPHICS TESTS */
+	/* OFFSCREEN GRAPHICS */
 	
 	/* Bitmap renderer context test */
 	try {
@@ -2598,7 +2615,7 @@ window.onload = function() {
 		document.getElementById("3doffscreentest").textContent = "FAIL";
 	}
 	
-	/* ANIMATION TESTS */
+	/* ANIMATION */
 	
 	/* requestAnimationFrame method */
 	try {
@@ -2629,7 +2646,7 @@ window.onload = function() {
 		document.getElementById("webanimationstest").textContent = "FAIL";
 	}
 	
-	/* CSS3 TESTS */
+	/* CSS3 */
 	
 	/* text-shadow property test */
 	try {
@@ -2886,7 +2903,7 @@ window.onload = function() {
 		document.getElementById("websockettest").textContent = "FAIL";
 	}
 	
-	/* STREAMS TESTS */
+	/* STREAMS */
 	
 	/* Readable streams test */
 	try {
@@ -2954,7 +2971,7 @@ window.onload = function() {
 		document.getElementById("writablestreamtest").textContent = "FAIL";
 	}
 	
-	/* WEB APPLICATIONS TESTS */
+	/* WEB APPLICATIONS */
 	
 	/* Service workers test */
 	try {
@@ -2998,7 +3015,7 @@ window.onload = function() {
 		document.getElementById("webprotocoltest").textContent = "FAIL";
 	}
 	
-	/* STORAGE TESTS */
+	/* STORAGE */
 	
 	/* Session storage test */
 	try {
@@ -3075,7 +3092,7 @@ window.onload = function() {
 		document.getElementById("objectstoretest").textContent = "FAIL";
 	}
 	
-	/* FILES TESTS */
+	/* FILES */
 	
 	/* File interface test */
 	try {
@@ -3164,14 +3181,14 @@ window.onload = function() {
 	try {
 		let sample_blob = new Blob(["The fish was delish and it made quite a dish."], { type: "text/plain" });
 		let sample_reader = new FileReader();
-		sample_reader.onload = (event) => {
+		sample_reader.onload = function(event) {
 			let dataurl_test = (event.target.result).startsWith("data:");
 			document.getElementById("dataurlfromblobtest").textContent = dataurl_test ? "PASS" : "FAIL";
 			if (dataurl_test === false) {
 				console.log("Create a Data URL from a Blob: Your browser does not support creation of Data URLs from Blobs.");
 			}
 		}
-		sample_reader.onerror = () => {
+		sample_reader.onerror = function() {
 			document.getElementById("dataurlfromblobtest").textContent = "FAIL";
 			console.log("Create a Data URL from a Blob: There was an error in trying to read a Blob.");
 		}
@@ -3185,14 +3202,14 @@ window.onload = function() {
 	try {
 		let sample_blob = new Blob(["The fish was delish and it made quite a dish."], { type: "text/plain" });
 		let sample_reader = new FileReader();
-		sample_reader.onload = (event) => {
+		sample_reader.onload = function(event) {
 			let arraybuffer_test = (event.target.result) instanceof ArrayBuffer;
 			document.getElementById("arraybufferfromblobtest").textContent = arraybuffer_test ? "PASS" : "FAIL";
 			if (arraybuffer_test === false) {
 				console.log("Create an ArrayBuffer from a Blob: Your browser does not support creation of ArrayBuffers from Blobs.");
 			}
 		}
-		sample_reader.onerror = () => {
+		sample_reader.onerror = function() {
 			document.getElementById("arraybufferfromblobtest").textContent = "FAIL";
 			console.log("Create an ArrayBuffer from a Blob: There was an error in trying to read a Blob.");
 		}
@@ -3215,5 +3232,1082 @@ window.onload = function() {
 	}
 	catch (error) {
 		document.getElementById("bloburlfromblobtest").textContent = "FAIL";
+	}
+	
+	/* USER INTERACTION */
+	
+	/* Draggable attribute test */
+	try {
+		var sample_div = document.createElement("div");
+		let draggable_test = "draggable" in sample_div;
+		document.getElementById("draggabletest").textContent = draggable_test ? "PASS" : "FAIL";
+		if (draggable_test === false) {
+			console.log("\"draggable\" attribute: Your browser does not support the \"draggable\" attribute.");
+		}
+	}
+	catch (error) {
+		document.getElementById("draggabletest").textContent = "FAIL";
+	}
+	
+	/* Ondrag event test */
+	try {
+		var sample_div = document.createElement("div");
+		let ondrag_test = "ondrag" in sample_div;
+		document.getElementById("ondragtest").textContent = ondrag_test ? "PASS" : "FAIL";
+		if (ondrag_test === false) {
+			console.log("\"ondrag\" event: Your browser does not support the \"ondrag\" event.");
+		}
+	}
+	catch (error) {
+		document.getElementById("ondragtest").textContent = "FAIL";
+	}
+	
+	/* Ondragstart event test */
+	try {
+		var sample_div = document.createElement("div");
+		let ondragstart_test = "ondragstart" in sample_div;
+		document.getElementById("ondragstarttest").textContent = ondragstart_test ? "PASS" : "FAIL";
+		if (ondragstart_test === false) {
+			console.log("\"ondragstart\" event: Your browser does not support the \"ondragstart\" event.");
+		}
+	}
+	catch (error) {
+		document.getElementById("ondragstarttest").textContent = "FAIL";
+	}
+	
+	/* Ondragenter event test */
+	try {
+		var sample_div = document.createElement("div");
+		let ondragenter_test = "ondragenter" in sample_div;
+		document.getElementById("ondragentertest").textContent = ondragenter_test ? "PASS" : "FAIL";
+		if (ondragenter_test === false) {
+			console.log("\"ondragenter\" event: Your browser does not support the \"ondragenter\" event.");
+		}
+	}
+	catch (error) {
+		document.getElementById("ondragentertest").textContent = "FAIL";
+	}
+	
+	/* Ondragover event test */
+	try {
+		var sample_div = document.createElement("div");
+		let ondragover_test = "ondragover" in sample_div;
+		document.getElementById("ondragovertest").textContent = ondragover_test ? "PASS" : "FAIL";
+		if (ondragover_test === false) {
+			console.log("\"ondragover\" event: Your browser does not support the \"ondragover\" event.");
+		}
+	}
+	catch (error) {
+		document.getElementById("ondragovertest").textContent = "FAIL";
+	}
+	
+	/* Ondragleave event test */
+	try {
+		var sample_div = document.createElement("div");
+		let ondragleave_test = "ondragleave" in sample_div;
+		document.getElementById("ondragleavetest").textContent = ondragleave_test ? "PASS" : "FAIL";
+		if (ondragleave_test === false) {
+			console.log("\"ondragleave\" event: Your browser does not support the \"ondragleave\" event.");
+		}
+	}
+	catch (error) {
+		document.getElementById("ondragleavetest").textContent = "FAIL";
+	}
+	
+	/* Ondragend event test */
+	try {
+		var sample_div = document.createElement("div");
+		let ondragend_test = "ondragend" in sample_div;
+		document.getElementById("ondragendtest").textContent = ondragend_test ? "PASS" : "FAIL";
+		if (ondragend_test === false) {
+			console.log("\"ondragend\" event: Your browser does not support the \"ondragend\" event.");
+		}
+	}
+	catch (error) {
+		document.getElementById("ondragendtest").textContent = "FAIL";
+	}
+	
+	/* Ondrop event test */
+	try {
+		var sample_div = document.createElement("div");
+		let ondrop_test = "ondrop" in sample_div;
+		document.getElementById("ondroptest").textContent = ondrop_test ? "PASS" : "FAIL";
+		if (ondrop_test === false) {
+			console.log("\"ondrop\" event: Your browser does not support the \"ondrop\" event.");
+		}
+	}
+	catch (error) {
+		document.getElementById("ondroptest").textContent = "FAIL";
+	}
+	
+	/* Editable elements test */
+	try {
+		var tests_passed = 0;
+		var sample_blockquote = document.createElement("blockquote");
+		sample_blockquote.setAttribute("contenteditable", "true");
+		document.body.appendChild(sample_blockquote);
+		let ce_test = sample_blockquote.isContentEditable;
+		document.body.removeChild(sample_blockquote);
+		if (ce_test === true) { tests_passed++; }
+		else {
+			console.log("Editable elements test: Your browser does not support editable elements.");
+		}
+		try {
+			sample_blockquote.contentEditable = "plaintext-only";
+		}
+		catch (error) {
+			console.log("Editable elements test: Your browser does not support the \"plaintext-only\" value.");
+		}
+		let plaintextonly_test = sample_blockquote.contentEditable == "plaintext-only";
+		if (plaintextonly_test === true) { tests_passed++; }
+		switch(tests_passed) {
+			case 0:
+				document.getElementById("editabletest").textContent = "FAIL";
+				break;
+			case 1:
+				document.getElementById("editabletest").textContent = "PARTIAL";
+				break;
+			case 2:
+				document.getElementById("editabletest").textContent = "PASS";
+				break;
+		}
+	}
+	catch (error) {
+		document.getElementById("editabletest").textContent = "FAIL";
+	}
+	
+	/* designMode attribute test */
+	try {
+		if ("designMode" in document) {
+			document.getElementById("designmodetest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("designmodetest").textContent = "FAIL";
+			console.log("\"designMode\" attribute: Your browser does not support the \"designMode\" attribute for editing documents.");
+		}
+	}
+	catch (error) {
+		document.getElementById("designmodetest").textContent = "FAIL";
+	}
+	
+	/* Clipboard interface test */
+	try {
+		if (window.isSecureContext) {
+			if ("clipboard" in navigator) {
+				var tests_passed = 0;
+				if (typeof navigator.clipboard.read === "function") { tests_passed++; }
+				else { console.log("Clipboard interface: Your browser does not support the \"read\" method."); }
+				if (typeof navigator.clipboard.readText === "function") { tests_passed++; }
+				else { console.log("Clipboard interface: Your browser does not support the \"readText\" method."); }
+				if (typeof navigator.clipboard.write === "function") { tests_passed++; }
+				else { console.log("Clipboard interface: Your browser does not support the \"write\" method."); }
+				if (typeof navigator.clipboard.writeText === "function") { tests_passed++; }
+				else { console.log("Clipboard interface: Your browser does not support the \"writeText\" method."); }
+				document.getElementById("clipboardtest").textContent = (tests_passed === 4) ? "PASS" : "PARTIAL";
+			}
+			else {
+				document.getElementById("clipboardtest").textContent = "FAIL";
+				console.log("Clipboard interface: Your browser does not support the Clipboard interface.");
+			}
+		}
+		else {
+			document.getElementById("clipboardtest").textContent = "FAIL";
+			console.log("Clipboard interface: The Clipboard interface requires a secure context in order to operate.");
+		}
+	}
+	catch (error) {
+		document.getElementById("clipboardtest").textContent = "FAIL";
+	}
+	
+	/* Clipboard Event interface test */
+	try {
+		if (typeof ClipboardEvent === "function") {
+			var tests_passed = 0;
+			let sample_clipboardevent = new ClipboardEvent("copy");
+			if ("clipboardData" in sample_clipboardevent) { tests_passed++; }
+			else { console.log("Clipboard Event interface: Your browser does not support the \"clipboardData\" property."); }
+			var sample_div = document.createElement("div");
+			if ("oncopy" in sample_div) { tests_passed++; }
+			else { console.log("Clipboard Event interface: Your browser does not support the \"oncopy\" event."); }
+			if ("oncut" in sample_div) { tests_passed++; }
+			else { console.log("Clipboard Event interface: Your browser does not support the \"oncut\" event."); }
+			if ("onpaste" in sample_div) { tests_passed++; }
+			else { console.log("Clipboard Event interface: Your browser does not support the \"onpaste\" event."); }
+			document.getElementById("clipboardeventtest").textContent = (tests_passed === 4) ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("clipboardeventtest").textContent = "FAIL";
+			console.log("Clipboard Event interface: Your browser does not support the Clipboard Event interface.");
+		}
+	}
+	catch (error) {
+		document.getElementById("clipboardeventtest").textContent = "FAIL";
+	}
+	
+	/* Clipboard Item interface test */
+	try {
+		if (window.isSecureContext) {
+			if ("ClipboardItem" in window) {
+				var tests_passed = 0;
+				let sample_item = new ClipboardItem({ "text/plain": "TEST" });
+				if (typeof sample_item.getType === "function") { tests_passed++; }
+				else { console.log("Clipboard Item interface: Your browser does not support the \"getType\" method."); }
+				if ("presentationStyle" in sample_item) { tests_passed++; }
+				else { console.log("Clipboard Item interface: Your browser does not support the \"presentationStyle\" property."); }
+				if (typeof ClipboardItem.supports === "function") { tests_passed++; }
+				else { console.log("Clipboard Item interface: Your browser does not support the \"supports\" static method."); }
+				if ("types" in sample_item) { tests_passed++; }
+				else { console.log("Clipboard Item interface: Your browser does not support the \"types\" property."); }
+				document.getElementById("clipboarditemtest").textContent = (tests_passed === 4) ? "PASS" : "PARTIAL";
+			}
+			else {
+				document.getElementById("clipboarditemtest").textContent = "FAIL";
+				console.log("Clipboard Item interface: Your browser does not support the Clipboard Item interface.");
+			}
+		}
+		else {
+			document.getElementById("clipboarditemtest").textContent = "FAIL";
+			console.log("Clipboard Item interface: The Clipboard Item interface requires a secure context in order to operate.");
+		}
+	}
+	catch (error) {
+		document.getElementById("clipboarditemtest").textContent = "FAIL";
+	}
+	
+	/* Spellcheck attribute test */
+	try {
+		var sample_textarea = document.createElement("textarea");
+		if ("spellcheck" in sample_textarea) {
+			document.getElementById("spellchecktest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("spellchecktest").textContent = "FAIL";
+			console.log("\"spellcheck\" attribute: Your browser does not support the \"spellcheck\" attribute.");
+		}
+	}
+	catch (error) {
+		document.getElementById("hiddentest").textContent = "FAIL";
+	}
+	
+	/* SCRIPTING */
+	
+	/* Asynchronous script execution test */
+	try {
+		sample_script = document.createElement("script");
+		if ("async" in sample_script) {
+			document.getElementById("asyncscriptexectest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("asyncscriptexectest").textContent = "FAIL";
+			console.log("Asynchronous script execution: Your browser does not support asynchronous script execution.");
+		}
+	}
+	catch (error) {
+		document.getElementById("asyncscriptexectest").textContent = "FAIL";
+	}
+	
+	/* Defered script execution test */
+	try {
+		sample_script = document.createElement("script");
+		if ("defer" in sample_script) {
+			document.getElementById("deferedscriptexectest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("deferedscriptexectest").textContent = "FAIL";
+			console.log("Defered script execution: Your browser does not support defered script execution.");
+		}
+	}
+	catch (error) {
+		document.getElementById("deferedscriptexectest").textContent = "FAIL";
+	}
+	
+	/* Runtime script error reporting test */
+	try {
+		if ("onerror" in window) {
+			document.getElementById("runtimeerrortest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("runtimeerrortest").textContent = "FAIL";
+			console.log("Runtime script error reporting: Your browser does not support runtime script error reporting.");
+		}
+	}
+	catch (error) {
+		document.getElementById("runtimeerrortest").textContent = "FAIL";
+	}
+	
+	/* JSON encoding and decoding test */
+	try {
+		if (typeof JSON === "object" && JSON !== null) {
+			var tests_passed = 0;
+			if (typeof JSON.parse === "function") { tests_passed++; }
+			else { console.log("JSON encoding and decoding: Your browser does not support the \"parse\" static method."); }
+			if (typeof JSON.stringify === "function") { tests_passed++; }
+			else { console.log("JSON encoding and decoding: Your browser does not support the \"stringify\" static method."); }
+			document.getElementById("jsonendectest").textContent = (tests_passed === 2) ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("jsonendectest").textContent = "FAIL";
+			console.log("JSON encoding and decoding: Your browser does not support JSON encoding and decoding.");
+		}
+	}
+	catch (error) {
+		document.getElementById("jsonendectest").textContent = "FAIL";
+	}
+	
+	/* Modules test */
+	try {
+		let sample_script = document.createElement("script");
+		sample_script.type = "module";
+		sample_script.innerHTML = "document.getElementById('modulestest').textContent = 'PASS';";
+		document.body.appendChild(sample_script);
+		setTimeout(function() {
+			if (document.getElementById("modulestest").textContent !== "PASS") {
+				document.getElementById("modulestest").textContent = "FAIL";
+				console.log("Modules: Your browser does not support scripts of type \"module.\"");
+			}
+		}, 10000);
+	}
+	catch (error) {
+		document.getElementById("modulestesttest").textContent = "FAIL";
+	}
+	
+	/* Classes test */
+	try {
+		new Function("class my_class {}")();
+		document.getElementById("classestest").textContent = "PASS";
+	}
+	catch (error) {
+		document.getElementById("classestest").textContent = "FAIL";
+		console.log("Classes: Your browser does not support JavaScript classes. If you believe this to be incorrect, please file a bug report.");
+	}
+	
+	/* Arrow functions test */
+	try {
+		new Function("return (() => {})()")();
+		document.getElementById("arrowfunctest").textContent = "PASS";
+	}
+	catch (error) {
+		document.getElementById("arrowfunctest").textContent = "FAIL";
+		console.log("Arrow functions: Your browser does not support arrow functions. If you believe this to be incorrect, please file a bug report.");
+	}
+	
+	/* Promises test */
+	try {
+		if (typeof Promise !== "undefined" && Promise.toString().indexOf("[native code]") !== -1) {
+			var tests_passed = 0;
+			if (typeof Promise.all === "function") { tests_passed++; }
+			else { console.log("Promises: Your browser does not support the \"all\" static method."); }
+			if (typeof Promise.allSettled === "function") { tests_passed++; }
+			else { console.log("Promises: Your browser does not support the \"allSettled\" static method."); }
+			if (typeof Promise.any === "function") { tests_passed++; }
+			else { console.log("Promises: Your browser does not support the \"any\" static method."); }
+			if (typeof Promise.race === "function") { tests_passed++; }
+			else { console.log("Promises: Your browser does not support the \"race\" static method."); }
+			if (typeof Promise.reject === "function") { tests_passed++; }
+			else { console.log("Promises: Your browser does not support the \"reject\" static method."); }
+			let promise_resolve_test = (typeof Promise.resolve === "function");
+			if (promise_resolve_test) {
+				tests_passed++;
+				let sample_promise = Promise.resolve();
+				if (typeof sample_promise.catch === "function") { tests_passed++; }
+				else { console.log("Promises: Your browser does not support the \"catch\" method."); }
+				if (typeof sample_promise.finally === "function") { tests_passed++; }
+				else { console.log("Promises: Your browser does not support the \"finally\" method."); }
+				if (typeof sample_promise.then === "function") { tests_passed++; }
+				else { console.log("Promises: Your browser does not support the \"then\" method."); }
+			}
+			else { console.log("Promises: Your browser does not support the \"resolve\" static method."); }
+			if (typeof Promise.withResolvers === "function") { tests_passed++; }
+			else { console.log("Promises: Your browser does not support the \"withResolvers\" method."); }
+			document.getElementById("promisestest").textContent = (tests_passed === 10) ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("promisestest").textContent = "FAIL";
+			console.log("Promises: Your browser does not support promises.");
+		}
+	}
+	catch (error) {
+		document.getElementById("promisestest").textContent = "FAIL";
+	}
+	
+	/* Template literals test */
+	try {
+		let my_literal = `TEST`;
+		if (my_literal === "TEST") {
+			document.getElementById("templateliteralstest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("templateliteralstest").textContent = "FAIL";
+			console.log("Template literals: Your browser does not support template literals.");
+		}
+	}
+	catch (error) {
+		document.getElementById("templateliteralstest").textContent = "FAIL";
+		console.log("Template literals: Your browser does not support template literals. If you believe this to be incorrect, please file a bug report.");
+	}
+	
+	/* Typed arrays test */
+	try {
+		var tests_passed = 0;
+		try {
+			new Int8Array;
+			tests_passed++;
+			let sample_array = new Int8Array(1);
+			if (typeof sample_array[Symbol.iterator] === "function") { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"@@iterator\" method."); }
+			if ("BYTES_PER_ELEMENT" in Int8Array) { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"BYTES_PER_ELEMENT\" static data property."); }
+			if (typeof sample_array.at === "function") { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"at\" method."); }
+			if ("buffer" in sample_array && sample_array.buffer instanceof ArrayBuffer) { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"buffer\" accessor property."); }
+			if ("byteLength" in sample_array) { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"byteLength\" accessor property."); }
+			if ("byteOffset" in sample_array) { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"byteOffset\" accessor property."); }
+			if (typeof sample_array.copyWithin === "function") { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"copyWithin\" method."); }
+			if (typeof sample_array.entries === "function") { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"entries\" method."); }
+			if (typeof sample_array.every === "function") { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"every\" method."); }
+			if (typeof sample_array.fill === "function") { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"fill\" method."); }
+			if (typeof sample_array.filter === "function") { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"filter\" method."); }
+			if (typeof sample_array.find === "function") { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"find\" method."); }
+			if (typeof sample_array.findIndex === "function") { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"findIndex\" method."); }
+			if (typeof sample_array.findLast === "function") { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"findLast\" method."); }
+			if (typeof sample_array.findLastIndex === "function") { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"findLastIndex\" method."); }
+			if (typeof sample_array.forEach === "function") { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"forEach\" method."); }
+			if (typeof Int8Array.from === "function") { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"from\" static method."); }
+			if (typeof sample_array.includes === "function") { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"includes\" method."); }
+			if (typeof sample_array.indexOf === "function") { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"indexOf\" method."); }
+			if (typeof sample_array.join === "function") { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"join\" method."); }
+			if (typeof sample_array.keys === "function") { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"keys\" method."); }
+			if (typeof sample_array.lastIndexOf === "function") { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"lastIndexOf\" method."); }
+			if ("length" in sample_array) { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"length\" accessor property."); }
+			if (typeof sample_array.map === "function") { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"map\" method."); }
+			if ("name" in Int8Array) { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"name\" data property."); }
+			if (typeof Int8Array.of === "function") { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"of\" static method."); }
+			if (typeof sample_array.reduce === "function") { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"reduce\" method."); }
+			if (typeof sample_array.reduceRight === "function") { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"reduceRight\" method."); }
+			if (typeof sample_array.reverse === "function") { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"reverse\" method."); }
+			if (typeof sample_array.set === "function") { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"set\" method."); }
+			if (typeof sample_array.slice === "function") { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"slice\" method."); }
+			if (typeof sample_array.some === "function") { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"some\" method."); }
+			if (typeof sample_array.sort === "function") { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"sort\" method."); }
+			if (typeof sample_array.subarray === "function") { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"subarray\" method."); }
+			if (typeof sample_array.toLocaleString === "function") { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"toLocaleString\" method."); }
+			if (typeof sample_array.toReversed === "function") { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"toReversed\" method."); }
+			if (typeof sample_array.toSorted === "function") { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"toSorted\" method."); }
+			if (typeof sample_array.toString === "function") { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"toString\" method."); }
+			if (typeof sample_array.values === "function") { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"values\" method."); }
+			if (typeof sample_array.with === "function") { tests_passed++; }
+			else { console.log("Typed arrays: Your browser does not support the \"with\" method."); }
+		}
+		catch (error) { console.log("Typed arrays: Your browser does not support the Int8Array object."); }
+		try {
+			new Uint8Array;
+			tests_passed++;
+		}
+		catch (error) { console.log("Typed arrays: Your browser does not support the Uint8Array object."); }
+		try {
+			new Uint8ClampedArray;
+			tests_passed++;
+		}
+		catch (error) { console.log("Typed arrays: Your browser does not support the Uint8ClampedArray object."); }
+		try {
+			new Int16Array;
+			tests_passed++;
+		}
+		catch (error) { console.log("Typed arrays: Your browser does not support the Int16Array object."); }
+		try {
+			new Uint16Array;
+			tests_passed++;
+		}
+		catch (error) { console.log("Typed arrays: Your browser does not support the Uint16Array object."); }
+		try {
+			new Int32Array;
+			tests_passed++;
+		}
+		catch (error) { console.log("Typed arrays: Your browser does not support the Int32Array object."); }
+		try {
+			new Uint32Array;
+			tests_passed++;
+		}
+		catch (error) { console.log("Typed arrays: Your browser does not support the Uint32Array object."); }
+		try {
+			new Float16Array;
+			tests_passed++;
+		}
+		catch (error) { console.log("Typed arrays: Your browser does not support the Float16Array object."); }
+		try {
+			new Float32Array;
+			tests_passed++;
+		}
+		catch (error) { console.log("Typed arrays: Your browser does not support the Float32Array object."); }
+		try {
+			new Float64Array;
+			tests_passed++;
+		}
+		catch (error) { console.log("Typed arrays: Your browser does not support the Float64Array object."); }
+		try {
+			new BigInt64Array;
+			tests_passed++;
+		}
+		catch (error) { console.log("Typed arrays: Your browser does not support the BigInt64Array object."); }
+		try {
+			new BigUint64Array;
+			tests_passed++;
+		}
+		catch (error) { console.log("Typed arrays: Your browser does not support the BigUint64Array object."); }
+		switch (tests_passed) {
+			case 0:
+				document.getElementById("typedarraystest").textContent = "FAIL";
+				break;
+			case 52:
+				document.getElementById("typedarraystest").textContent = "PASS";
+				break;
+			default:
+				document.getElementById("typedarraystest").textContent = "PARTIAL";
+		}
+	}
+	catch (error) {
+		document.getElementById("typedarraystest").textContent = "FAIL";
+	}
+	
+	/* Internationalization test */
+	try {
+		if (typeof Intl === "object") {
+			var tests_passed = 0;
+			try {
+				let sample_collator = new Intl.Collator("en-US");
+				tests_passed++;
+				if (typeof sample_collator.compare === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"compare\" method on the Collator object."); }
+				if (typeof sample_collator.resolvedOptions === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"resolvedOptions\" method on the Collator object."); }
+				if (typeof Intl.Collator.supportedLocalesOf === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"supportedLocalesOf\" method on the Collator object."); }
+			}
+			catch (error) { console.log("Internationalization: Your browser does not support the Collator object."); }
+			try {
+				let sample_datetime_format = new Intl.DateTimeFormat("en-US");
+				tests_passed++;
+				if (typeof sample_datetime_format.format === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"format\" method on the DateTimeFormat object."); }
+				if (typeof sample_datetime_format.formatRange === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"formatRange\" method on the DateTimeFormat object."); }
+				if (typeof sample_datetime_format.formatRangeToParts === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"formatRangeToParts\" method on the DateTimeFormat object."); }
+				if (typeof sample_datetime_format.resolvedOptions === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"resolvedOptions\" method on the DateTimeFormat object."); }
+				if (typeof Intl.DateTimeFormat.supportedLocalesOf === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"supportedLocalesOf\" method on the DateTimeFormat object."); }
+			}
+			catch (error) { console.log("Internationalization: Your browser does not support the DateTimeFormat object."); }
+			try {
+				let sample_display_names = new Intl.DisplayNames(["en"], {type: "region" });
+				tests_passed++;
+				if (typeof sample_display_names.of === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"of\" method on the DisplayNames object."); }
+				if (typeof sample_display_names.resolvedOptions === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"resolvedOptions\" method on the DisplayNames object."); }
+				if (typeof Intl.DisplayNames.supportedLocalesOf === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"supportedLocalesOf\" method on the DisplayNames object."); }
+			}
+			catch (error) { console.log("Internationalization: Your browser does not support the DisplayNames object."); }
+			try {
+				let sample_list_format = new Intl.ListFormat("en-US");
+				tests_passed++;
+				if (typeof sample_list_format.format === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"format\" method on the ListFormat object."); }
+				if (typeof sample_list_format.formatToParts === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"formatToParts\" method on the ListFormat object."); }
+				if (typeof sample_list_format.resolvedOptions === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"resolvedOptions\" method on the ListFormat object."); }
+				if (typeof Intl.ListFormat.supportedLocalesOf === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"supportedLocalesOf\" method on the ListFormat object."); }
+			}
+			catch (error) { console.log("Internationalization: Your browser does not support the ListFormat object."); }
+			try {
+				let sample_locale = new Intl.Locale("en-US");
+				tests_passed++;
+				if ("baseName" in sample_locale) { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"baseName\" accessor property on the Locale object."); }
+				if ("calendar" in sample_locale) { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"calendar\" accessor property on the Locale object."); }
+				if ("caseFirst" in sample_locale) { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"caseFirst\" accessor property on the Locale object."); }
+				if ("collation" in sample_locale) { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"collation\" accessor property on the Locale object."); }
+				if (typeof sample_locale.getCalendars === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"getCalendars\" method on the Locale object."); }
+				if (typeof sample_locale.getCollations === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"getCollations\" method on the Locale object."); }
+				if (typeof sample_locale.getHourCycles === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"getHourCycles\" method on the Locale object."); }
+				if (typeof sample_locale.getNumberingSystems === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"getNumberingSystems\" method on the Locale object."); }
+				if (typeof sample_locale.getTextInfo === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"getTextInfo\" method on the Locale object."); }
+				if (typeof sample_locale.getTimeZones === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"getTimeZones\" method on the Locale object."); }
+				if (typeof sample_locale.getCalendars === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"getCalendars\" method on the Locale object."); }
+				if (typeof sample_locale.getWeekInfo === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"getWeekInfo\" method on the Locale object."); }
+				if ("hourCycle" in sample_locale) { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"hourCycle\" accessor property on the Locale object."); }
+				if ("language" in sample_locale) { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"language\" accessor property on the Locale object."); }
+				if (typeof sample_locale.maximize === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"maximize\" method on the Locale object."); }
+				if (typeof sample_locale.minimize === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"minimize\" method on the Locale object."); }
+				if ("numberingSystem" in sample_locale) { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"numberingSystem\" accessor property on the Locale object."); }
+				if ("numeric" in sample_locale) { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"numeric\" accessor property on the Locale object."); }
+				if ("region" in sample_locale) { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"region\" accessor property on the Locale object."); }
+				if ("script" in sample_locale) { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"script\" accessor property on the Locale object."); }
+				if (typeof sample_locale.toString === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"toString\" method on the Locale object."); }
+			}
+			catch (error) { console.log("Internationalization: Your browser does not support the Locale object."); }
+			try {
+				let sample_number_format = new Intl.NumberFormat("en-US");
+				var format_test_passed = false;
+				tests_passed++;
+				if (typeof sample_number_format.format === "function") {
+					tests_passed++;
+					format_test_passed = true;
+				}
+				else { console.log("Internationalization: Your browser does not support the \"format\" method on the NumberFormat object."); }
+				if (typeof sample_number_format.formatRange === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"formatRange\" method on the NumberFormat object."); }
+				if (typeof sample_number_format.formatRangeToParts === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"formatRangeToParts\" method on the NumberFormat object."); }
+				if (format_test_passed === true) {
+					let negative_test = sample_number_format.format(-128);
+					if (negative_test.includes('-')) { tests_passed++; }
+					else { console.log("Internationalization: Your browser does not support negative values on the NumberFormat object."); }
+				}
+				if (typeof sample_number_format.resolvedOptions === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"resolvedOptions\" method on the NumberFormat object."); }
+				if (typeof Intl.NumberFormat.supportedLocalesOf === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"supportedLocalesOf\" method on the NumberFormat object."); }
+			}
+			catch (error) { console.log("Internationalization: Your browser does not support the NumberFormat object."); }
+			try {
+				let sample_plural_rules = new Intl.PluralRules("en-US");
+				tests_passed++;
+				if (typeof sample_plural_rules.resolvedOptions === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"resolvedOptions\" method on the DisplayNames object."); }
+				if (typeof sample_plural_rules.select === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"select\" method on the DisplayNames object."); }
+				if (typeof sample_plural_rules.selectRange === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"selectRange\" method on the DisplayNames object."); }
+				if (typeof Intl.PluralRules.supportedLocalesOf === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"supportedLocalesOf\" method on the DisplayNames object."); }
+			}
+			catch (error) { console.log("Internationalization: Your browser does not support the DisplayNames object."); }
+			switch (tests_passed) {
+				case 0:
+					document.getElementById("internationaltest").textContent = "FAIL";
+					break;
+				case 53:
+					document.getElementById("internationaltest").textContent = "PASS";
+					break;
+				default:
+					document.getElementById("internationaltest").textContent = "PARTIAL";
+			}
+		}
+		else {
+			document.getElementById("internationaltest").textContent = "FAIL";
+			console.log("Internationalization: Your browser does not support the Intl object.");
+		}
+	}
+	catch (error) {
+		document.getElementById("internationaltest").textContent = "FAIL";
+	}
+	
+	/* Async and Await test */
+	try {
+		new Function("return async function(){}")();
+		new Function("return async function(){ await Promise.resolve(); }")();
+		document.getElementById("asyncawaittest").textContent = "PASS";
+	}
+	catch (error) {
+		document.getElementById("asyncawaittest").textContent = "FAIL";
+		console.log("Async and Await: Your browser does not support the async and await functions. If you believe this to be incorrect, please file a bug report.");
+	}
+	
+	/* Base64 encoding and decoding test */
+	try {
+		if (typeof window.atob === "function") {
+			document.getElementById("base64endectest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("base64endectest").textContent = "FAIL";
+			console.log("Base64 encoding and decoding: Your browser does not support the \"atob\" method which is required for Base64 encoding and decoding.");
+		}
+	}
+	catch (error) {
+		document.getElementById("base64endectest").textContent = "FAIL";
+		console.log("Base64 encoding and decoding: There was an error in running this test. If you believe this to be incorrect, please file a bug report.");
+	}
+	
+	/* Mutation Observer test */
+	try {
+		if (typeof MutationObserver !== "undefined") {
+			var tests_passed = 0;
+			let sample_mutation_observer = new MutationObserver(function() {});
+			if (typeof sample_mutation_observer.disconnect === "function") { tests_passed++; }
+			else { console.log("Mutation Observer test: Your browser does not support the \"disconnect\" method."); }
+			if (typeof sample_mutation_observer.observe === "function") { tests_passed++; }
+			else { console.log("Mutation Observer test: Your browser does not support the \"observe\" method."); }
+			if (typeof sample_mutation_observer.takeRecords === "function") { tests_passed++; }
+			else { console.log("Mutation Observer test: Your browser does not support the \"takeRecords\" method."); }
+			document.getElementById("mutationobservertest").textContent = (tests_passed === 3) ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("mutationobservertest").textContent = "FAIL";
+			console.log("Mutation Observer test: Your browser does not support the MutationObserver interface.");
+		}
+	}
+	catch (error) {
+		document.getElementById("mutationobservertest").textContent = "FAIL";
+	}
+	
+	/* Intersection Observer test */
+	try {
+		if (typeof IntersectionObserver !== "undefined") {
+			var tests_passed = 0;
+			let sample_intersection_observer = new IntersectionObserver(function() {});
+			if (typeof sample_intersection_observer.disconnect === "function") { tests_passed++; }
+			else { console.log("Intersection Observer test: Your browser does not support the \"disconnect\" method."); }
+			if (typeof sample_intersection_observer.observe === "function") { tests_passed++; }
+			else { console.log("Intersection Observer test: Your browser does not support the \"observe\" method."); }
+			if ("root" in sample_intersection_observer) { tests_passed++; }
+			else { console.log("Intersection Observer test: Your browser does not support the \"root\" property."); }
+			if ("rootMargin" in sample_intersection_observer) { tests_passed++; }
+			else { console.log("Intersection Observer test: Your browser does not support the \"rootMargin\" property."); }
+			if (typeof sample_intersection_observer.takeRecords === "function") { tests_passed++; }
+			else { console.log("Intersection Observer test: Your browser does not support the \"takeRecords\" method."); }
+			if ("thresholds" in sample_intersection_observer) { tests_passed++; }
+			else { console.log("Intersection Observer test: Your browser does not support the \"thresholds\" property."); }
+			if (typeof sample_intersection_observer.unobserve === "function") { tests_passed++; }
+			else { console.log("Intersection Observer test: Your browser does not support the \"unobserve\" method."); }
+			document.getElementById("intersectionobservertest").textContent = (tests_passed === 7) ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("intersectionobservertest").textContent = "FAIL";
+			console.log("Intersection Observer test: Your browser does not support the IntersectionObserver interface.");
+		}
+	}
+	catch (error) {
+		document.getElementById("intersectionobservertest").textContent = "FAIL";
+	}
+	
+	/* Resize Observer test */
+	try {
+		if (typeof ResizeObserver !== "undefined") {
+			var tests_passed = 0;
+			let sample_resize_observer = new ResizeObserver(function() {});
+			if (typeof sample_resize_observer.disconnect === "function") { tests_passed++; }
+			else { console.log("Resize Observer test: Your browser does not support the \"disconnect\" method."); }
+			if (typeof sample_resize_observer.observe === "function") { tests_passed++; }
+			else { console.log("Resize Observer test: Your browser does not support the \"observe\" method."); }
+			if (typeof sample_resize_observer.unobserve === "function") { tests_passed++; }
+			else { console.log("Resize Observer test: Your browser does not support the \"unobserve\" method."); }
+			document.getElementById("resizeobservertest").textContent = (tests_passed === 3) ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("resizeobservertest").textContent = "FAIL";
+			console.log("Resize Observer test: Your browser does not support the ResizeObserver interface.");
+		}
+	}
+	catch (error) {
+		document.getElementById("resizeobservertest").textContent = "FAIL";
+	}
+	
+	/* URL interface test*/
+	try {
+		if (typeof URL !== "undefined") {
+			var tests_passed = 0;
+			let sample_url = new URL("https://example.org");
+			if (typeof URL.canParse === "function") { tests_passed++; }
+			else { console.log("URL interface: Your browser does not support the \"canParse\" static method."); }
+			if (typeof URL.createObjectURL === "function") { tests_passed++; }
+			else { console.log("URL interface: Your browser does not support the \"createObjectURL\" static method."); }
+			if ("hash" in sample_url) { tests_passed++; }
+			else { console.log("URL interface: Your browser does not support the \"hash\" property."); }
+			if ("host" in sample_url) { tests_passed++; }
+			else { console.log("URL interface: Your browser does not support the \"host\" property."); }
+			if ("hostname" in sample_url) { tests_passed++; }
+			else { console.log("URL interface: Your browser does not support the \"hostname\" property."); }
+			if ("hash" in sample_url) { tests_passed++; }
+			else { console.log("URL interface: Your browser does not support the \"hash\" property."); }
+			if ("href" in sample_url) { tests_passed++; }
+			else { console.log("URL interface: Your browser does not support the \"href\" property."); }
+			if ("origin" in sample_url) { tests_passed++; }
+			else { console.log("URL interface: Your browser does not support the \"origin\" property."); }
+			if (typeof URL.parse === "function") { tests_passed++; }
+			else { console.log("URL interface: Your browser does not support the \"parse\" static method."); }
+			if ("password" in sample_url) { tests_passed++; }
+			else { console.log("URL interface: Your browser does not support the \"password\" property."); }
+			if ("pathname" in sample_url) { tests_passed++; }
+			else { console.log("URL interface: Your browser does not support the \"pathname\" property."); }
+			if ("port" in sample_url) { tests_passed++; }
+			else { console.log("URL interface: Your browser does not support the \"port\" property."); }
+			if ("origin" in sample_url) { tests_passed++; }
+			else { console.log("URL interface: Your browser does not support the \"origin\" property."); }
+			if ("protocol" in sample_url) { tests_passed++; }
+			else { console.log("URL interface: Your browser does not support the \"protocol\" property."); }
+			if (typeof URL.revokeObjectURL === "function") { tests_passed++; }
+			else { console.log("URL interface: Your browser does not support the \"revokeObjectURL\" static method."); }
+			if ("search" in sample_url) { tests_passed++; }
+			else { console.log("URL interface: Your browser does not support the \"search\" property."); }
+			if ("searchParams" in sample_url) { tests_passed++; }
+			else { console.log("URL interface: Your browser does not support the \"searchParams\" property."); }
+			if (typeof sample_url.toJSON === "function") { tests_passed++; }
+			else { console.log("URL interface: Your browser does not support the \"toJSON\" method."); }
+			if (typeof sample_url.toString === "function") { tests_passed++; }
+			else { console.log("URL interface: Your browser does not support the \"toString\" method."); }
+			if ("username" in sample_url) { tests_passed++; }
+			else { console.log("URL interface: Your browser does not support the \"username\" property."); }
+			document.getElementById("urlinttest").textContent = (tests_passed === 20) ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("urlinttest").textContent = "FAIL";
+			console.log("URL interface: Your browser does not support the URL API.");
+		}
+	}
+	catch (error) {
+		document.getElementById("urlinttest").textContent = "FAIL";
+	}
+	
+	/* URLSearchParams interface */
+	try {
+		if (typeof URLSearchParams !== "undefined") {
+			var tests_passed = 0;
+			let sample_urlsp = new URLSearchParams("?key=value");
+			if (typeof sample_urlsp[Symbol.iterator] === "function") { tests_passed++; }
+			else { console.log("URLSearchParams interface: Your browser does not support the \"@@iterator\" method."); }
+			if (typeof sample_urlsp.append === "function") { tests_passed++; }
+			else { console.log("URLSearchParams interface: Your browser does not support the \"append\" method."); }
+			if (typeof sample_urlsp.delete === "function") { tests_passed++; }
+			else { console.log("URLSearchParams interface: Your browser does not support the \"delete\" method."); }
+			if (typeof sample_urlsp.entries === "function") { tests_passed++; }
+			else { console.log("URLSearchParams interface: Your browser does not support the \"entries\" method."); }
+			if (typeof sample_urlsp.forEach === "function") { tests_passed++; }
+			else { console.log("URLSearchParams interface: Your browser does not support the \"forEach\" method."); }
+			if (typeof sample_urlsp.get === "function") { tests_passed++; }
+			else { console.log("URLSearchParams interface: Your browser does not support the \"get\" method."); }
+			if (typeof sample_urlsp.getAll === "function") { tests_passed++; }
+			else { console.log("URLSearchParams interface: Your browser does not support the \"getAll\" method."); }
+			if (typeof sample_urlsp.has === "function") { tests_passed++; }
+			else { console.log("URLSearchParams interface: Your browser does not support the \"has\" method."); }
+			if (typeof sample_urlsp.keys === "function") { tests_passed++; }
+			else { console.log("URLSearchParams interface: Your browser does not support the \"keys\" method."); }
+			if (typeof sample_urlsp.set === "function") { tests_passed++; }
+			else { console.log("URLSearchParams interface: Your browser does not support the \"set\" method."); }
+			if ("size" in sample_urlsp) { tests_passed++; }
+			else { console.log("URLSearchParams interface: Your browser does not support the \"size\" property."); }
+			if (typeof sample_urlsp.sort === "function") { tests_passed++; }
+			else { console.log("URLSearchParams interface: Your browser does not support the \"sort\" method."); }
+			if (typeof sample_urlsp.toString === "function") { tests_passed++; }
+			else { console.log("URLSearchParams interface: Your browser does not support the \"toString\" method."); }
+			if (typeof sample_urlsp.values === "function") { tests_passed++; }
+			else { console.log("URLSearchParams interface: Your browser does not support the \"values\" method."); }
+			document.getElementById("urlspinttest").textContent = (tests_passed === 14) ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("urlspinttest").textContent = "FAIL";
+			console.log("URLSearchParams interface: Your browser does not support the URLSearchParams interface.");
+		}
+	}
+	catch (error) {
+		document.getElementById("urlspinttest").textContent = "FAIL";
+	}
+	
+	/* Encoding API test */
+	try {
+		var tests_passed = 0;
+		if (typeof TextDecoder !== "undefined") {
+			let sample_text_decoder = new TextDecoder();
+			if (typeof sample_text_decoder.decode === "function") { tests_passed++; }
+			else { console.log("Encoding API test: Your browser does not support the \"decode\" method of the TextDecoder interface."); }
+			if ("encoding" in sample_text_decoder) { tests_passed++; }
+			else { console.log("Encoding API test: Your browser does not support the \"encoding\" property of the TextDecoder interface."); }
+			if ("fatal" in sample_text_decoder) { tests_passed++; }
+			else { console.log("Encoding API test: Your browser does not support the \"fatal\" property of the TextDecoder interface."); }
+			if ("ignoreBOM" in sample_text_decoder) { tests_passed++; }
+			else { console.log("Encoding API test: Your browser does not support the \"ignoreBOM\" property of the TextDecoder interface."); }
+		}
+		else {
+			console.log("Encoding API test: Your browser does not support the TextDecoder interface.");
+		}
+		if (typeof TextEncoder !== "undefined") {
+			let sample_text_encoder = new TextEncoder();
+			if (typeof sample_text_encoder.encode === "function") { tests_passed++; }
+			else { console.log("Encoding API test: Your browser does not support the \"encode\" method of the TextEncoder interface."); }
+			if (typeof sample_text_encoder.encodeInto === "function") { tests_passed++; }
+			else { console.log("Encoding API test: Your browser does not support the \"encodeInto\" method of the TextEncoder interface."); }
+			if ("encoding" in sample_text_encoder) { tests_passed++; }
+			else { console.log("Encoding API test: Your browser does not support the \"encoding\" property of the TextEncoder interface."); }
+		}
+		else {
+			console.log("Encoding API test: Your browser does not support the TextEncoder interface.");
+		}
+		if (typeof TextDecoderStream !== "undefined") {
+			let sample_text_decoder_stream = new TextDecoderStream("utf8");
+			if ("encoding" in sample_text_decoder_stream) { tests_passed++; }
+			else { console.log("Encoding API test: Your browser does not support the \"encoding\" property of the TextDecoderStream interface."); }
+			if ("fatal" in sample_text_decoder_stream) { tests_passed++; }
+			else { console.log("Encoding API test: Your browser does not support the \"fatal\" property of the TextDecoderStream interface."); }
+			if ("ignoreBOM" in sample_text_decoder_stream) { tests_passed++; }
+			else { console.log("Encoding API test: Your browser does not support the \"ignoreBOM\" property of the TextDecoderStream interface."); }
+			if ("readable" in sample_text_decoder_stream) { tests_passed++; }
+			else { console.log("Encoding API test: Your browser does not support the \"readable\" property of the TextDecoderStream interface."); }
+			if ("writable" in sample_text_decoder_stream) { tests_passed++; }
+			else { console.log("Encoding API test: Your browser does not support the \"writable\" property of the TextDecoderStream interface."); }
+		}
+		else {
+			console.log("Encoding API test: Your browser does not support the TextDecoderStream interface.");
+		}
+		if (typeof TextEncoderStream !== "undefined") {
+			let sample_text_encoder_stream = new TextEncoderStream();
+			if ("encoding" in sample_text_encoder_stream) { tests_passed++; }
+			else { console.log("Encoding API test: Your browser does not support the \"encoding\" property of the TextEncoderStream interface."); }
+			if ("readable" in sample_text_encoder_stream) { tests_passed++; }
+			else { console.log("Encoding API test: Your browser does not support the \"readable\" property of the TextEncoderStream interface."); }
+			if ("writable" in sample_text_encoder_stream) { tests_passed++; }
+			else { console.log("Encoding API test: Your browser does not support the \"writable\" property of the TextEncoderStream interface."); }
+		}
+		else {
+			console.log("Encoding API test: Your browser does not support the TextEncoderStream interface.");
+		}
+		switch (tests_passed) {
+			case 0:
+				document.getElementById("enapitest").textContent = "FAIL";
+				break;
+			case 15:
+				document.getElementById("enapitest").textContent = "PASS";
+				break;
+			default:
+				document.getElementById("enapitest").textContent = "PARTIAL";
+		}
+	}
+	catch (error) {
+		document.getElementById("enapitest").textContent = "FAIL";
+	}
+	
+	/* WebAssembly test */
+	try {
+		if (typeof WebAssembly !== "undefined") {
+			var tests_passed = 0;
+			if (typeof WebAssembly.compile === "function") { tests_passed++; }
+			else { console.log("WebAssembly test: Your browser does not support the \"compile\" method."); }
+			if (typeof WebAssembly.CompileError === "function") { tests_passed++; }
+			else { console.log("WebAssembly test: Your browser does not support the \"CompileError\" object."); }
+			if (typeof WebAssembly.compileStreaming === "function") { tests_passed++; }
+			else { console.log("WebAssembly test: Your browser does not support the \"compileStreaming\" method."); }
+			if (typeof WebAssembly.Exception === "function") { tests_passed++; }
+			else { console.log("WebAssembly test: Your browser does not support the \"Exception\" object."); }
+			if (typeof WebAssembly.Exception.prototype.getArg === "function") { tests_passed++; }
+			else { console.log("WebAssembly test: Your browser does not support the \"getArg\" method of the Exception object."); }
+			if (typeof WebAssembly.Exception.prototype.is === "function") { tests_passed++; }
+			else { console.log("WebAssembly test: Your browser does not support the \"is\" method of the Exception object."); }
+			if (typeof WebAssembly.Global === "function") { tests_passed++; }
+			else { console.log("WebAssembly test: Your browser does not support the \"Global\" object."); }
+			let my_global = new WebAssembly.Global({ value: 'i32', mutable: true }, 42);
+			if ("value" in my_global) { tests_passed++; }
+			else { console.log("WebAssembly test: Your browser does not support the \"value\" property of the Global object."); }
+			if (typeof WebAssembly.Global.prototype.valueOf === "function") { tests_passed++; }
+			else { console.log("WebAssembly test: Your browser does not support the \"valueOf\" method of the Global object."); }
+			if (typeof WebAssembly.Instance === "function") { tests_passed++; }
+			else { console.log("WebAssembly test: Your browser does not support the \"Instance\" object."); }
+			if (typeof WebAssembly.instantiate === "function") { tests_passed++; }
+			else { console.log("WebAssembly test: Your browser does not support the \"instantiate\" method."); }
+			if (typeof WebAssembly.instantiateStreaming === "function") { tests_passed++; }
+			else { console.log("WebAssembly test: Your browser does not support the \"instantiateStreaming\" method."); }
+			if (typeof WebAssembly.LinkError === "function") { tests_passed++; }
+			else { console.log("WebAssembly test: Your browser does not support the \"LinkError\" object."); }
+			if (typeof WebAssembly.Memory === "function") { tests_passed++; }
+			else { console.log("WebAssembly test: Your browser does not support the \"Memory\" object."); }
+			let my_memory = new WebAssembly.Memory({ initial: 1 });
+			if ("buffer"in my_memory) { tests_passed++; }
+			else { console.log("WebAssembly test: Your browser does not support the \"buffer\" property of the Memory object."); }
+			if (typeof WebAssembly.Memory.prototype.grow === "function") { tests_passed++; }
+			else { console.log("WebAssembly test: Your browser does not support the \"grow\" method of the Memory object."); }
+			if (typeof WebAssembly.Module === "function") { tests_passed++; }
+			else { console.log("WebAssembly test: Your browser does not support the \"Module\" object."); }
+			if (typeof WebAssembly.Module.customSections === "function") { tests_passed++; }
+			else { console.log("WebAssembly test: Your browser does not support the \"customSections\" static method of the Module object."); }
+			if (typeof WebAssembly.Module.exports === "function") { tests_passed++; }
+			else { console.log("WebAssembly test: Your browser does not support the \"exports\" static method of the Module object."); }
+			if (typeof WebAssembly.Module.imports === "function") { tests_passed++; }
+			else { console.log("WebAssembly test: Your browser does not support the \"imports\" static method of the Module object."); }
+			if (typeof WebAssembly.RuntimeError === "function") { tests_passed++; }
+			else { console.log("WebAssembly test: Your browser does not support the \"RuntimeError\" object."); }
+			if (typeof WebAssembly.Table === "function") { tests_passed++; }
+			else { console.log("WebAssembly test: Your browser does not support the \"Table\" object."); }
+			if (typeof WebAssembly.Table.prototype.get === "function") { tests_passed++; }
+			else { console.log("WebAssembly test: Your browser does not support the \"get\" method of the Table object."); }
+			if (typeof WebAssembly.Table.prototype.grow === "function") { tests_passed++; }
+			else { console.log("WebAssembly test: Your browser does not support the \"grow\" method of the Table object."); }
+			let my_table = new WebAssembly.Table({ element: 'anyfunc', initial: 1 });
+			if ("length" in my_table) { tests_passed++; }
+			else { console.log("WebAssembly test: Your browser does not support the \"length\" property of the Table object."); }
+			if (typeof WebAssembly.Table.prototype.set === "function") { tests_passed++; }
+			else { console.log("WebAssembly test: Your browser does not support the \"set\" method of the Table object."); }
+			if (typeof WebAssembly.Tag === "function") { tests_passed++; }
+			else { console.log("WebAssembly test: Your browser does not support the \"Tag\" object."); }
+			if (typeof WebAssembly.Tag.prototype.type === "function") { tests_passed++; }
+			else { console.log("WebAssembly test: Your browser does not support the \"type\" method of the Tag object."); }
+			if (typeof WebAssembly.validate === "function") { tests_passed++; }
+			else { console.log("WebAssembly test: Your browser does not support the \"validate\" method."); }
+			document.getElementById("webassemblytest").textContent = (tests_passed === 29) ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("webassemblytest").textContent = "FAIL";
+			console.log("WebAssembly test: Your browser does not support WebAssembly.");
+		}
+	}
+	catch (error) {
+		document.getElementById("webassemblytest").textContent = "FAIL";
 	}
 };
