@@ -4310,4 +4310,754 @@ window.onload = function() {
 	catch (error) {
 		document.getElementById("webassemblytest").textContent = "FAIL";
 	}
+	
+	/* PERFORMANCE TESTS */
+	
+	/* Web Workers test */
+	try {
+		if (typeof Worker !== "undefined") {
+			document.getElementById("webworkerstest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("webworkerstest").textContent = "FAIL";
+			console.log("Web Workers: Your browser does not support Web Workers.");
+		}
+	}
+	catch (error) {
+		document.getElementById("webworkerstest").textContent = "FAIL";
+	}
+	
+	/* Shared Workers test */
+	try {
+		if (typeof SharedWorker !== "undefined") {
+			document.getElementById("sharedworkerstest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("sharedworkerstest").textContent = "FAIL";
+			console.log("Shared Workers: Your browser does not support Shared Workers.");
+		}
+	}
+	catch (error) {
+		document.getElementById("sharedworkerstest").textContent = "FAIL";
+	}
+	
+	/* requestIdleCallback method */
+	try {
+		if (typeof window.requestIdleCallback === "function") {
+			document.getElementById("rictest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("rictest").textContent = "FAIL";
+			console.log("\"requestIdleCallback\" method: Your browser does not support the \"requestIdleCallback\" method.");
+		}
+	}
+	catch (error) {
+		document.getElementById("rictest").textContent = "FAIL";
+	}
+	
+	/* RESOURCE LOADING TESTS */
+	
+	/* CSS Font Loading API test */
+	try {
+		if ("FontFace" in  window) {
+			var tests_passed = 0;
+			let sample_font = new FontFace("sample_font", "url(test_files/slkscr.ttf)");
+			if ("ascentOverride" in sample_font) { tests_passed++; }
+			else { console.log("CSS Font Loading API: Your browser does not support the \"ascentOverride\" property."); }
+			if ("descentOverride" in sample_font) { tests_passed++; }
+			else { console.log("CSS Font Loading API: Your browser does not support the \"descentOverride\" property."); }
+			if ("display" in sample_font) { tests_passed++; }
+			else { console.log("CSS Font Loading API: Your browser does not support the \"display\" property."); }
+			if ("display" in sample_font) { tests_passed++; }
+			else { console.log("CSS Font Loading API: Your browser does not support the \"display\" property."); }
+			if ("family" in sample_font) { tests_passed++; }
+			else { console.log("CSS Font Loading API: Your browser does not support the \"family\" property."); }
+			if ("featureSettings" in sample_font) { tests_passed++; }
+			else { console.log("CSS Font Loading API: Your browser does not support the \"featureSettings\" property."); }
+			if ("lineGapOverride" in sample_font) { tests_passed++; }
+			else { console.log("CSS Font Loading API: Your browser does not support the \"lineGapOverride\" property."); }
+			if (typeof sample_font.load === "function") { tests_passed++; }
+			else { console.log("CSS Font Loading API: Your browser does not support the \"load\" method."); }
+			if ("loaded" in sample_font) { tests_passed++; }
+			else { console.log("CSS Font Loading API: Your browser does not support the \"loaded\" property."); }
+			if ("status" in sample_font) { tests_passed++; }
+			else { console.log("CSS Font Loading API: Your browser does not support the \"status\" property."); }
+			if ("stretch" in sample_font) { tests_passed++; }
+			else { console.log("CSS Font Loading API: Your browser does not support the \"stretch\" property."); }
+			if ("style" in sample_font) { tests_passed++; }
+			else { console.log("CSS Font Loading API: Your browser does not support the \"style\" property."); }
+			if ("unicodeRange" in sample_font) { tests_passed++; }
+			else { console.log("CSS Font Loading API: Your browser does not support the \"unicodeRange\" property."); }
+			if ("variant" in sample_font) { tests_passed++; }
+			else { console.log("CSS Font Loading API: Your browser does not support the \"variant\" property."); }
+			if ("weight" in sample_font) { tests_passed++; }
+			else { console.log("CSS Font Loading API: Your browser does not support the \"weight\" property."); }
+			document.getElementById("fontloadingapitest").textContent = (tests_passed === 15) ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("fontloadingapitest").textContent = "FAIL";
+			console.log("CSS Font Loading API: Your browser does not support the FontFace interface.");
+		}
+	}
+	catch (error) {
+		document.getElementById("fontloadingapitest").textContent = "FAIL";
+	}
+	
+	/* dns-prefetch resource hint test */
+	try {
+		let dns_prefetch_test = document.createElement("link");
+		dns_prefetch_test.rel = "dns-prefetch";
+		if (dns_prefetch_test.rel === "dns-prefetch") {
+			document.getElementById("dnsprefetchrhtest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("dnsprefetchrhtest").textContent = "FAIL";
+			console.log("\"dns-prefetch\" resource hint: Your browser does not support \"link rel=dns-prefetch.\"");
+		}
+	}
+	catch (error) {
+		document.getElementById("dnsprefetchrhtest").textContent = "FAIL";
+	}
+	
+	/* prefetch resource hint test */
+	try {
+		let prefetch_test = document.createElement("link");
+		prefetch_test.rel = "prefetch";
+		if (prefetch_test.rel === "prefetch") {
+			document.getElementById("prefetchrhtest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("prefetchrhtest").textContent = "FAIL";
+			console.log("\"prefetch\" resource hint: Your browser does not support \"link rel=prefetch.\"");
+		}
+	}
+	catch (error) {
+		document.getElementById("prefetchrhtest").textContent = "FAIL";
+	}
+	
+	/* preconnect resource hint test */
+	try {
+		let preconnect_test = document.createElement("link");
+		preconnect_test.rel = "preconnect";
+		if (preconnect_test.rel === "preconnect") {
+			document.getElementById("preconnectrhtest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("preconnectrhtest").textContent = "FAIL";
+			console.log("\"preconnect\" resource hint: Your browser does not support \"link rel=preconnect.\"");
+		}
+	}
+	catch (error) {
+		document.getElementById("preconnectrhtest").textContent = "FAIL";
+	}
+	
+	/* preload resource hint test */
+	try {
+		let preload_test = document.createElement("link");
+		preload_test.rel = "preload";
+		if (preload_test.rel === "preload") {
+			document.getElementById("preloadrhtest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("preloadrhtest").textContent = "FAIL";
+			console.log("\"preload\" resource hint: Your browser does not support \"link rel=preload.\"");
+		}
+	}
+	catch (error) {
+		document.getElementById("preloadrhtest").textContent = "FAIL";
+	}
+	
+	/* Performance Timing test */
+	try {
+		if ("performance" in window && "timing" in window.performance) {
+			document.getElementById("performancetimingtest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("performancetimingtest").textContent = "FAIL";
+			console.log("Performance timing: Your browser does not support performance timing.");
+		}
+	}
+	catch (error) {
+		document.getElementById("performancetimingtest").textContent = "FAIL";
+	}
+	
+	/* Performance Observer test */
+	try {
+		if ("PerformanceObserver" in window) {
+			var tests_passed = 0;
+			let sample_observer = new PerformanceObserver(function() {});
+			if (typeof sample_observer.disconnect === "function") { tests_passed++; }
+			else { console.log("Performance Observer: Your browser does not support the \"disconnect\" method."); }
+			if (typeof sample_observer.observe === "function") { tests_passed++; }
+			else { console.log("Performance Observer: Your browser does not support the \"observe\" method."); }
+			if ("supportedEntryTypes" in PerformanceObserver) { tests_passed++; }
+			else { console.log("Performance Observer: Your browser does not support the \"supportedEntryTypes\" static property/method."); }
+			if (typeof sample_observer.takeRecords === "function") { tests_passed++; }
+			else { console.log("Performance Observer: Your browser does not support the \"takeRecords\" method."); }
+			document.getElementById("performanceobservertest").textContent = (tests_passed === 4) ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("performanceobservertest").textContent = "FAIL";
+			console.log("Performance Observer: Your browser does not support the PerformanceObserver interface.");
+		}
+	}
+	catch (error) {
+		document.getElementById("performanceobservertest").textContent = "FAIL";
+	}
+	
+	/* SECURITY AND PRIVACY TESTS */
+	
+	/* No DRM test */
+	/* NOTE: Some browsers will complain about a lack of robustness. Turns out the test will not run correctly with it. */
+	try {
+		if ("MediaKeys" in window || "WebKitMediaKeys" in window || "MSMediaKeys" in window) {
+			let	config = [{
+				initDataTypes: ["cenc"],
+				audioCapabilities: [{
+					contentType: "audio/mp4;codecs=\"mp4a.40.2\""
+				}],
+				videoCapabilities: [{
+					contentType: "video/mp4;codecs=\"avc1.42E01E\""
+				}]
+			}];
+			let cdm_systems = [
+				"com.widevine.alpha",		// Widevine
+				"com.microsoft.playready",	// PlayReady
+				"com.adobe.primetime",		// Adobe Primetime
+				"com.apple.fps.1_0",		// FairPlay
+				"org.w3.clearkey"			// Clearkey
+			];
+			async function check_for_cdm() {
+				var cdm_found = false;
+				for (let a of cdm_systems) {
+					try {
+						await navigator.requestMediaKeySystemAccess(a, config);
+						cdm_found = true;
+						console.log(`No DRM: Your browser has the \"${a}\" Digital Restrictions Management technology that is compromising your freedom, privacy, and security.`);
+					}
+					catch (error) {}
+				}
+				document.getElementById("nodrmtest").textContent = (cdm_found === true) ? "DANGER" : "PASS";
+			}
+			check_for_cdm();
+		}
+		else {
+			document.getElementById("nodrmtest").textContent = "PASS";
+		}
+	}
+	catch (error) {
+		document.getElementById("nodrmtest").textContent = "FAIL";
+	}
+	
+	/* No ActiveX test */
+	try {
+		var no_activex = true;
+		try {
+			var sample_activex = new ActiveXObject("SomeActiveX.Object");
+			no_activex = false;
+			sample_activex = null;
+		}
+		catch (error) {
+			sample_activex = null;
+		}
+		if (no_activex === true) {
+			document.getElementById("noactivextest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("noactivextest").textContent = "DANGER";
+			console.log("No ActoveX: Your browser supports ActiveX which is a major security risk.");
+		}
+	}
+	catch (error) {
+		document.getElementById("noactivextest").textContent = "FAIL";
+	}
+	
+	/* No WebRTC test */
+	try {
+		if (window.RTCPeerConnection) {
+			document.getElementById("nowebrtctest").textContent = "DANGER";
+			console.log("No WebRTC: Your browser supports WebRTC which presents a privacy and security risk due to IP address leakage.");
+		}
+		else {
+			document.getElementById("nowebrtctest").textContent = "PASS";
+		}
+	}
+	catch (error) {
+		document.getElementById("nowebrtctest").textContent = "FAIL";
+	}
+	
+	/* Web Crypto API test */
+	try {
+		if (window.isSecureContext) {
+			if (window.crypto) {
+				var tests_passed = 0;
+				if (typeof window.crypto.getRandomValues === "function") { tests_passed++; }
+				else { console.log("Web Crypto API: Your browser does not support the \"getRandomValues\" method."); }
+				if ("subtle" in window.crypto) { tests_passed++; }
+				else { console.log("Web Crypto API: Your browser does not support the \"subtle\" property."); }
+				if (typeof window.crypto.randomUUID === "function") { tests_passed++; }
+				else { console.log("Web Crypto API: Your browser does not support the \"randomUUID\" method."); }
+				document.getElementById("webcryptoapitest").textContent = (tests_passed === 3) ? "PASS" : "PARTIAL";
+			}
+			else {
+				document.getElementById("webcryptoapitest").textContent = "FAIL";
+				console.log("Web Crypto API: Your browser does not support the Web Crypto API.");
+			}
+		}
+		else {
+			document.getElementById("webcryptoapitest").textContent = "FAIL";
+			console.log("Web Crypto API: requires a secure context in order to operate.");
+		}
+	}
+	catch (error) {
+		document.getElementById("webcryptoapitest").textContent = "FAIL";
+	}
+	
+	/* Content Security Policy 1 test */
+	try {
+		var iframe = document.createElement("iframe");
+		iframe.style.display = "none";
+		document.body.appendChild(iframe);
+		iframe.contentDocument.write(`
+			<!DOCTYPE html>
+			<html>
+				<head>
+					<meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self'\">
+				</head>
+				<body></body>
+			</html>
+		`);
+		iframe.contentDocument.close();
+		let csp1_header = iframe.contentDocument.querySelector("meta[http-equiv=\"Content-Security-Policy\"]").getAttribute("content");
+		if (csp1_header.includes("default-src")) {
+			document.getElementById("csp1test").textContent = "PASS";
+		}
+		else {
+			document.getElementById("csp1test").textContent = "FAIL";
+			console.log("Content Security Policy 1: Your browser does not support Content Security Policy 1.");
+		}
+		document.body.removeChild(iframe);
+	}
+	catch (error) {
+		document.getElementById("csp1test").textContent = "FAIL";
+	}
+	
+	/* Content Security Policy 2 test */
+	try {
+		var iframe = document.createElement("iframe");
+		iframe.style.display = "none";
+		document.body.appendChild(iframe);
+		iframe.contentDocument.write(`
+			<!DOCTYPE html>
+			<html>
+				<head>
+					<meta http-equiv=\"Content-Security-Policy\" content=\"script-src 'self' 'unsafe-inline'\">
+				</head>
+				<body></body>
+			</html>
+		`);
+		iframe.contentDocument.close();
+		let csp2_header = iframe.contentDocument.querySelector("meta[http-equiv=\"Content-Security-Policy\"]").getAttribute("content");
+		if (csp2_header.includes("script-src")) {
+			document.getElementById("csp2test").textContent = "PASS";
+		}
+		else {
+			document.getElementById("csp2test").textContent = "FAIL";
+			console.log("Content Security Policy 2: Your browser does not support Content Security Policy 2.");
+		}
+		document.body.removeChild(iframe);
+	}
+	catch (error) {
+		document.getElementById("csp2test").textContent = "FAIL";
+	}
+	
+	/* Cross-Origin Resource Sharing test*/
+	try {
+		var my_xhr = new XMLHttpRequest();
+		let data_url = "data:text/plain;base64,SGVsbG8gd29ybGQ=";
+		my_xhr.open("GET", data_url, true);
+		my_xhr.onreadystatechange = function() {
+			if (my_xhr.readyState === 4) {
+				if (my_xhr.status === 200) {
+					document.getElementById("corstest").textContent = "PASS";
+				}
+				else {
+					document.getElementById("corstest").textContent = "FAIL";
+					console.log("Cross-Rorigin Resource Sharing: Your browser does not support Cross-Origin Resource Sharing.");
+				}
+			}
+		};
+		try {
+			my_xhr.send();
+		}
+		catch (error) {
+			document.getElementById("corstest").textContent = "FAIL";
+			console.log("Cross-Rorigin Resource Sharing: Your browser does not support Cross-Origin Resource Sharing.");
+		}
+	}
+	catch (error) {
+		document.getElementById("corstest").textContent = "FAIL";
+	}
+	
+	/* Subresource Integrity test */
+	try {
+		let sample_link = document.createElement("link");
+		let sample_script = document.createElement("script");
+		let link_integrity_test = "integrity" in sample_link;
+		let script_integrity_test = "integrity" in sample_script;
+		if (link_integrity_test && script_integrity_test) {
+			document.getElementById("sritest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("sritest").textContent = "FAIL";
+			console.log("Subresource Integrity test: Your browser did not support the \"integrity\" attribute.");
+		}
+	}
+	catch (error) {
+		document.getElementById("sritest").textContent = "FAIL";
+	}
+	
+	/* Cross-document messaging test */
+	try {
+		if (typeof window.postMessage === "function") {
+			let channel = new MessageChannel();
+			var msg_port = channel.port2;
+			msg_port.onmessage = function(event) {
+				let rcv_data = event.data;
+				if (rcv_data instanceof ArrayBuffer) {
+					document.getElementById("crossdoctest").textContent = "PASS";
+				}
+				else {
+					document.getElementById("crossdoctest").textContent = "PARTIAL";
+					console.log("Cross-document messaging: Your browser did not support the \"transfer\" parameter.");
+				}
+			};
+			let sample_buffer = new ArrayBuffer(16);
+			channel.port1.postMessage(sample_buffer, [sample_buffer]);
+		}
+		else {
+			document.getElementById("crossdoctest").textContent = "FAIL";
+			console.log("Cross-document messaging: Your browser did not support the \"postMessage\" method.");
+		}
+	}
+	catch (error) {
+		document.getElementById("crossdoctest").textContent = "FAIL";
+	}
+	
+	/* FIDO2 test */
+	try {
+		if (typeof PublicKeyCredential === "function") {
+			var tests_passed = 0;
+			let sample_public_key = PublicKeyCredential.prototype;
+			if ("authenticatorAttachment" in sample_public_key) { tests_passed++; }
+			else { console.log("FIDO2: Your browser does not support the \"authenticatorAttachment\" property."); }
+			if (typeof sample_public_key.getClientExtensionResults === "function") { tests_passed++; }
+			else { console.log("FIDO2: Your browser does not support the \"getClientExtensionResults\" method."); }
+			if (typeof PublicKeyCredential.isConditionalMediationAvailable === "function") { tests_passed++; }
+			else { console.log("FIDO2: Your browser does not support the \"isConditionalMediationAvailable\" static method."); }
+			if (typeof PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable === "function") { tests_passed++; }
+			else { console.log("FIDO2: Your browser does not support the \"isUserVerifyingPlatformAuthenticatorAvailable\" static method."); }
+			if ("rawId" in sample_public_key) { tests_passed++; }
+			else { console.log("FIDO2: Your browser does not support the \"rawId\" property."); }
+			if ("response" in sample_public_key) { tests_passed++; }
+			else { console.log("FIDO2: Your browser does not support the \"response\" property."); }
+			document.getElementById("fido2test").textContent = (tests_passed === 6) ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("fido2test").textContent = "FAIL";
+			console.log("FIDO2: Your browser does not support FIDO2.");
+		}
+	}
+	catch (error) {
+		document.getElementById("fido2test").textContent = "FAIL";
+	}
+	
+	/* Credential management test */
+	try {
+		if ("credentials" in navigator) {
+			var tests_passed = 0;
+			if (typeof navigator.credentials.create === "function") { tests_passed++; }
+			else { console.log("Credential Management Level 1: Your browser does not support the \"create\" method."); }
+			if (typeof navigator.credentials.get === "function") { tests_passed++; }
+			else { console.log("Credential Management Level 1: Your browser does not support the \"get\" method."); }
+			if (typeof navigator.credentials.store === "function") { tests_passed++; }
+			else { console.log("Credential Management Level 1: Your browser does not support the \"store\" method."); }
+			document.getElementById("credentialmantest").textContent = (tests_passed === 3) ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("credentialmantest").textContent = "FAIL";
+			console.log("Credential Management Level 1: Your browser does not support Credential Management Level 1.");
+		}
+	}
+	catch (error) {
+		document.getElementById("credentialmantest").textContent = "FAIL";
+	}
+	
+	/* Sandboxed iframes test */
+	try {
+		let sample_iframe = document.createElement("iframe");
+		if ("sandbox" in sample_iframe) {
+			document.getElementById("sandboxediframetest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("sandboxediframetest").textContent = "FAIL";
+			console.log("Sandboxed iframes: Your browser does not support sandboxed iframes.");
+		}
+	}
+	catch (error) {
+		document.getElementById("sandboxediframetest").textContent = "FAIL";
+	}
+	
+	/* iframes with inline content test */
+	try {
+		/*
+		// This test works, but it flashes the iframe on screen, which is annoying.
+		let sample_iframe = document.createElement("iframe");
+		sample_iframe.setAttribute("srcdoc", "<p>The fish was delish and it made quite a dish.</p>");
+		sample_iframe.onload = function() {
+			let iframedoc = sample_iframe.contentDocument || sample_iframe.contentWindow.document;
+			let inline_iframe_test = iframedoc.body.innerHTML.includes("The fish was delish and it made quite a dish.");
+			if (inline_iframe_test === true) {
+				document.getElementById("iframeinlinetest").textContent = "PASS";
+			}
+			else {
+				document.getElementById("iframeinlinetest").textContent = "FAIL";
+				console.log("iframes with inline contents: Your browser does not iframes with inline contents.");
+			}
+			document.body.removeChild(sample_iframe);
+		}
+		document.body.appendChild(sample_iframe);
+		*/
+		let sample_iframe = document.createElement("iframe");
+		if ("srcdoc" in sample_iframe) {
+			document.getElementById("iframeinlinetest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("iframeinlinetest").textContent = "FAIL";
+			console.log("iframes with inline contents: Your browser does not iframes with inline contents.");
+		}
+	}
+	catch (error) {
+		document.getElementById("iframeinlinetest").textContent = "FAIL";
+	}
+	
+	/* Ad/Tracker blocking test */
+	try {
+		document.getElementById("adblocktest").textContent = "Testing...";
+		let sample_tracker = new Image();
+		sample_tracker.onload = function() {
+			document.getElementById("adblocktest").textContent = "DANGER";
+			console.log("Ad/Tracker blocking: Your browser does not block ads/trackers, which constitutes a privacy and security concern.");
+		}
+		sample_tracker.onerror = function() {
+			document.getElementById("adblocktest").textContent = "PASS";
+		}
+		sample_tracker.src = "https://www.google-analytics.com/r/collect?v=1&_v=j79&a=1733153560&t=pageview&_s=1&dl=http%3A%2F%2Fexample.com&ul=en-us&de=UTF-8&dt=Example&sd=24-bit&sr=1920x1080&vp=1903x969&je=0&_u=IEBAAEQ~&jid=1889738150&gjid=1027089335&cid=555&t=pageview&z=400476707";
+	}
+	catch (error) {
+		document.getElementById("adblocktest").textContent = "FAIL";
+	}
+	
+	/* Global Privacy Control test */
+	try {
+		if (navigator.globalPrivacyControl === true) {
+			document.getElementById("gpctest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("gpctest").textContent = "FAIL";
+			console.log("Global Privacy Control: Either your browser does not support GPC, or it is not enabled.");
+		}
+	}
+	catch (error) {
+		document.getElementById("gpctest").textContent = "FAIL";
+	}
+	
+	/* MISCELLANEOUS TESTS */
+	
+	/* Blink tag test */
+	try {
+		let blink_test = !(document.createElement("blink") instanceof HTMLUnknownElement);
+		document.getElementById("blinktest").textContent = blink_test ? "PASS" : "FAIL";
+		if (blink_test === false) {
+			console.log("<blink>: Your browser does not support the \"blink\" element.");
+		}
+	}
+	catch (error) {
+		document.getElementById("blinktest").textContent = "FAIL";
+	}
+	
+	/* Session history test */
+	try {
+		if ("history" in window) {
+			var tests_passed = 0;
+			if (typeof window.history.back === "function") { tests_passed++; }
+			else { console.log("Session history: Your browser does not support the \"back\" method."); }
+			if (typeof window.history.forward === "function") { tests_passed++; }
+			else { console.log("Session history: Your browser does not support the \"forward\" method."); }
+			if (typeof window.history.go === "function") { tests_passed++; }
+			else { console.log("Session history: Your browser does not support the \"go\" method."); }
+			if ("length" in window.history) { tests_passed++; }
+			else { console.log("Session history: Your browser does not support the \"length\" property."); }
+			if (typeof window.history.pushState === "function") { tests_passed++; }
+			else { console.log("Session history: Your browser does not support the \"pushState\" method."); }
+			if (typeof window.history.replaceState === "function") { tests_passed++; }
+			else { console.log("Session history: Your browser does not support the \"replaceState\" method."); }
+			if ("scrollRestoration" in window.history) { tests_passed++; }
+			else { console.log("Session history: Your browser does not support the \"scrollRestoration\" property."); }
+			if ("state" in window.history) { tests_passed++; }
+			else { console.log("Session history: Your browser does not support the \"state\" property."); }
+			document.getElementById("sessionhisttest").textContent = (tests_passed === 8) ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("sessionhisttest").textContent = "FAIL";
+			console.log("Session history: Your browser does not support the History API.");
+		}
+	}
+	catch (error) {
+		document.getElementById("sessionhisttest").textContent = "FAIL";
+	}
+	
+	/* Page visibility test */
+	try {
+		if ("visibilityState" in document) {
+			document.getElementById("pagevisibilitytest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("pagevisibilitytest").textContent = "FAIL";
+			console.log("Page visibility: Your browser does not support the \"visibilityState\" property.");
+		}
+	}
+	catch (error) {
+		document.getElementById("pagevisibilitytest").textContent = "FAIL";
+	}
+	
+	/* Selection API test */
+	try {
+		if (typeof window.getSelection === "function") {
+			var tests_passed = 0;
+			let sample_selection = window.getSelection();
+			if (typeof sample_selection.addRange === "function") { tests_passed++; }
+			else { console.log("Selection API: Your browser does not support the \"addRange\" method."); }
+			if ("anchorNode" in sample_selection) { tests_passed++; }
+			else { console.log("Selection API: Your browser does not support the \"anchorNode\" property."); }
+			if ("anchorOffset" in sample_selection) { tests_passed++; }
+			else { console.log("Selection API: Your browser does not support the \"anchorOffset\" property."); }
+			if (typeof sample_selection.collapse === "function") { tests_passed++; }
+			else { console.log("Selection API: Your browser does not support the \"collapse\" method."); }
+			if (typeof sample_selection.collapseToEnd === "function") { tests_passed++; }
+			else { console.log("Selection API: Your browser does not support the \"collapseToEnd\" method."); }
+			if (typeof sample_selection.collapseToStart === "function") { tests_passed++; }
+			else { console.log("Selection API: Your browser does not support the \"collapseToStart\" method."); }
+			if (typeof sample_selection.containsNode === "function") { tests_passed++; }
+			else { console.log("Selection API: Your browser does not support the \"containsNode\" method."); }
+			if (typeof sample_selection.deleteFromDocument === "function") { tests_passed++; }
+			else { console.log("Selection API: Your browser does not support the \"deleteFromDocument\" method."); }
+			if ("direction" in sample_selection) { tests_passed++; }
+			else { console.log("Selection API: Your browser does not support the \"direction\" property."); }
+			if (typeof sample_selection.empty === "function") { tests_passed++; }
+			else { console.log("Selection API: Your browser does not support \"empty\" as an alias of \"removeAllRanges\"."); }
+			if (typeof sample_selection.extend === "function") { tests_passed++; }
+			else { console.log("Selection API: Your browser does not support the \"extend\" method."); }
+			if ("focusNode" in sample_selection) { tests_passed++; }
+			else { console.log("Selection API: Your browser does not support the \"focusNode\" property."); }
+			if ("focusOffset" in sample_selection) { tests_passed++; }
+			else { console.log("Selection API: Your browser does not support the \"focusOffset\" property."); }
+			if (typeof sample_selection.getRangeAt === "function") { tests_passed++; }
+			else { console.log("Selection API: Your browser does not support the \"getRangeAt\" method."); }
+			if ("isCollapsed" in sample_selection) { tests_passed++; }
+			else { console.log("Selection API: Your browser does not support the \"isCollapsed\" property."); }
+			if (typeof sample_selection.modify === "function") { tests_passed++; }
+			else { console.log("Selection API: Your browser does not support the \"modify\" method."); }
+			if ("rangeCount" in sample_selection) { tests_passed++; }
+			else { console.log("Selection API: Your browser does not support the \"rangeCount\" property."); }
+			if (typeof sample_selection.removeAllRanges === "function") { tests_passed++; }
+			else { console.log("Selection API: Your browser does not support the \"removeAllRanges\" method."); }
+			if (typeof sample_selection.removeRange === "function") { tests_passed++; }
+			else { console.log("Selection API: Your browser does not support the \"removeRange\" method."); }
+			if (typeof sample_selection.selectAllChildren === "function") { tests_passed++; }
+			else { console.log("Selection API: Your browser does not support the \"selectAllChildren\" method."); }
+			if (typeof sample_selection.setBaseAndExtent === "function") { tests_passed++; }
+			else { console.log("Selection API: Your browser does not support the \"setBaseAndExtent\" method."); }
+			if (typeof sample_selection.setPosition === "function") { tests_passed++; }
+			else { console.log("Selection API: Your browser does not support \"setPosition\" as an alias of \"collapse\"."); }
+			if (typeof sample_selection.toString === "function") { tests_passed++; }
+			else { console.log("Selection API: Your browser does not support the \"toString\" method."); }
+			if ("type" in sample_selection) { tests_passed++; }
+			else { console.log("Selection API: Your browser does not support the \"type\" property."); }
+			document.getElementById("selectiontest").textContent = (tests_passed === 24) ? "PASS" : "PARTIAL";
+		}
+		else {
+			document.getElementById("selectiontest").textContent = "FAIL";
+			console.log("Selection API: Your browser does not support the Selection API.");
+		}
+	}
+	catch (error) {
+		document.getElementById("selectiontest").textContent = "FAIL";
+	}
+	
+	/* scrollIntoView method test */
+	try {
+		if (typeof Element.prototype.scrollIntoView === "function") {
+			document.getElementById("scrollviewtest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("scrollviewtest").textContent = "FAIL";
+			console.log("\"scrollIntoView\" method: Your browser does not support the \"scrollIntoView\" method.");
+		}
+	}
+	catch (error) {
+		document.getElementById("scrollviewtest").textContent = "FAIL";
+	}
+	
+	/* Amiga ProTracker modules test */
+	try {
+		var sample_audio = document.createElement("audio");
+		let protracker_test = (sample_audio.canPlayType("audio/mod") || sample_audio.canPlayType("audio/x-mod"));
+		if (protracker_test === "probably" || protracker_test === "maybe") {
+			document.getElementById("xmodtest").textContent = "PASS";
+		}
+		else {
+			document.getElementById("xmodtest").textContent = "FAIL";
+			console.log("Amiga ProTracker modules: Your browser does not support the MOD or X-MOD mime type.");
+		}
+	}
+	catch (error) {
+		document.getElementById("xmodtest").textContent = "FAIL";
+	}
+	
+	/* Autoplay blocking test */
+	try {
+		document.getElementById("autoplayblocktest").textContent = "Testing...";
+		let sample_audio = document.createElement('audio');
+		sample_audio.src = "test_files/KDE_Beep_ClassicBeep.wav";
+		sample_audio.type = "audio/wav";
+		sample_audio.autoplay = true;
+		sample_audio.muted = true;
+		var autoplay_blocked = true;
+		var play_promise = new Promise(function(resolve, reject) {
+			sample_audio.addEventListener('play', function() {
+				setTimeout(function() {
+					if (sample_audio.paused === false) {
+						autoplay_blocked = false;
+					}
+					resolve();
+				}, 300);
+			}, { once: true });
+			setTimeout(resolve, 3000);
+		});
+		document.body.appendChild(sample_audio);
+		play_promise.then(function() {
+			document.body.removeChild(sample_audio);
+			if (autoplay_blocked === true) {
+				document.getElementById("autoplayblocktest").textContent = "PASS";
+			}
+			else {
+				document.getElementById("autoplayblocktest").textContent = "FAIL";
+				console.log("Autoplay blocking: Your browser did not stop Autoplay from running, which is annoying for most users.");
+			}
+		});
+	}
+	catch (error) {
+		document.getElementById("autoplayblocktest").textContent = "FAIL";
+	}
 };
