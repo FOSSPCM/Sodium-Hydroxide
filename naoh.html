@@ -8,8 +8,19 @@
 		<style type="text/css">
 			html { text-size-adjust: 100% }
 			body { background-color: azure; font-family: serif; font-size: 16px; color: black; }
-			table { margin: 0 auto; }
+			hr { color: teal; }
+			table { margin: 0 auto; border-collapse: collapse; }
 			td { width: 400px; }
+			th { width: 400px; text-align: left; font-weight: bold; font-style: italic; background-color: silver; }
+			td, th { padding: 5px; }
+			tr:nth-child(even) { background-color: whitesmoke; }
+			tr:hover { background-color: gainsboro; }
+			h1 { color: darkcyan; text-align: center; font-size: 48px; }
+			h3 { color: darkcyan; margin: 0.75em; margin-left: 1.5em; font-size: 30px; }
+			.infobox { background-color: oldlace; padding: 3px; border-radius: 15px; border: 2px solid teal; padding: 5px;}
+			.testbox { margin: 0 auto; background-color: white; padding: 5px; border: 2px solid teal; border-radius: 15px; max-width: 950px; margin-top: 25px; margin-bottom: 25px; }
+			.testbox > h3 { text-align: center; }
+			.results { width: 72px; }
 			/*CSS PSUEDO-CLASSES FOR TESTING*/
 			.valid_test:valid { background-color: honeydew; }
 			.invalid_test:invalid { background-color: snow; }
@@ -31,1061 +42,1527 @@
 		</style>
 	</head>
 	<body>
-		<h1>The Sodium-Hydroxide Tests.</h1>
+		<h1>The Sodium-Hydroxide Tests</h1>
 		<h2>This program is conducting a test of your browser's compliance with modern-day Web and Security standards. This is only a test.</h2>
-		<p><hr><p>
-		<p>These are only automated tests for seeing how well your browser supports the web standards and security practices for the modern web, each organized by category. You will see a "PASS," "FAIL," or "PARTIAL" next to each test name. <b>You want to see "PASS" for every test.</b> If you see anything other than just a "PASS," you can find more information by accessing your browser's console (usually this is done by right-clicking, or in the case of Mac users, "secondary-clicking," this page and choosing "Inspect," then go to the "Console" tab in the box that shows up).</p>
+
+		<div class = "infobox">
+		<h3>About the Sodium-Hydroxide Tests</h3>
+		<p>The Sodium-Hydroxide Tests are only automated tests for seeing how well your browser supports the web standards and security practices for the modern web, each organized by category. You will see a "PASS," "FAIL," or "PARTIAL" next to each test name. <b>You want to see "PASS" for every test.</b> If you see anything other than just a "PASS," you can find more information by accessing your browser's console (usually this is done by right-clicking, or in the case of Mac users, "secondary-clicking," this page and choosing "Inspect," then go to the "Console" tab in the box that shows up).</p>
+		<p>The name "Sodium-Hydroxide" was inspired by the name of an old, discontinued web standards test called Acid3. Sodium-Hydroxide (chemical symbol "NaOH") is a corrosive base.</p>
 		<p>Please understand that there is only so much that an automated test can do. Manual testing is needed for a more thorough test. Nevertheless, this should be good enough to convey what your browser supports in the grand scheme of things.</p>
-		<noscript>Javascript is disabled. Would you mind allowing "html5test.js" to run, please?</noscript>
-		<h3>Parsing tests</h3>
-		<table id = "parse_results">
-			<tr>
-				<td>&lt;!DOCTYPE html&gt; triggers standards mode</td>
-				<td id = "doctypetest"></td>
-			</tr>
-			<tr>
-				<td>HTML Tokenizer test</td>
-				<td id = "tokentest"></td>
-			</tr>
-			<tr>
-				<td>HTML Tree building test</td>
-				<td id = "treetest"></td>
-			</tr>
-			<tr>
-				<td>Inline SVG</td>
-				<td id = "insvgtest"></td>
-			</tr>
-			<tr>
-				<td>Inline MathML</td>
-				<td id = "inmathmltest"></td>
-			</tr>
-		</table>
-		<h3>Element tests</h3>
-		<table id = "element_results">
-			<tr>
-				<td>Embedding custom non-visible data</td>
-				<td id = "datasettest"></td>
-			</tr>
-			<tr>
-				<td>&lt;section&gt;</td>
-				<td id = "sectiontest"></td>
-			</tr>
-			<tr>
-				<td>&lt;nav&gt;</td>
-				<td id = "navtest"></td>
-			</tr>
-			<tr>
-				<td>&lt;article&gt;</td>
-				<td id = "articletest"></td>
-			</tr>
-			<tr>
-				<td>&lt;aside&gt;</td>
-				<td id = "asidetest"></td>
-			</tr>
-			<tr>
-				<td>&lt;header&gt;</td>
-				<td id = "headertest"></td>
-			</tr>
-			<tr>
-				<td>&lt;footer&gt;</td>
-				<td id = "footertest"></td>
-			</tr>
-			<tr>
-				<td>&lt;main&gt;</td>
-				<td id = "maintest"></td>
-			</tr>
-			<tr>
-				<td>&lt;figure&gt;</td>
-				<td id = "figuretest"></td>
-			</tr>
-			<tr>
-				<td>&lt;figcaption&gt;</td>
-				<td id = "figcaptiontest"></td>
-			</tr>
-			<tr>
-				<td>"reversed" attribute works on the "ol" element</td>
-				<td id = "reversedoltest"></td>
-			</tr>
-			<tr>
-				<td>"download" attribute works on the "a" element"</td>
-				<td id = "downloadatest"></td>
-			</tr>
-			<tr>
-				<td>"ping" attribute works on the "a" element"</td>
-				<td id = "pingatest"></td>
-			</tr>
-			<tr>
-				<td>&lt;mark&gt;</td>
-				<td id = "marktest"></td>
-			</tr>
-			<tr>
-				<td>&lt;ruby&gt;, &lt;rt&gt;, and &lt;rp&gt;</td>
-				<td id = "rubytest"></td>
-			</tr>
-			<tr>
-				<td>&lt;time&gt;</td>
-				<td id = "timetest"></td>
-			</tr>
-			<tr>
-				<td>&lt;data&gt;</td>
-				<td id = "datatest"></td>
-			</tr>
-			<tr>
-				<td>&lt;wbr&gt;</td>
-				<td id = "wbrtest"></td>
-			</tr>
-			<tr>
-				<td>&lt;details&gt;</td>
-				<td id = "detailstest"></td>
-			</tr>
-			<tr>
-				<td>&lt;summary&gt;</td>
-				<td id = "summarytest"></td>
-			</tr>
-			<tr>
-				<td>&lt;dialog&gt;</td>
-				<td id = "dialogtest"></td>
-			</tr>
-			<tr>
-				<td>"hidden" attribute</td>
-				<td id = "hiddentest"></td>
-			</tr>
-			<tr>
-				<td>"translate" attribute</td>
-				<td id = "translatetest"></td>
-			</tr>
-			<!--<tr>
-				<td>"accessKey" property</td>
-				<td id = "accesskeytest"></td>
-			</tr>Removed for manual testing.-->
-			<tr>
-				<td>"accessKeyLabel" property</td>
-				<td id = "accesskeylabeltest"></td>
-			</tr>
-			<tr>
-				<td>"outerHTML" property</td>
-				<td id = "outerhtmltest"></td>
-			</tr>
-			<tr>
-				<td>"insertAdjacentHTML" function</td>
-				<td id = "iahtmltest"></td>
-			</tr>
-		</table>
-		<h3>Forms tests</h3>
-		<table id = "forms_results">
-			<tr>
-				<td>Input of type "text"</td>
-				<td id = "textinputtest"></td>
-			</tr>
-			<tr>
-				<td>Input of type "search"</td>
-				<td id = "searchinputtest"></td>
-			</tr>
-			<tr>
-				<td>Input of type "tel"</td>
-				<td id = "telinputtest"></td>
-			</tr>
-			<tr>
-				<td>Input of type "url"</td>
-				<td id = "urlinputtest"></td>
-			</tr>
-			<tr>
-				<td>Input of type "email"</td>
-				<td id = "emailinputtest"></td>
-			</tr>
-			<tr>
-				<td>Input of type "date"</td>
-				<td id = "dateinputtest"></td>
-			</tr>
-			<tr>
-				<td>Input of type "month"</td>
-				<td id = "monthinputtest"></td>
-			</tr>
-			<tr>
-				<td>Input of type "week"</td>
-				<td id = "weekinputtest"></td>
-			</tr>
-			<tr>
-				<td>Input of type "time"</td>
-				<td id = "timeinputtest"></td>
-			</tr>
-			<tr>
-				<td>Input of type "datetime-local"</td>
-				<td id = "dtlinputtest"></td>
-			</tr>
-			<tr>
-				<td>Input of type "number"</td>
-				<td id = "numberinputtest"></td>
-			</tr>
-			<tr>
-				<td>Input of type "range"</td>
-				<td id = "rangeinputtest"></td>
-			</tr>
-			<tr>
-				<td>Input of type "color"</td>
-				<td id = "colorinputtest"></td>
-			</tr>
-			<tr>
-				<td>Input of type "checkbox"</td>
-				<td id = "checkboxinputtest"></td>
-			</tr>
-			<tr>
-				<td>Input of type "image"</td>
-				<td id = "imageinputtest"></td>
-			</tr>
-			<tr>
-				<td>Input of type "file"</td>
-				<td id = "fileinputtest"></td>
-			</tr>
-			<tr>
-				<td>&lt;textarea&gt;</td>
-				<td id = "textareatest"></td>
-			</tr>
-			<tr>
-				<td>&lt;select&gt;</td>
-				<td id = "selecttest"></td>
-			</tr>
-			<tr>
-				<td>&lt;fieldset&gt;</td>
-				<td id = "fieldsettest"></td>
-			</tr>
-			<tr>
-				<td>&lt;datalist&gt;</td>
-				<td id = "datalisttest"></td>
-			</tr>
-			<tr>
-				<td>&lt;output&gt;</td>
-				<td id = "outputtest"></td>
-			</tr>
-			<tr>
-				<td>&lt;progress&gt;</td>
-				<td id = "progresstest"></td>
-			</tr>
-			<tr>
-				<td>&lt;meter&gt;</td>
-				<td id = "metertest"></td>
-			</tr>
-			<tr>
-				<td>Field validation test</td>
-				<td id = "fieldvalidtest"></td>
-			</tr>
-			<!--<tr>
-				<td>Association of controls and forms test</td>
-				<td id = "assoctest"></td>
-			</tr> Removed for manual testing.-->
-			<tr>
-				<td>"autofocus" attribute</td>
-				<td id = "autofocustest"></td>
-			</tr>
-			<tr>
-				<td>"autocomplete" attribute</td>
-				<td id = "autocomptest"></td>
-			</tr>
-			<tr>
-				<td>"placeholder" attribute</td>
-				<td id = "placeholdertest"></td>
-			</tr>
-			<tr>
-				<td>"multiple" attribute</td>
-				<td id = "multipletest"></td>
-			</tr>
-			<!--<tr>
-				<td>"dirname" attribute</td>
-				<td id = "dirnametest"></td>
-			</tr> Removed for manual testing.-->
-			<tr>
-				<td>"valid" CSS Selector</td>
-				<td id = "cssvalidtest"></td>
-			</tr>
-			<tr>
-				<td>"invalid" CSS Selector</td>
-				<td id = "cssinvalidtest"></td>
-			</tr>
-			<tr>
-				<td>"optional" CSS Selector</td>
-				<td id = "cssoptionaltest"></td>
-			</tr>
-			<tr>
-				<td>"required" CSS Selector</td>
-				<td id = "cssrequiredtest"></td>
-			</tr>
-			<tr>
-				<td>"in-range" CSS Selector</td>
-				<td id = "cssinrangetest"></td>
-			</tr>
-			<tr>
-				<td>"out-of-range" CSS Selector</td>
-				<td id = "cssoortest"></td>
-			</tr>
-			<tr>
-				<td>"read-write" CSS Selector</td>
-				<td id = "cssrwtest"></td>
-			</tr>
-			<tr>
-				<td>"read-only" CSS Selector</td>
-				<td id = "cssrotest"></td>
-			</tr>
-			<tr>
-				<td>"oninput" event</td>
-				<td id = "oninputtest"></td>
-			</tr>
-			<tr>
-				<td>"onchange" event</td>
-				<td id = "onchangetest"></td>
-			</tr>
-			<tr>
-				<td>"oninvalid" event</td>
-				<td id = "invalideventtest"></td>
-			</tr>
-			<tr>
-				<td>Form validation test</td>
-				<td id = "formvalidationtest"></td>
-			</tr>
-		</table>
-		<h3>Web Components API tests</h3>
-		<table id = "web_components_test_results">
-			<tr>
-				<td>Custom elements test</td>
-				<td id = "customelementtest"></td>
-			</tr>
-			<tr>
-				<td>Shadow trees test</td>
-				<td id = "shadowtreetest"></td>
-			</tr>
-			<tr>
-				<td>&lt;template&gt;</td>
-				<td id = "templatetest"></td>
-			</tr>
-			<tr>
-				<td>&lt;slot&gt;</td>
-				<td id = "slottest"></td>
-			</tr>
-		</table>
+		<p><b>About the Audio and Video tests: </b>Unfortunately, there is no reliable way to test for specific audio and video codecs other than using live files and trying to get your browser to play them; as the codec detection methods only check the IANA media type, not the underlying codec. Basically this means for codecs like AV1, H.264, Opus, and Vorbis; the tests are only checking for the container formats these codecs might wind up in, like MP4 or Ogg, but not the codecs being contained like AV1, H.264, Opus, or Vorbis.</p>
+		<p><b>About the Ad/Tracker blocking test: </b>Just to be clear, I am not using an actual ad or tracker. The test is merely trying to grab an image from a domain known to host them seeing if your browser will intercept it. Even if it doesn't, no ads or trackers will actually run. People want to protect themselves from spyware and malware, they don't like being tracked, and they don't like advertisements. The test addresses those concerns.</p>
+		<p><b>About the Blink element test: </b>Yes, I know it is considered obsolete, but it is historically significant and I want it back. Obviously this can be done using CSS, but what's the fun in that?</p>
+		</div>
+
+		<noscript>Javascript is disabled. Would you mind allowing "naoh.js" to run, please?</noscript>
+		<div class = "testbox">
+			<h3>Parsing tests</h3>
+			<table id = "parse_results">
+				<tr>
+					<th>Test</th>
+					<th class = "results">Result</th>
+					<th>Specs/Info</th>
+				</tr>
+				<tr>
+					<td>&lt;!DOCTYPE html&gt; triggers standards mode</td>
+					<td id = "doctypetest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/syntax.html#the-doctype">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>HTML Tokenizer test</td>
+					<td id = "tokentest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/parsing.html#parsing">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>HTML Tree building test</td>
+					<td id = "treetest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/parsing.html#parsing">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>Inline SVG</td>
+					<td id = "insvgtest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/embedded-content.html#svg">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>Inline MathML</td>
+					<td id = "inmathmltest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/embedded-content-other.html#mathml">WHATWG</a></td>
+				</tr>
+			</table>
+		</div>
+		<div class = "testbox">
+			<h3>Element tests</h3>
+			<table id = "element_results">
+				<tr>
+					<th>Test</th>
+					<th  class = "results">Result</th>
+					<th>Specs/Info</th>
+				</tr>
+				<tr>
+					<td>Embedding custom non-visible data</td>
+					<td id = "datasettest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/dom.html#embedding-custom-non-visible-data-with-the-data-*-attributes">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>&lt;section&gt;</td>
+					<td id = "sectiontest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/sections.html#the-section-element">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>&lt;nav&gt;</td>
+					<td id = "navtest" class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/sections.html#the-nav-element">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>&lt;article&gt;</td>
+					<td id = "articletest" class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/sections.html#the-article-element">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>&lt;aside&gt;</td>
+					<td id = "asidetest" class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/sections.html#the-aside-element">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>&lt;header&gt;</td>
+					<td id = "headertest" class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/sections.html#the-header-element">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>&lt;footer&gt;</td>
+					<td id = "footertest" class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/sections.html#the-footer-element">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>&lt;main&gt;</td>
+					<td id = "maintest" class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-main-element">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>&lt;figure&gt;</td>
+					<td id = "figuretest" class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-figure-element">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>&lt;figcaption&gt;</td>
+					<td id = "figcaptiontest" class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-figcaption-element">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>"reversed" attribute works on the "ol" element</td>
+					<td id = "reversedoltest" class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/grouping-content.html#attr-ol-reversed">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>"download" attribute works on the "a" element"</td>
+					<td id = "downloadatest" class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/dev/links.html#attr-hyperlink-download">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>"ping" attribute works on the "a" element"</td>
+					<td id = "pingatest" class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/links.html#ping">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>"relist" attribute works on the "a" element"</td>
+					<td id = "rellistatest" class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#dom-a-rellist">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>&lt;mark&gt;</td>
+					<td id = "marktest" class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-mark-element">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>&lt;ruby&gt;, &lt;rt&gt;, and &lt;rp&gt;</td>
+					<td id = "rubytest" class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-ruby-element">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>&lt;time&gt;</td>
+					<td id = "timetest" class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-time-element">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>&lt;data&gt;</td>
+					<td id = "datatest" class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-data-element">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>&lt;wbr&gt;</td>
+					<td id = "wbrtest" class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-wbr-element">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>&lt;details&gt;</td>
+					<td id = "detailstest" class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/interactive-elements.html#the-details-element">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>&lt;summary&gt;</td>
+					<td id = "summarytest" class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/interactive-elements.html#the-summary-element">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>&lt;dialog&gt;</td>
+					<td id = "dialogtest" class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/interactive-elements.html#the-dialog-element">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>"hidden" attribute</td>
+					<td id = "hiddentest" class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/interaction.html#the-hidden-attribute">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>"translate" attribute</td>
+					<td id = "translatetest" class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/dom.html#the-translate-attribute">WHATWG</a></td>
+				</tr>
+				<!--<tr>
+					<td>"accessKey" property</td>
+					<td id = "accesskeytest" class = "results"></td>
+					<td></td>
+				</tr>Removed for manual testing.-->
+				<tr>
+					<td>"accessKeyLabel" property</td>
+					<td id = "accesskeylabeltest" class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/interaction.html#introduction-9:dom-accesskeylabel">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>"outerHTML" property</td>
+					<td id = "outerhtmltest" class = "results"></td>
+					<td><a href="https://w3c.github.io/DOM-Parsing/#widl-Element-outerHTML">W3C</a></td>
+				</tr>
+				<tr>
+					<td>"insertAdjacentHTML" method</td>
+					<td id = "iahtmltest" class = "results"></td>
+					<td><a href="https://w3c.github.io/DOM-Parsing/#widl-Element-insertAdjacentHTML-void-DOMString-position-DOMString-text">W3C</a></td>
+				</tr>
+			</table>
+		</div>
+		<div class = "testbox">
+			<h3>Forms tests</h3>
+			<table id = "forms_results">
+				<tr>
+					<th>Test</th>
+					<th class = "results">Result</th>
+					<th>Specs/Info</th>
+				</tr>
+				<tr>
+					<td>Input of type "text"</td>
+					<td id = "textinputtest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/input.html#text-(type=text)-state-and-search-state-(type=search)">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>Input of type "search"</td>
+					<td id = "searchinputtest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/input.html#text-(type=text)-state-and-search-state-(type=search)">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>Input of type "tel"</td>
+					<td id = "telinputtest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/input.html#telephone-state-(type=tel)">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>Input of type "url"</td>
+					<td id = "urlinputtest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/input.html#url-state-(type=url)">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>Input of type "email"</td>
+					<td id = "emailinputtest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/input.html#email-state-(type=email)">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>Input of type "date"</td>
+					<td id = "dateinputtest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/input.html#date-state-(type=date)">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>Input of type "month"</td>
+					<td id = "monthinputtest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/input.html#month-state-(type=month)">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>Input of type "week"</td>
+					<td id = "weekinputtest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/input.html#week-state-(type=week)">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>Input of type "time"</td>
+					<td id = "timeinputtest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/input.html#time-state-(type=time)">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>Input of type "datetime-local"</td>
+					<td id = "dtlinputtest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/input.html#local-date-and-time-state-(type=datetime-local)">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>Input of type "number"</td>
+					<td id = "numberinputtest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/input.html#number-state-(type=number)">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>Input of type "range"</td>
+					<td id = "rangeinputtest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/input.html#range-state-(type=range)">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>Input of type "color"</td>
+					<td id = "colorinputtest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/input.html#color-state-(type=color)">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>Input of type "checkbox"</td>
+					<td id = "checkboxinputtest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/input.html#checkbox-state-(type=checkbox)">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>Input of type "image"</td>
+					<td id = "imageinputtest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/input.html#image-button-state-(type=image)">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>Input of type "file"</td>
+					<td id = "fileinputtest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/input.html#file-upload-state-(type=file)">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>&lt;textarea&gt;</td>
+					<td id = "textareatest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/form-elements.html#the-textarea-element">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>&lt;select&gt;</td>
+					<td id = "selecttest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/form-elements.html#the-select-element">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>&lt;fieldset&gt;</td>
+					<td id = "fieldsettest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/form-elements.html#the-fieldset-element">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>&lt;datalist&gt;</td>
+					<td id = "datalisttest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/form-elements.html#the-datalist-element">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>&lt;output&gt;</td>
+					<td id = "outputtest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/form-elements.html#the-output-element">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>&lt;progress&gt;</td>
+					<td id = "progresstest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/form-elements.html#the-progress-element">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>&lt;meter&gt;</td>
+					<td id = "metertest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/form-elements.html#the-meter-element">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>Field validation test</td>
+					<td id = "fieldvalidtest"; class = "results"></td>
+					<td>"pattern": <a href="https://html.spec.whatwg.org/multipage/input.html#attr-input-pattern">WHATWG</a>, "required": <a href="https://html.spec.whatwg.org/multipage/input.html#attr-input-required">WHATWG</a></td>
+				</tr>
+				<!--<tr>
+					<td>Association of controls and forms test</td>
+					<td id = "assoctest"; class = "results"></td>
+					<td></td>
+				</tr> Removed for manual testing.-->
+				<tr>
+					<td>"autofocus" attribute</td>
+					<td id = "autofocustest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/interaction.html#attr-fe-autofocus">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>"autocomplete" attribute</td>
+					<td id = "autocomptest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#attr-fe-autocomplete">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>"placeholder" attribute</td>
+					<td id = "placeholdertest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/input.html#attr-input-placeholder">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>"multiple" attribute</td>
+					<td id = "multipletest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/input.html#attr-input-multiple">WHATWG</a></td>
+				</tr>
+				<!--<tr>
+					<td>"dirname" attribute</td>
+					<td id = "dirnametest"; class = "results"></td>
+					<td></td>
+				</tr> Removed for manual testing.-->
+				<tr>
+					<td>"valid" CSS Selector</td>
+					<td id = "cssvalidtest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/semantics-other.html#selector-valid">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>"invalid" CSS Selector</td>
+					<td id = "cssinvalidtest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/semantics-other.html#selector-invalid">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>"optional" CSS Selector</td>
+					<td id = "cssoptionaltest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/semantics-other.html#selector-optional">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>"required" CSS Selector</td>
+					<td id = "cssrequiredtest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/semantics-other.html#selector-required">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>"in-range" CSS Selector</td>
+					<td id = "cssinrangetest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/semantics-other.html#selector-in-range">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>"out-of-range" CSS Selector</td>
+					<td id = "cssoortest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/semantics-other.html#selector-out-of-range">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>"read-write" CSS Selector</td>
+					<td id = "cssrwtest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/semantics-other.html#selector-read-write">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>"read-only" CSS Selector</td>
+					<td id = "cssrotest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/semantics-other.html#selector-read-only">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>"oninput" event</td>
+					<td id = "oninputtest"; class = "results"></td>
+					<td><a href="https://w3c.github.io/uievents/#event-type-input">W3C</a></td>
+				</tr>
+				<tr>
+					<td>"onchange" event</td>
+					<td id = "onchangetest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/indices.html#event-change">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>"oninvalid" event</td>
+					<td id = "invalideventtest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/indices.html#event-invalid">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>Form validation test</td>
+					<td id = "formvalidationtest"; class = "results"></td>
+					<td>"checkValidity": <a href="https://html.spec.whatwg.org/multipage/forms.html#dom-form-checkvalidity">WHATWG</a>, "reportValidity": <a href="https://html.spec.whatwg.org/multipage/forms.html#dom-form-reportvalidity">WHATWG</a>, "noValidate": <a href="https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#dom-fs-novalidate">WHATWG</a></td>
+				</tr>
+			</table>
+		</div>
+		<div class = "testbox">
+			<h3>Web Components API tests</h3>
+			<table id = "web_components_test_results">
+				<tr>
+					<th>Test</th>
+					<th class = "results">Result</th>
+					<th>Specs/Info</th>
+				</tr>
+				<tr>
+					<td>Custom elements test</td>
+					<td id = "customelementtest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>Shadow trees test</td>
+					<td id = "shadowtreetest"; class = "results"></td>
+					<td><a href="https://dom.spec.whatwg.org/#ref-for-dom-element-attachshadow%E2%91%A0">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>&lt;template&gt;</td>
+					<td id = "templatetest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/scripting.html#the-template-element">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>&lt;slot&gt;</td>
+					<td id = "slottest"; class = "results"></td>
+					<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot">WHATWG</a></td>
+				</tr>
+			</table>
+		</div>
+		<div class = "testbox">
 		<h3>Location and Orientation tests</h3>
 		<table id = "location_orientation_test_results">
 			<tr>
+				<th>Test</th>
+				<th class = "results">Result</th>
+				<th>Specs/Info</th>
+			</tr>
+			<tr>
 				<td>Geolocation test</td>
-				<td id = "geolocationtest"></td>
+				<td id = "geolocationtest"; class = "results"></td>
+				<td><a href="https://www.w3.org/TR/geolocation/">W3C</a></td>
 			</tr>
 			<tr>
 				<td>Device orientation test</td>
-				<td id = "devorienttest"></td>
+				<td id = "devorienttest"; class = "results"></td>
+				<td><a href="https://w3c.github.io/deviceorientation/spec-source-orientation.html#deviceorientation">W3C</a></td>
 			</tr>
 			<tr>
 				<td>Device motion test</td>
-				<td id = "devmotiontest"></td>
+				<td id = "devmotiontest"; class = "results"></td>
+				<td><a href="https://w3c.github.io/deviceorientation/spec-source-orientation.html#devicemotion">W3C</a></td>
 			</tr>
 		</table>
+		</div>
+		<div class = "testbox">
 		<h3>Input and Output tests</h3>
 		<table id = "IO_test_results">
 			<tr>
+				<th>Test</th>
+				<th class = "results">Result</th>
+				<th>Specs/Info</th>
+			</tr>
+			<tr>
 				<td>Gamepad test</td>
-				<td id = "gamepadtest"></td>
+				<td id = "gamepadtest"; class = "results"></td>
+				<td><a href="https://www.w3.org/TR/gamepad/">W3C</a></td>
 			</tr>
 			<tr>
 				<td>Pointer events test</td>
-				<td id = "pointereventstest"></td>
+				<td id = "pointereventstest"; class = "results"></td>
+				<td><a href="https://www.w3.org/TR/pointerevents/">W3C</a></td>
 			</tr>
 			<tr>
 				<td>Pointer lock test</td>
-				<td id = "pointerlocktest"></td>
+				<td id = "pointerlocktest"; class = "results"></td>
+				<td><a href="https://w3c.github.io/pointerlock/">W3C</a></td>
 			</tr>
 			<tr>
 				<td>Full screen test</td>
-				<td id = "fullscreentest"></td>
+				<td id = "fullscreentest"; class = "results"></td>
+				<td><a href="https://fullscreen.spec.whatwg.org/#api">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>Web notifications test</td>
-				<td id = "webnotificationstest"></td>
+				<td id = "webnotificationstest"; class = "results"></td>
+				<td><a href="https://notifications.spec.whatwg.org/">WHATWG</a></td>
 			</tr>
 		</table>
+		</div>
+		<div class = "testbox">
 		<h3>Audio tests</h3>
 		<table id = "audio_test_results">
 			<tr>
+				<th>Test</th>
+				<th class = "results">Result</th>
+				<th>Specs/Info</th>
+			</tr>
+			<tr>
 				<td>&lt;audio&gt;</td>
-				<td id = "audiotest"></td>
+				<td id = "audiotest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/media.html#the-audio-element">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>Loop audio test</td>
-				<td id = "loopaudiotest"></td>
+				<td id = "loopaudiotest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/media.html#attr-media-loop">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>Background preload test</td>
-				<td id = "bgpreloadtest"></td>
+				<td id = "bgpreloadtest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/media.html#attr-media-preload">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>Web Audio API test</td>
-				<td id = "webaudiotest"></td>
+				<td id = "webaudiotest"; class = "results"></td>
+				<td><a href="https://www.w3.org/TR/webaudio/">W3C</a></td>
 			</tr>
 			<tr>
 				<td>Speech Synthesis test</td>
-				<td id = "speechsynthtest"></td>
+				<td id = "speechsynthtest"; class = "results"></td>
+				<td><a href="https://wicg.github.io/speech-api/">WICG</a></td>
 			</tr>
 			<tr>
 				<td>AAC-LC in ADTS</td>
-				<td id = "aaclcadtstest"></td>
+				<td id = "aaclcadtstest"; class = "results"></td>
+				<td><a href="https://mpeg.chiariglione.org/standards/mpeg-4/audio.html">MPEG</a></td>
 			</tr>
 			<tr>
 				<td>Au</td>
-				<td id = "autest"></td>
+				<td id = "autest"; class = "results"></td>
+				<td><a href="https://docs.oracle.com/cd/E36784_01/html/E36882/au-4.html">Oracle</a></td>
 			</tr>
 			<tr>
 				<td>CAF</td>
-				<td id = "xcaftest"></td>
+				<td id = "xcaftest"; class = "results"></td>
+				<td>CAF container: <a href="https://developer.apple.com/library/archive/documentation/MusicAudio/Reference/CAFSpec/CAF_intro/CAF_intro.html">Apple</a>, Opus is the only codec in CAF used on the Web.</td>
 			</tr>
 			<tr>
-				<td>Dolby Digital</td>
-				<td id = "ac3test"></td>
+				<td>Dolby Digital (AC-3)</td>
+				<td id = "ac3test"; class = "results"></td>
+				<td><a href="https://professional.dolby.com/tv/dolby-digital">Dolby</a></td>
 			</tr>
 			<tr>
-				<td>Dolby Digital Plus</td>
-				<td id = "eac3test"></td>
+				<td>Dolby Digital Plus (E-AC-3)</td>
+				<td id = "eac3test"; class = "results"></td>
+				<td><a href="https://professional.dolby.com/technologies/dolby-digital-plus/">Dolby</a></td>
 			</tr>
 			<tr>
 				<td>FLAC</td>
-				<td id = "flactest"></td>
+				<td id = "flactest"; class = "results"></td>
+				<td><a href="https://xiph.org/flac/format.html">Xiph</a></td>
 			</tr>
 			<tr>
 				<td>M4A</td>
-				<td id = "m4atest"></td>
+				<td id = "m4atest"; class = "results"></td>
+				<td>MP4 container: <a href="https://mpeg.chiariglione.org/standards/mpeg-4/mp4-file-format.html">MPEG</a>, codecs used for the Web are AAC-LC, AC-3, E-AC-3, and Opus.</td>
 			</tr>
 			<tr>
 				<td>MP3</td>
-				<td id = "mp3test"></td>
+				<td id = "mp3test"; class = "results"></td>
+				<td><a href="https://mpeg.chiariglione.org/standards/mpeg-2/audio.html">MPEG</a>, MP3 is the sort-form of MPEG1/2 Audio Layer III.</td>
 			</tr>
 			<tr>
 				<td>Ogg audio</td>
-				<td id = "oggaudiotest"></td>
+				<td id = "oggaudiotest"; class = "results"></td>
+				<td><a href="https://www.xiph.org/ogg/">Xiph</a>, codecs used for the Web are FLAC, Opus, and Vorbis.</td>
 			</tr>
 			<tr>
 				<td>WAVE</td>
-				<td id = "wavetest"></td>
+				<td id = "wavetest"; class = "results"></td>
+				<td><a href="https://www.mmsp.ece.mcgill.ca/Documents/AudioFormats/WAVE/WAVE.html">McGill University</a></td>
 			</tr>
 			<tr>
 				<td>WebM Audio</td>
-				<td id = "webmaudiotest"></td>
+				<td id = "webmaudiotest"; class = "results"></td>
+				<td><a href="https://www.webmproject.org/docs/container/">WebM Project</a>, codecs used for the Web are Opus and Vorbis.</td>
 			</tr>
 		</table>
+		</div>
+		<div class = "testbox">
 		<h3>Video tests</h3>
 		<table id = "video_test_results">
 			<tr>
+				<th>Test</th>
+				<th class = "results">Result</th>
+				<th>Specs/Info</th>
+			</tr>
+			<tr>
 				<td>&lt;video&gt;</td>
-				<td id = "videotest"></td>
+				<td id = "videotest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/media.html#the-video-element">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>&lt;track&gt;</td>
-				<td id = "tracktest"></td>
+				<td id = "tracktest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/media.html#the-track-element">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>Poster images test</td>
-				<td id = "posterimagetest"></td>
+				<td id = "posterimagetest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/media.html#attr-video-poster">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>MP4</td>
-				<td id = "mp4test"></td>
+				<td id = "mp4test"; class = "results"></td>
+				<td><a href="https://mpeg.chiariglione.org/standards/mpeg-4/mp4-file-format.html">MPEG</a>, codecs used for the Web are AV1 + Opus, or H.264 + either AAC-LC, AC-3, or E-AC-3.</td>
 			</tr>
 			<tr>
 				<td>MPEG Transport Stream</td>
-				<td id = "tstest"></td>
+				<td id = "tstest"; class = "results"></td>
+				<td><a href="https://mpeg.chiariglione.org/standards/mpeg-2/systems.html">MPEG</a>, H.264 is the only video codec in MPEG-TS used on the Web, paired with either AAC-LC, AC-3, or E-AC-3.</td>
 			</tr>
 			<tr>
 				<td>Ogg video</td>
-				<td id = "oggvideotest"></td>
+				<td id = "oggvideotest"; class = "results"></td>
+				<td><a href="https://www.xiph.org/ogg/">Xiph</a>, Theora is the only video codec in Ogg used on the Web, paired with either FLAC or Vorbis.</td>
 			</tr>
 			<tr>
 				<td>WebM video</td>
-				<td id = "webmvideotest"></td>
+				<td id = "webmvideotest"; class = "results"></td>
+				<td><a href="https://www.webmproject.org/docs/container/">WebM Project</a>, codecs used for the web are AV1 + Opus, VP8 + Vorbis, or VP9 + Opus.</td>
 			</tr>
 		</table>
+		</div>
+		<div class = "testbox">
 		<h3>Streaming tests</h3>
 		<table id = "streaming_test_results">
 			<tr>
+				<th>Test</th>
+				<th class = "results">Result</th>
+				<th>Specs/Info</th>
+			</tr>
+			<tr>
 				<td>Media Source Extensions test</td>
-				<td id = "msetest"></td>
+				<td id = "msetest"; class = "results"></td>
+				<td><a href="https://www.w3.org/TR/media-source/">W3C</a></td>
 			</tr>
 			<tr>
 				<td>HTTP live streaming test</td>
-				<td id = "hlstest"></td>
+				<td id = "hlstest"; class = "results"></td>
+				<td><a href="https://developer-mdn.apple.com/streaming/">Apple</a></td>
 			</tr>
 		</table>
+		</div>
+		<div class = "testbox">
 		<h3>Responsive images tests</h3>
 		<table id = "responsive_images_test_results">
 			<tr>
+				<th>Test</th>
+				<th class = "results">Result</th>
+				<th>Specs/Info</th>
+			</tr>
+			<tr>
 				<td>&lt;picture&gt;</td>
-				<td id = "picturetest"></td>
+				<td id = "picturetest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/embedded-content.html#the-picture-element">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>"sizes" attribute</td>
-				<td id = "sizestest"></td>
+				<td id = "sizestest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/embedded-content.html#dom-img-sizes">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>"srcset" attribute</td>
-				<td id = "srcsettest"></td>
+				<td id = "srcsettest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/embedded-content.html#attr-img-srcset">WHATWG</a></td>
 			</tr>
 		</table>
+		</div>
+		<div class = "testbox">
 		<h3>Raster image format support tests</h3>
 		<table id = "image_format_test_results">
 			<tr>
+				<th>Test</th>
+				<th class = "results">Result</th>
+				<th>Specs/Info</th>
+			</tr>
+			<tr>
 				<td>APNG</td>
-				<td id = "apngtest"></td>
+				<td id = "apngtest"; class = "results"></td>
+				<td><a href="https://wiki.mozilla.org/APNG_Specification">Mozilla</a></td>
 			</tr>
 			<tr>
 				<td>AVIF</td>
-				<td id = "aviftest"></td>
+				<td id = "aviftest"; class = "results"></td>
+				<td><a href="https://aomediacodec.github.io/av1-avif/">AOM</a></td>
 			</tr>
 			<tr>
 				<td>GIF</td>
-				<td id = "giftest"></td>
+				<td id = "giftest"; class = "results"></td>
+				<td><a href="https://www.w3.org/Graphics/GIF/spec-gif89a.txt">W3C</a></td>
 			</tr>
 			<tr>
 				<td>ICO & CUR</td>
-				<td id = "icotest"></td>
+				<td id = "icotest"; class = "results"></td>
+				<td><a href="https://learn.microsoft.com/en-us/windows/win32/menurc/icon-resource">Microsoft</a></td>
 			</tr>
 			<tr>
 				<td>JPEG</td>
-				<td id = "jpegtest"></td>
+				<td id = "jpegtest"; class = "results"></td>
+				<td><a href="https://jpeg.org/jpeg/">JPEG</a></td>
 			</tr>
 			<tr>
 				<td>JPEG-XL</td>
-				<td id = "jpegxltest"></td>
+				<td id = "jpegxltest"; class = "results"></td>
+				<td><a href="https://jpeg.org/jpegxl/">JPEG</a></td>
 			</tr>
 			<tr>
 				<td>PNG</td>
-				<td id = "pngtest"></td>
+				<td id = "pngtest"; class = "results"></td>
+				<td><a href="https://www.w3.org/TR/png/">W3C</a></td>
 			</tr>
 			<tr>
 				<td>TIFF</td>
-				<td id = "tifftest"></td>
+				<td id = "tifftest"; class = "results"></td>
+				<td><a href="https://www.adobe.com/devnet-apps/photoshop/fileformatashtml/#50577413_61897">Adobe</a></td>
 			</tr>
 			<tr>
 				<td>WebP</td>
-				<td id = "webptest"></td>
+				<td id = "webptest"; class = "results"></td>
+				<td><a href="https://developers.google.com/speed/webp/docs/riff_container">Google</a></td>
 			</tr>
 			<tr>
 				<td>Windows Bitmap</td>
-				<td id = "windowsbmptest"></td>
+				<td id = "windowsbmptest"; class = "results"></td>
+				<td><a href="https://learn.microsoft.com/en-us/windows/win32/gdi/bitmap-storage">Microsoft</a></td>
 			</tr>
 		</table>
+		</div>
+		<div class = "testbox">
 		<h3>Vector graphics tests</h3>
 		<table id = "vector_graphics_test_results">
 			<tr>
+				<th>Test</th>
+				<th class = "results">Result</th>
+				<th>Specs/Info</th>
+			</tr>
+			<tr>
 				<td>&lt;svg&gt;</td>
-				<td id = "svgtest"></td>
+				<td id = "svgtest"; class = "results"></td>
+				<td><a href="https://svgwg.org/svg2-draft/struct.html#NewDocument">W3C</a></td>
 			</tr>
 			<tr>
 				<td>SVG as an image</td>
-				<td id = "svgasimagetest"></td>
+				<td id = "svgasimagetest"; class = "results"></td>
+				<td><a href="https://www.w3.org/TR/SVG/">W3C</a></td>
 			</tr>
 			<tr>
 				<td>&lt;foreignObject&gt;</td>
-				<td id = "foreignobjecttest"></td>
+				<td id = "foreignobjecttest"; class = "results"></td>
+				<td><a href="https://svgwg.org/svg2-draft/embedded.html#ForeignObjectElement">W3C</a></td>
 			</tr>
 			<tr>
 				<td>&lt;filter&gt;</td>
-				<td id = "svgfiltertest"></td>
+				<td id = "svgfiltertest"; class = "results"></td>
+				<td><a href="https://drafts.fxtf.org/filter-effects/#FilterElement">W3C</a></td>
 			</tr>
 		</table>
+		</div>
+		<div class = "testbox">
 		<h3>2D and 3D graphics tests</h3>
 		<table id = "graphics_test_results">
 			<tr>
+				<th>Test</th>
+				<th class = "results">Result</th>
+				<th>Specs/Info</th>
+			</tr>
+			<tr>
 				<td>&lt;canvas&gt;</td>
-				<td id = "canvastest"></td>
+				<td id = "canvastest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/canvas.html#the-canvas-element">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>Canvas text test</td>
-				<td id = "canvastexttest"></td>
+				<td id = "canvastexttest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/canvas.html#drawing-text-to-the-bitmap">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>Path2D test</td>
-				<td id = "path2dtest"></td>
+				<td id = "path2dtest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/canvas.html#path2d-objects">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>Canvas ellipse test</td>
-				<td id = "canvasellipsetest"></td>
+				<td id = "canvasellipsetest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/canvas.html#dom-context-2d-ellipse">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>Canvas dashed lines test</td>
-				<td id = "canvasdltest"></td>
+				<td id = "canvasdltest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/canvas.html#dom-context-2d-setlinedash">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>Canvas focus rings test</td>
-				<td id = "canvasfrtest"></td>
+				<td id = "canvasfrtest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/canvas.html#dom-context-2d-drawfocusifneeded">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>WebGL test</td>
-				<td id = "webgltest"></td>
+				<td id = "webgltest"; class = "results"></td>
+				<td><a href="https://registry.khronos.org/webgl/specs/latest/1.0/">Khronos</a></td>
 			</tr>
 			<tr>
 				<td>WebGL 2.0 test</td>
-				<td id = "webgl2test"></td>
+				<td id = "webgl2test"; class = "results"></td>
+				<td><a href="https://registry.khronos.org/webgl/specs/latest/2.0/">Khronos</a></td>
 			</tr>
 			<tr>
 				<td>WebGPU test</td>
-				<td id = "webgputest"></td>
+				<td id = "webgputest"; class = "results"></td>
+				<td><a href="https://www.w3.org/TR/webgpu/">W3C</a></td>
 			</tr>
 			<tr>
 				<td>WebXR test</td>
-				<td id = "webxrtest"></td>
+				<td id = "webxrtest"; class = "results"></td>
+				<td><a href="https://immersive-web.github.io/">immersive-web</a></td>
 			</tr>
 		</table>
+		</div>
+		<div class = "testbox">
 		<h3>Offscreen graphics tests</h3>
 		<table id = "offscreen_graphics_test_results">
 			<tr>
+				<th>Test</th>
+				<th class = "results">Result</th>
+				<th>Specs/Info</th>
+			</tr>
+			<tr>
 				<td>Bitmap renderer context test</td>
-				<td id = "brctest"></td>
+				<td id = "brctest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/canvas.html#imagebitmaprenderingcontext">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>Bitmap Data test</td>
-				<td id = "bitmapdatatest"></td>
+				<td id = "bitmapdatatest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#imagebitmap">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>Offscreen Canvas API test</td>
-				<td id = "offscreentest"></td>
+				<td id = "offscreentest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/canvas.html#offscreencanvas">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>2D support in Offscreen Canvas</td>
-				<td id = "2doffscreentest"></td>
+				<td id = "2doffscreentest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/canvas.html#offscreen-context-type-2d">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>3D support in Offscreen Canvas</td>
-				<td id = "3doffscreentest"></td>
+				<td id = "3doffscreentest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/canvas.html#offscreen-context-type-webgl">WHATWG</a></td>
 			</tr>
 		</table>
+		</div>
+		<div class = "testbox">
 		<h3>Animation tests</h3>
 		<table id = "animation_test_results">
 			<tr>
+				<th>Test</th>
+				<th class = "results">Result</th>
+				<th>Specs/Info</th>
+			</tr>
+			<tr>
 				<td>"requestAnimationFrame" method</td>
-				<td id = "animationframetest"></td>
+				<td id = "animationframetest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#dom-animationframeprovider-requestanimationframe">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>Web Animations API test</td>
-				<td id = "webanimationstest"></td>
+				<td id = "webanimationstest"; class = "results"></td>
+				<td><a href="https://drafts.csswg.org/web-animations-1/">W3C</a></td>
 			</tr>
 		</table>
+		</div>
+		<div class = "testbox">
 		<h3>CSS3 tests</h3>
 		<table id = "css_test_results">
 			<tr>
+				<th>Test</th>
+				<th class = "results">Result</th>
+				<th>Specs/Info</th>
+			</tr>
+			<tr>
 				<td>"text-shadow" CSS Property</td>
-				<td id = "csstextshadowtest"></td>
+				<td id = "csstextshadowtest"; class = "results"></td>
+				<td><a href="https://drafts.csswg.org/css-text-decor/#text-shadow-property">W3C</a></td>
 			</tr>
 			<tr>
 				<td>"flexbox" CSS Property</td>
-				<td id = "cssflexboxtest"></td>
+				<td id = "cssflexboxtest"; class = "results"></td>
+				<td><a href="https://www.w3.org/TR/css-flexbox-1/">W3C</a></td>
 			</tr>
 			<tr>
 				<td>"grid" CSS Property</td>
-				<td id = "cssgridtest"></td>
+				<td id = "cssgridtest"; class = "results"></td>
+				<td><a href="https://drafts.csswg.org/css-grid/">W3C</a></td>
 			</tr>
 			<tr>
 				<td>CSS subgrids</td>
-				<td id = "csssubgridtest"></td>
+				<td id = "csssubgridtest"; class = "results"></td>
+				<td><a href="https://drafts.csswg.org/css-grid/#subgrids">W3C</a></td>
 			</tr>
 			<tr>
 				<td>"offset-anchor" CSS Property</td>
-				<td id = "cssoffsetanchortest"></td>
+				<td id = "cssoffsetanchortest"; class = "results"></td>
+				<td><a href="https://drafts.fxtf.org/motion/#offset-anchor-property">W3C</a></td>
 			</tr>
 		</table>
+		</div>
+		<div class = "testbox">
 		<h3>Communication tests</h3>
 		<table id = "communication_test_results">
 			<tr>
+				<th>Test</th>
+				<th class = "results">Result</th>
+				<th>Specs/Info</th>
+			</tr>
+			<tr>
 				<td>Server-sent events test</td>
-				<td id = "ssetest"></td>
+				<td id = "ssetest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/server-sent-events.html#server-sent-events">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>Beacon test</td>
-				<td id = "beacontest"></td>
+				<td id = "beacontest"; class = "results"></td>
+				<td><a href="https://w3c.github.io/beacon/">W3C</a></td>
 			</tr>
 			<tr>
 				<td>Fetch test</td>
-				<td id = "fetchtest"></td>
+				<td id = "fetchtest"; class = "results"></td>
+				<td><a href="https://fetch.spec.whatwg.org/">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>Upload files via XMLHttpRequest Level 2</td>
-				<td id = "ufxl2test"></td>
+				<td id = "ufxl2test"; class = "results"></td>
+				<td><a href="https://www.w3.org/TR/XMLHttpRequest2/#the-upload-attribute">W3C</a></td>
 			</tr>
 			<tr>
 				<td>Text response type</td>
-				<td id = "textresponsetest"></td>
+				<td id = "textresponsetest"; class = "results"></td>
+				<td><a href="https://xhr.spec.whatwg.org/#the-responsetype-attribute">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>Document response type</td>
-				<td id = "documentresponsetest"></td>
+				<td id = "documentresponsetest"; class = "results"></td>
+				<td><a href="https://xhr.spec.whatwg.org/#the-responsetype-attribute">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>ArrayBuffer response type</td>
-				<td id = "arraybufferresponsetest"></td>
+				<td id = "arraybufferresponsetest"; class = "results"></td>
+				<td><a href="https://xhr.spec.whatwg.org/#the-responsetype-attribute">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>Blob response type</td>
-				<td id = "blobresponsetest"></td>
+				<td id = "blobresponsetest"; class = "results"></td>
+				<td><a href="https://xhr.spec.whatwg.org/#the-responsetype-attribute">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>JSON response type</td>
-				<td id = "jsonresponsetest"></td>
+				<td id = "jsonresponsetest"; class = "results"></td>
+				<td><a href="https://xhr.spec.whatwg.org/#the-responsetype-attribute">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>WebSocket API test</td>
-				<td id = "websockettest"></td>
+				<td id = "websockettest"; class = "results"></td>
+				<td><a href="https://websockets.spec.whatwg.org/">WHATWG</a></td>
 			</tr>
 			<!--<tr>
 				<td>ArrayBuffer and Blob via WebSockets</td>
-				<td id = "abbwebsockettest"></td>
+				<td id = "abbwebsockettest"; class = "results"></td>
+				<td></td>
 			</tr> Removed for manual testing.-->
 		</table>
+		</div>
+		<div class = "testbox">
 		<h3>Streams tests</h3>
 		<table id = "streams_test_results">
 			<tr>
+				<th>Test</th>
+				<th class = "results">Result</th>
+				<th>Specs/Info</th>
+			</tr>
+			<tr>
 				<td>Readable streams</td>
-				<td id = "readablestreamtest"></td>
+				<td id = "readablestreamtest"; class = "results"></td>
+				<td><a href="https://streams.spec.whatwg.org/#rs-model">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>Writable streams</td>
-				<td id = "writablestreamtest"></td>
+				<td id = "writablestreamtest"; class = "results"></td>
+				<td><a href="https://streams.spec.whatwg.org/#ws-model">WHATWG</a></td>
 			</tr>
 		</table>
+		</div>
+		<div class = "testbox">
 		<h3>Web applications tests</h3>
 		<table id = "webapps_test_results">
 			<tr>
+				<th>Test</th>
+				<th class = "results">Result</th>
+				<th>Specs/Info</th>
+			</tr>
+			<tr>
 				<td>Service workers</td>
-				<td id = "serviceworkerstest"></td>
+				<td id = "serviceworkerstest"; class = "results"></td>
+				<td><a href="https://www.w3.org/TR/service-workers/">W3C</a></td>
 			</tr>
 			<tr>
 				<td>Push messages</td>
-				<td id = "pushmessagestest"></td>
+				<td id = "pushmessagestest"; class = "results"></td>
+				<td><a href="https://w3c.github.io/push-api/">W3C</a></td>
 			</tr>
 			<tr>
 				<td>Web-based protocol handlers</td>
-				<td id = "webprotocoltest"></td>
+				<td id = "webprotocoltest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/system-state.html#custom-handlers">WHATWG</a></td>
 			</tr>
 		</table>
+		</div>
+		<div class = "testbox">
 		<h3>Web storage tests</h3>
 		<table id = "web_storage_test_results">
 			<tr>
+				<th>Test</th>
+				<th class = "results">Result</th>
+				<th>Specs/Info</th>
+			</tr>
+			<tr>
 				<td>Session storage test</td>
-				<td id = "sessionstoragetest"></td>
+				<td id = "sessionstoragetest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/webstorage.html#dom-sessionstorage-dev">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>Local storage test</td>
-				<td id = "localstoragetest"></td>
+				<td id = "localstoragetest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/webstorage.html#dom-localstorage-dev">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>IndexedDB test</td>
-				<td id = "indexeddbtest"></td>
+				<td id = "indexeddbtest"; class = "results"></td>
+				<td><a href="https://w3c.github.io/IndexedDB/">W3C</a></td>
 			</tr>
 			<tr>
 				<td>IDBObjectStore interface</td>
-				<td id = "objectstoretest"></td>
+				<td id = "objectstoretest"; class = "results"></td>
+				<td><a href="https://w3c.github.io/IndexedDB/#object-store-interface">W3C</a></td>
 			</tr>
 		</table>
+		</div>
+		<div class = "testbox">
 		<h3>Files tests</h3>
 		<table id = "files_test_results">
 			<tr>
+				<th>Test</th>
+				<th class = "results">Result</th>
+				<th>Specs/Info</th>
+			</tr>
+			<tr>
 				<td>File interface test</td>
-				<td id = "fileintertest"></td>
+				<td id = "fileintertest"; class = "results"></td>
+				<td><a href="https://w3c.github.io/FileAPI/#dfn-file">W3C</a></td>
 			</tr>
 			<tr>
 				<td>FileReader interface test</td>
-				<td id = "frintertest"></td>
+				<td id = "frintertest"; class = "results"></td>
+				<td><a href="https://w3c.github.io/FileAPI/#dfn-filereader">W3C</a></td>
 			</tr>
 			<tr>
 				<td>Create a Blob from a file</td>
-				<td id = "blobfromfiletest"></td>
+				<td id = "blobfromfiletest"; class = "results"></td>
+				<td><a href="https://w3c.github.io/FileAPI/#dfn-Blob">W3C</a></td>
 			</tr>
 			<tr>
 				<td>Create a Data URL from a Blob</td>
-				<td id = "dataurlfromblobtest"></td>
+				<td id = "dataurlfromblobtest"; class = "results"></td>
+				<td><a href="https://w3c.github.io/FileAPI/#dfn-readAsDataURL">W3C</a></td>
 			</tr>
 			<tr>
 				<td>Create an ArrayBuffer from a Blob</td>
-				<td id = "arraybufferfromblobtest"></td>
+				<td id = "arraybufferfromblobtest"; class = "results"></td>
+				<td><a href="https://w3c.github.io/FileAPI/#dfn-readAsArrayBuffer">W3C</a></td>
 			</tr>
 			<tr>
 				<td>Create a Blob URL from a Blob</td>
-				<td id = "bloburlfromblobtest"></td>
+				<td id = "bloburlfromblobtest"; class = "results"></td>
+				<td><a href="https://w3c.github.io/FileAPI/#dfn-createObjectURL">W3C</a></td>
 			</tr>
 		</table>
+		</div>
+		<div class = "testbox">
 		<h3>User interaction tests</h3>
 		<table id = "user_interaction_test_results">
 			<tr>
+				<th>Test</th>
+				<th class = "results">Result</th>
+				<th>Specs/Info</th>
+			</tr>
+			<tr>
 				<td>"draggable" attribute</td>
-				<td id = "draggabletest"></td>
+				<td id = "draggabletest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/dnd.html#attr-draggable">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>"ondrag" event</td>
-				<td id = "ondragtest"></td>
+				<td id = "ondragtest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/dnd.html#event-dnd-drag">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>"ondragstart" event</td>
-				<td id = "ondragstarttest"></td>
+				<td id = "ondragstarttest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/dnd.html#event-dnd-dragstart">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>"ondragenter" event</td>
-				<td id = "ondragentertest"></td>
+				<td id = "ondragentertest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/dnd.html#event-dnd-dragenter">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>"ondragover" event</td>
-				<td id = "ondragovertest"></td>
+				<td id = "ondragovertest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/dnd.html#event-dnd-dragover">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>"ondragleave" event</td>
-				<td id = "ondragleavetest"></td>
+				<td id = "ondragleavetest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/dnd.html#event-dnd-dragleave">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>"ondragend" event</td>
-				<td id = "ondragendtest"></td>
+				<td id = "ondragendtest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/dnd.html#event-dnd-dragend">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>"ondrop" event</td>
-				<td id = "ondroptest"></td>
+				<td id = "ondroptest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/dnd.html#event-dnd-drop">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>Editable elements test</td>
-				<td id = "editabletest"></td>
+				<td id = "editabletest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/interaction.html#editing-2">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>"designMode" attribute</td>
-				<td id = "designmodetest"></td>
+				<td id = "designmodetest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/interaction.html#designMode">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>Clipboard interface</td>
-				<td id = "clipboardtest"></td>
+				<td id = "clipboardtest"; class = "results"></td>
+				<td><a href="https://w3c.github.io/clipboard-apis/#clipboard-interface">W3C</a></td>
 			</tr>
 			<tr>
 				<td>Clipboard Event interface</td>
-				<td id = "clipboardeventtest"></td>
+				<td id = "clipboardeventtest"; class = "results"></td>
+				<td><a href="https://w3c.github.io/clipboard-apis/#clipboard-event-interfaces">W3C</a></td>
 			</tr>
 			<tr>
 				<td>Clipboard Item interface</td>
-				<td id = "clipboarditemtest"></td>
+				<td id = "clipboarditemtest"; class = "results"></td>
+				<td><a href="https://w3c.github.io/clipboard-apis/#clipboard-item-interface">W3C</a></td>
 			</tr>
 			<tr>
 				<td>"spellcheck" attribute</td>
-				<td id = "spellchecktest"></td>
+				<td id = "spellchecktest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/interaction.html#attr-spellcheck">WHATWG</a></td>
 			</tr>
 		</table>
+		</div>
+		<div class = "testbox">
 		<h3>Scripting tests</h3>
 		<table id = "scripting_test_results">
 			<tr>
+				<th>Test</th>
+				<th class = "results">Result</th>
+				<th>Specs/Info</th>
+			</tr>
+			<tr>
 				<td>Asynchronous script execution</td>
-				<td id = "asyncscriptexectest"></td>
+				<td id = "asyncscriptexectest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/scripting.html#attr-script-async">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>Defered script execution</td>
-				<td id = "deferedscriptexectest"></td>
+				<td id = "deferedscriptexectest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/scripting.html#attr-script-defer">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>Runtime script error reporting</td>
-				<td id = "runtimeerrortest"></td>
+				<td id = "runtimeerrortest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/webappapis.html#runtime-script-errors">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>JSON encoding and decoding</td>
-				<td id = "jsonendectest"></td>
+				<td id = "jsonendectest"; class = "results"></td>
+				<td><a href="https://tc39.es/ecma262/#sec-json-object">ECMA</a></td>
 			</tr>
 			<tr>
 				<td>Modules</td>
-				<td id = "modulestest"></td>
+				<td id = "modulestest"; class = "results"></td>
+				<td><a href="https://tc39.es/ecma262/#sec-modules">ECMA</a></td>
 			</tr>
 			<tr>
 				<td>Classes</td>
-				<td id = "classestest"></td>
+				<td id = "classestest"; class = "results"></td>
+				<td><a href="https://tc39.es/ecma262/#sec-class-definitions">ECMA</a></td>
 			</tr>
 			<tr>
 				<td>Arrow functions</td>
-				<td id = "arrowfunctest"></td>
+				<td id = "arrowfunctest"; class = "results"></td>
+				<td><a href="https://tc39.es/ecma262/#sec-arrow-function-definitions">ECMA</a></td>
 			</tr>
 			<tr>
 				<td>Promises</td>
-				<td id = "promisestest"></td>
+				<td id = "promisestest"; class = "results"></td>
+				<td><a href="https://tc39.es/ecma262/#sec-promise-objects">ECMA</a></td>
 			</tr>
 			<tr>
 				<td>Template literals</td>
-				<td id = "templateliteralstest"></td>
+				<td id = "templateliteralstest"; class = "results"></td>
+				<td><a href="https://tc39.es/ecma262/#sec-template-literals">ECMA</a></td>
 			</tr>
 			<tr>
 				<td>Typed arrays</td>
-				<td id = "typedarraystest"></td>
+				<td id = "typedarraystest"; class = "results"></td>
+				<td><a href="https://tc39.es/ecma262/#sec-typedarray-objects">ECMA</a></td>
 			</tr>
 			<tr>
 				<td>Internationalization</td>
-				<td id = "internationaltest"></td>
+				<td id = "internationaltest"; class = "results"></td>
+				<td><a href="https://402.ecma-international.org/1.0/">ECMA</a></td>
 			</tr>
 			<tr>
 				<td>Async and Await</td>
-				<td id = "asyncawaittest"></td>
+				<td id = "asyncawaittest"; class = "results"></td>
+				<td><a href="https://tc39.es/ecma262/#sec-async-function-definitions">ECMA</a></td>
 			</tr>
 			<tr>
 				<td>Base64 encoding and decoding</td>
-				<td id = "base64endectest"></td>
+				<td id = "base64endectest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/webappapis.html#atob">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>Mutation Observer test</td>
-				<td id = "mutationobservertest"></td>
+				<td id = "mutationobservertest"; class = "results"></td>
+				<td><a href="https://dom.spec.whatwg.org/#mutation-observers">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>Intersection Observer test</td>
-				<td id = "intersectionobservertest"></td>
+				<td id = "intersectionobservertest"; class = "results"></td>
+				<td><a href="https://w3c.github.io/IntersectionObserver/#intersection-observer-api">W3C</a></td>
 			</tr>
 			<tr>
 				<td>Resize Observer test</td>
-				<td id = "resizeobservertest"></td>
+				<td id = "resizeobservertest"; class = "results"></td>
+				<td><a href="https://drafts.csswg.org/resize-observer/#api">W3C</a></td>
 			</tr>
 			<tr>
 				<td>URL interface</td>
-				<td id = "urlinttest"></td>
+				<td id = "urlinttest"; class = "results"></td>
+				<td><a href="https://url.spec.whatwg.org/#url-class">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>URLSearchParams interface</td>
-				<td id = "urlspinttest"></td>
+				<td id = "urlspinttest"; class = "results"></td>
+				<td><a href="https://url.spec.whatwg.org/#interface-urlsearchparams">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>Encoding API test</td>
-				<td id = "enapitest"></td>
+				<td id = "enapitest"; class = "results"></td>
+				<td><a href="https://encoding.spec.whatwg.org/">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>WebAssembly test</td>
-				<td id = "webassemblytest"></td>
+				<td id = "webassemblytest"; class = "results"></td>
+				<td><a href="https://webassembly.org/specs/">WebAssembly</a></td>
 			</tr>
 		</table>
+		</div>
+		<div class = "testbox">
 		<h3>Performance tests</h3>
 		<table id = "performance_test_results">
 			<tr>
+				<th>Test</th>
+				<th class = "results">Result</th>
+				<th>Specs/Info</th>
+			</tr>
+			<tr>
 				<td>Web Workers</td>
-				<td id = "webworkerstest"></td>
+				<td id = "webworkerstest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/workers.html#workers">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>Shared Workers</td>
-				<td id = "sharedworkerstest"></td>
+				<td id = "sharedworkerstest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/workers.html#shared-workers-and-the-sharedworker-interface">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>"requestIdleCallback" method</td>
-				<td id = "rictest"></td>
+				<td id = "rictest"; class = "results"></td>
+				<td><a href="https://w3c.github.io/requestidlecallback/#the-requestidlecallback-method">W3C</a></td>
 			</tr>
 		</table>
+		</div>
+		<div class = "testbox">
 		<h3>Resource loading tests</h3>
 		<table id = "resource_loading_test_results">
 			<tr>
+				<th>Test</th>
+				<th class = "results">Result</th>
+				<th>Specs/Info</th>
+			</tr>
+			<tr>
 				<td>CSS Font Loading API</td>
-				<td id = "fontloadingapitest"></td>
+				<td id = "fontloadingapitest"; class = "results"></td>
+				<td><a href="https://www.w3.org/TR/css-font-loading/">W3C</a></td>
 			</tr>
 			<tr>
 				<td>"dns-prefetch" resource hint</td>
-				<td id = "dnsprefetchrhtest"></td>
+				<td id = "dnsprefetchrhtest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/#link-type-dns-prefetch">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>"prefetch" resource hint</td>
-				<td id = "prefetchrhtest"></td>
+				<td id = "prefetchrhtest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/#link-type-prefetch">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>"preconnect" resource hint</td>
-				<td id = "preconnectrhtest"></td>
+				<td id = "preconnectrhtest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/#link-type-preconnect">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>"preload" resource hint</td>
-				<td id = "preloadrhtest"></td>
+				<td id = "preloadrhtest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/#link-type-preload">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>Performance timing</td>
-				<td id = "performancetimingtest"></td>
+				<td id = "performancetimingtest"; class = "results"></td>
+				<td><a href="https://w3c.github.io/perf-timing-primer/">W3C</a></td>
 			</tr>
 			<tr>
 				<td>Performance Observer</td>
-				<td id = "performanceobservertest"></td>
+				<td id = "performanceobservertest"; class = "results"></td>
+				<td><a href="https://www.w3.org/TR/performance-timeline/#dom-performanceobserver">W3C</a></td>
 			</tr>
 		</table>
+		</div>
+		<div class = "testbox">
 		<h3>Privacy and security tests</h3>
 		<table id = "performance_test_results">
 			<tr>
+				<th>Test</th>
+				<th class = "results">Result</th>
+				<th>Specs/Info</th>
+			</tr>
+			<tr>
 				<td>No DRM</td>
-				<td id = "nodrmtest"></td>
+				<td id = "nodrmtest"; class = "results"></td>
+				<td><a href="https://www.defectivebydesign.org/w3c">Defective By Design</a></td>
 			</tr>
 			<tr>
 				<td>No ActiveX</td>
-				<td id = "noactivextest"></td>
+				<td id = "noactivextest"; class = "results"></td>
+				<td><a href="https://www.infosecinstitute.com/resources/hacking/active-x-exploitation/">Infosec</a></td>
 			</tr>
 			<tr>
 				<td>No WebRTC</td>
-				<td id = "nowebrtctest"></td>
+				<td id = "nowebrtctest"; class = "results"></td>
+				<td><a href="https://restoreprivacy.com/webrtc-leaks/">RestorePrivacy</a></td>
 			</tr>
 			<tr>
 				<td>Web Crypto API</td>
-				<td id = "webcryptoapitest"></td>
+				<td id = "webcryptoapitest"; class = "results"></td>
+				<td><a href="https://w3c.github.io/webcrypto/">W3C</a></td>
 			</tr>
 			<tr>
 				<td>Content Security Policy 1</td>
-				<td id = "csp1test"></td>
+				<td id = "csp1test"; class = "results"></td>
+				<td><a href="https://www.w3.org/TR/CSP1/">W3C</a></td>
 			</tr>
 			<tr>
 				<td>Content Security Policy 2</td>
-				<td id = "csp2test"></td>
+				<td id = "csp2test"; class = "results"></td>
+				<td><a href="https://www.w3.org/TR/CSP2/">W3C</a></td>
 			</tr>
 			<tr>
 				<td>Cross-Origin Resource Sharing</td>
-				<td id = "corstest"></td>
+				<td id = "corstest"; class = "results"></td>
+				<td><a href="https://fetch.spec.whatwg.org/#http-access-control-allow-origin">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>Subresource integrity test</td>
-				<td id = "sritest"></td>
+				<td id = "sritest"; class = "results"></td>
+				<td><a href="https://w3c.github.io/webappsec-subresource-integrity/#the-integrity-attribute">W3C</a></td>
 			</tr>
 			<tr>
 				<td>Cross-document messaging</td>
-				<td id = "crossdoctest"></td>
+				<td id = "crossdoctest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/web-messaging.html#dom-window-postmessage-options-dev">W3C</a></td>
 			</tr>
 			<tr>
 				<td>FIDO2</td>
-				<td id = "fido2test"></td>
+				<td id = "fido2test"; class = "results"></td>
+				<td><a href="https://w3c.github.io/webauthn/">W3C</a></td>
 			</tr>
 			<tr>
 				<td>Credential Management Level 1</td>
-				<td id = "credentialmantest"></td>
+				<td id = "credentialmantest"; class = "results"></td>
+				<td><a href="https://w3c.github.io/webappsec-credential-management/">W3C</a></td>
 			</tr>
 			<tr>
 				<td>Sandboxed iframes</td>
-				<td id = "sandboxediframetest"></td>
+				<td id = "sandboxediframetest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#attr-iframe-sandbox">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>iframes with inline contents</td>
-				<td id = "iframeinlinetest"></td>
+				<td id = "iframeinlinetest"; class = "results"></td>
+				<td><a href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#attr-iframe-srcdoc">WHATWG</a></td>
 			</tr>
 			<tr>
 				<td>Ad/Tracker blocking</td>
-				<td id = "adblocktest"></td>
+				<td id = "adblocktest"; class = "results"></td>
+				<td><a href="https://easylist.to/">EasyList</a></td>
 			</tr>
 			<tr>
 				<td>Global Privacy Control</td>
-				<td id = "gpctest"></td>
+				<td id = "gpctest"; class = "results"></td>
+				<td><a href="https://privacycg.github.io/gpc-spec/">GPC</a></td>
 			</tr>
 		</table>
-		<h3>Miscellaneous tests</h3>
-		<table id = "misc_test_results">
-			<tr>
-				<td>&lt;blink&gt;</td>
-				<td id = "blinktest"></td>
-			</tr>
-			<tr>
-				<td>Session history</td>
-				<td id = "sessionhisttest"></td>
-			</tr>
-			<tr>
-				<td>Page visibility</td>
-				<td id = "pagevisibilitytest"></td>
-			</tr>
-			<tr>
-				<td>Selection API</td>
-				<td id = "selectiontest"></td>
-			</tr>
-			<tr>
-				<td>"scrollIntoView" method</td>
-				<td id = "scrollviewtest"></td>
-			</tr>
-			<tr>
-				<td>Amiga ProTracker modules</td>
-				<td id = "xmodtest"></td>
-			</tr>
-			<tr>
-				<td>Autoplay blocking</td>
-				<td id = "autoplayblocktest"></td>
-			</tr>
-		</table>
+		</div>
+		<div class = "testbox">
+			<h3>Miscellaneous tests</h3>
+			<table id = "misc_test_results">
+				<tr>
+					<th>Test</th>
+					<th class = "results">Result</th>
+					<th>Specs/Info</th>
+				</tr>
+				<tr>
+					<td>&lt;blink&gt;</td>
+					<td id = "blinktest"; class = "results"></td>
+					<td><a href="https://www.denix.osd.mil/soh/denix-files/sites/21/2016/03/02_MIL-STD-1472F-Human-Engineering.pdf">Unitend States Department of Defense</a> (go to "5.2.1.1.4.2 Caution signals" in the spec)</td>
+				</tr>
+				<tr>
+					<td>Session history</td>
+					<td id = "sessionhisttest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#the-history-interface">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>Page visibility</td>
+					<td id = "pagevisibilitytest"; class = "results"></td>
+					<td><a href="https://html.spec.whatwg.org/multipage/interaction.html#page-visibility">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>Selection API</td>
+					<td id = "selectiontest"; class = "results"></td>
+					<td><a href="https://dvcs.w3.org/hg/editing/raw-file/tip/editing.html#selections">WHATWG</a></td>
+				</tr>
+				<tr>
+					<td>"scrollIntoView" method</td>
+					<td id = "scrollviewtest"; class = "results"></td>
+					<td><a href="https://drafts.csswg.org/cssom-view/#dom-element-scrollintoview">W3C</a></td>
+				</tr>
+				<tr>
+					<td>Amiga ProTracker modules</td>
+					<td id = "xmodtest"; class = "results"></td>
+					<td><a href="https://www.aes.id.au/modformat.html">Andrew E. Scott</a></td>
+				</tr>
+				<tr>
+					<td>Autoplay blocking</td>
+					<td id = "autoplayblocktest"; class = "results"></td>
+					<td><a href="https://www.nngroup.com/articles/video-usability/">Nelsen Norman Group</a></td>
+				</tr>
+			</table>
+		</div>
+		
+		<div class = "infobox">
+		<h3>Additional Resources and Tests</h3>
+		<p>The Sodium-Hydroxide Tests are not designed to test everything about your browser, let alone anything about your internet connect. So, for your convenience, I have provided some links:
+		<ul>
+			<li>If you want a straight-forward understanding of what web technologies browsers support, you can visit <a href="https://caniuse.com/">"Can I use..."</a> and look up a technology.</li>
+			<li>If you want to test your browser's speed, <a href="https://browserbench.org/Speedometer3.0/">Speedometer 3.0</a> is a nice benchmark that tests the responsiveness of web browsers against simulated user interactions in a way that is more akin to real-world appllications.</li>
+			<li>If you want to test your internet speed, <a href="https://librespeed.org/">LibreSpeed</a> is a simple Free and Open Source internet speed test.</li>
+			<li>If you want to see how well your browser resists fingerprinting, <a href="https://coveryourtracks.eff.org/">Cover Your Tracks</a> by the Electronic Frontier Foundation is the best one I've seen.</li>
+			<li>If you want more comprehensive security and privacy tests of your browser, including IP address leaks and DNS leaks, you can find them at <a href="https://browserleaks.com/">Browserleaks.com</a>.</li>
+		</ul>
+		<h3>Sending feedback to your browser vendor</h3>
+		<p>If you want to help your browser become more complaint and pass more tests, one way you can help is to send feature requests to the developer of you browser. The following are some of the more common browsers.
+		<p><b>Mozilla Firefox:</b> You can request features for Firefox at <a href="https://connect.mozilla.org/?utm_source=sumo&utm_medium=web&utm_campaign=support">Mozilla Connect</a>. <b>If you are using LibreWolf, use Mozilla Connect as well.</b> LibreWolf is built using the latest code base from Firefox.</p>
+		<p><b>Google Chrome:</b> You can report an issue by clicking on the Menu, choose Help > Report and issue. Not the most intuitive way of sending feature requests, possibly because Chrome is more focused on simplicity that anything else. <a href="https://issues.chromium.org/issues">The Chromium issues list</a> is a nice place for submitting feature requests for the Chromium Browser core, used not just by Chrome, but also Edge, Opera, and Brave.</p>
+		<p><b>Microsoft Edge:</b> The Feedback Hub application is the simplest way to submit feature requests to Microsoft for everything including Edge, but it is only on Windows. If you are not on Windows, <a href="https://techcommunity.microsoft.com/t5/microsoft-edge-insider/ct-p/MicrosoftEdgeInsider?form=M0006R">The Microsoft Edge Insider Community Hub</a> is the next best thing.</p>
+		<p><b>Opera:</b> Opera has <a href="https://forums.opera.com/category/15/suggestions-and-feature-requests">a forum dedicated to suggestions and feature requests</a>.</p>
+		<p><b>Brave:</b> Brave has <a href="https://community.brave.com/c/brave-feature-requests/57">a forum dedicated to feature requests</a> as well.</p>
+		<p><b>Apple Safari:</b> Fill out the <a href="https://www.apple.com/feedback/safari.html">Feedback for for Safari</a> and choose "Enhancement Request" from the Feedback Type dropdown menu.</p>
+		<p><b>Pale Moon:</b> You can request features on <a href="https://forum.palemoon.org/viewforum.php?f=21">The Pale Moon forum</a>.</p>
+		</div>
+		
 		<p></p>
 		<small>Copyright &copy; 2024 Mac Young. Licensed under the <a href="LICENSE.txt">Zero-Clause BSD License</a>, Sodium-Hydroxide is Free Software.</small>
 	</body>
