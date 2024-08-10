@@ -1,8 +1,8 @@
 /***************************
 * HTML5 STANDARDS AND SECURITY TEST
-* Version 1.0
+* Version 1.0.1
 * Written by Kelly "Mac" Young
-* March 6, 2023
+* August 10, 2024
 ***************************/
 window.onload = function() {
 	/* PARSING */
@@ -2061,13 +2061,18 @@ window.onload = function() {
 	/* AAC-LC in ADTS test */
 	try {
 		var sample_audio = document.createElement("audio");
-		let aaclc_adts_test = sample_audio.canPlayType("audio/aac; codecs=mp4a.40.02");
-		let xaaclc_adts_test = sample_audio.canPlayType("audio/x-aac; codecs=mp4a.40.02");
+		let aaclc_adts_test = sample_audio.canPlayType("audio/aac");
+		let xaaclc_adts_test = sample_audio.canPlayType("audio/x-aac");
+		let aaclcp_adts_test = sample_audio.canPlayType("audio/aacp");
 		if (aaclc_adts_test === "probably" || aaclc_adts_test === "maybe") {
 			document.getElementById("aaclcadtstest").textContent = "PASS";
 			document.getElementById("aaclcadtstest").style.color = "green";
 		}
 		else if (xaaclc_adts_test === "probably" || xaaclc_adts_test === "maybe") {
+			document.getElementById("aaclcadtstest").textContent = "PASS";
+			document.getElementById("aaclcadtstest").style.color = "green";
+		}
+		else if (aaclcp_adts_test === "probably" || xaaclc_adts_test === "maybe") {
 			document.getElementById("aaclcadtstest").textContent = "PASS";
 			document.getElementById("aaclcadtstest").style.color = "green";
 		}
