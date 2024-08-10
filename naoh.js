@@ -2207,7 +2207,7 @@ window.onload = function() {
 	/* M4A test */
 	try {
 		var sample_audio = document.createElement("audio");
-		let aaclc_mp4_test = sample_audio.canPlayType("audio/mp4; codecs=mp4a.40.02");
+		let aaclc_mp4_test = sample_audio.canPlayType("audio/mp4");
 		if (aaclc_mp4_test === "probably" || aaclc_mp4_test === "maybe") {
 			document.getElementById("m4atest").textContent = "PASS";
 			document.getElementById("m4atest").style.color = "green";
