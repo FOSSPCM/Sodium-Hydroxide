@@ -1,6 +1,6 @@
 /***************************
 * HTML5 STANDARDS AND SECURITY TEST
-* Version 1.0.1
+* Version 1.0.2
 * Written by Kelly "Mac" Young
 * August 10, 2024
 ***************************/
@@ -2578,7 +2578,8 @@ window.onload = function() {
 	}
 	
 	/* HTTP live streaming test */
-	try {
+	// Doesn't matter so much if the browser natively supports this anymore. HLS is now essentially part of MSE, as is MPEG-DASH.
+	/*try {
 		var sample_video = document.createElement("video");
 		let hls_test = sample_video.canPlayType("application/vnd.apple.mpegurl") || sample_video.canPlayType("application/x-mpegURL");
 		if (hls_test === true) {
@@ -2595,7 +2596,7 @@ window.onload = function() {
 		document.getElementById("hlstest").textContent = "FAIL";
 		document.getElementById("hlstest").style.color = "red";
 		console.log("HTTP live streaming test: There was an error in running this test. If you suspect this to be a bug in the test, please file a bug report.");
-	}
+	}*/
 	
 	/* RESPONSIVE IMAGES */
 	

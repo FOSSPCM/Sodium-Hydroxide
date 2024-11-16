@@ -51,6 +51,7 @@
 		<p>The name "Sodium-Hydroxide" was inspired by the name of an old, discontinued web standards test called Acid3. Sodium-Hydroxide (chemical symbol "NaOH") is a corrosive base.</p>
 		<p>Please understand that there is only so much that an automated test can do. Manual testing is needed for a more thorough test. Nevertheless, this should be good enough to convey what your browser supports in the grand scheme of things.</p>
 		<p><b>About the Audio and Video tests: </b>Unfortunately, there is no reliable way to test for specific audio and video codecs other than using live files and trying to get your browser to play them; as the codec detection methods only check the IANA media type, not the underlying codec. Basically this means for codecs like AV1, H.264, Opus, and Vorbis; the tests are only checking for the container formats these codecs might wind up in, like MP4 or Ogg, but not the codecs being contained like AV1, H.264, Opus, or Vorbis.</p>
+		<p><b>About the Ogg Video test specifically: </b>Towards the end of 2023 in the wake of a security vulnerability involving WebP, an image format by Google also tested here, both Google and Mozilla announced that they are dropping support for the Theora video format because it hasn't been updated since 2011 and because there are not many videos on the web that use the format at all these days (according to Mozilla, only ~0.09% of video traffic involved Theora). Since this is the only video format involving Ogg containers on the web, newer versions of Chrome, Firefox, and other modern Chromium- or Gecko-based browsers will fail the Ogg Video test. Unfortunately, Theora is historically significant (being an HTML5 recommendation at one point), there is still video on the web that use Theora, Theora has features not found in VP8 or H.264, and is the only video format reliably royalty-free (VP9 and AV1 are both attacked by patent claims); so browsers should ought to continue supporting it (Pale Moon still does), and Xiph should really update it. So, the test stays.</p>
 		<p><b>About the Ad/Tracker blocking test: </b>Just to be clear, I am not using an actual ad or tracker. The test is merely trying to grab an image from a domain known to host them seeing if your browser will intercept it. Even if it doesn't, no ads or trackers will actually run. People want to protect themselves from spyware and malware, they don't like being tracked, and they don't like advertisements. The test addresses those concerns.</p>
 		<p><b>About the Blink element test: </b>Yes, I know it is considered obsolete, but it is historically significant and I want it back. Obviously this can be done using CSS, but what's the fun in that?</p>
 		</div>
@@ -699,11 +700,11 @@
 				<td id = "msetest"; class = "results"></td>
 				<td><a href="https://www.w3.org/TR/media-source/">W3C</a></td>
 			</tr>
-			<tr>
+			<!--<tr>
 				<td>HTTP live streaming test</td>
 				<td id = "hlstest"; class = "results"></td>
 				<td><a href="https://developer-mdn.apple.com/streaming/">Apple</a></td>
-			</tr>
+			</tr>-->
 		</table>
 		</div>
 		<div class = "testbox">
@@ -1551,6 +1552,8 @@
 			<li>If you want to test your internet speed, <a href="https://librespeed.org/">LibreSpeed</a> is a simple Free and Open Source internet speed test.</li>
 			<li>If you want to see how well your browser resists fingerprinting, <a href="https://coveryourtracks.eff.org/">Cover Your Tracks</a> by the Electronic Frontier Foundation is the best one I've seen.</li>
 			<li>If you want more comprehensive security and privacy tests of your browser, including IP address leaks and DNS leaks, you can find them at <a href="https://browserleaks.com/">Browserleaks.com</a>.</li>
+			<li>If you want to check how well your browser handles ICC Version 4 color profiles, there's <a href="https://www.color.org/version4html.xalter">an old test from the International Color Consortium</a> that works pretty well, and there is <a href="https://littlecms.com/blog/2020/09/09/browser-check/">a more thorough test from the developers of Little CMS</a> as well. Make sure you test not only your browser's HTML renderer, but also your browser's PDF viewer if it has one.</li>
+			<li>Jamie Zawinski has a test to see if your browser can handle images of arbitrary size on his blog under a post titled <a href="https://www.jwz.org/blog/2018/07/png-antics/">"PNG antics."</a> See if your browser can actually display the image correctly. (By "size" I mean dimensions, not bytes)</li>
 		</ul>
 		<h3>Sending feedback to your browser vendor</h3>
 		<p>If you want to help your browser become more complaint and pass more tests, one way you can help is to send feature requests to the developer of you browser. The following are some of the more common browsers.

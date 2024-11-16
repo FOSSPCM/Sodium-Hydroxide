@@ -1,0 +1,10 @@
+~~~CHANGELOG FOR THE SODIUM-HYDROXIDE TESTS~~~
+Version 1.0 - July 24, 2024
+	This is the initial release of the completed Sodium-Hydroxide tests for the web. It seems to work pretty good!
+	
+Version 1.0.1 - August 10, 2024
+	Fixed a bug when testing for AAC-LC in ADTS containers.
+
+Version 1.0.2 - November 16, 2024
+	Added some links to ICC Version 4 color profiles tests and a link to a test for how well a browser can handle an image of arbitrary size (size as in dimensions, not in bytes).
+	Removed the test for HLS. Media Source Extensions will cover this on its own.
