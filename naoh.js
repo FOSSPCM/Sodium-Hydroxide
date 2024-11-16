@@ -2,7 +2,7 @@
 * HTML5 STANDARDS AND SECURITY TEST
 * Version 1.0.2
 * Written by Kelly "Mac" Young
-* August 10, 2024
+* November 16, 2024
 ***************************/
 window.onload = function() {
 	/* PARSING */
