@@ -1,8 +1,8 @@
 /***************************
 * HTML5 STANDARDS AND SECURITY TEST
-* Version 1.0.2
+* Version 1.0.3
 * Written by Kelly "Mac" Young
-* November 16, 2024
+* November 18, 2024
 ***************************/
 window.onload = function() {
 	/* PARSING */
@@ -5341,19 +5341,23 @@ window.onload = function() {
 			else { console.log("WebAssembly test: Your browser does not support the \"CompileError\" object."); }
 			if (typeof WebAssembly.compileStreaming === "function") { tests_passed++; }
 			else { console.log("WebAssembly test: Your browser does not support the \"compileStreaming\" method."); }
-			if (typeof WebAssembly.Exception === "function") { tests_passed++; }
+			if (typeof WebAssembly.Exception === "function") {
+				tests_passed++;
+				if (typeof WebAssembly.Exception.prototype.getArg === "function") { tests_passed++; }
+				else { console.log("WebAssembly test: Your browser does not support the \"getArg\" method of the Exception object."); }
+				if (typeof WebAssembly.Exception.prototype.is === "function") { tests_passed++; }
+				else { console.log("WebAssembly test: Your browser does not support the \"is\" method of the Exception object."); }
+			}
 			else { console.log("WebAssembly test: Your browser does not support the \"Exception\" object."); }
-			if (typeof WebAssembly.Exception.prototype.getArg === "function") { tests_passed++; }
-			else { console.log("WebAssembly test: Your browser does not support the \"getArg\" method of the Exception object."); }
-			if (typeof WebAssembly.Exception.prototype.is === "function") { tests_passed++; }
-			else { console.log("WebAssembly test: Your browser does not support the \"is\" method of the Exception object."); }
-			if (typeof WebAssembly.Global === "function") { tests_passed++; }
+			if (typeof WebAssembly.Global === "function") {
+				tests_passed++;
+				let my_global = new WebAssembly.Global({ value: 'i32', mutable: true }, 42);
+				if ("value" in my_global) { tests_passed++; }
+				else { console.log("WebAssembly test: Your browser does not support the \"value\" property of the Global object."); }
+				if (typeof WebAssembly.Global.prototype.valueOf === "function") { tests_passed++; }
+				else { console.log("WebAssembly test: Your browser does not support the \"valueOf\" method of the Global object."); }
+			}
 			else { console.log("WebAssembly test: Your browser does not support the \"Global\" object."); }
-			let my_global = new WebAssembly.Global({ value: 'i32', mutable: true }, 42);
-			if ("value" in my_global) { tests_passed++; }
-			else { console.log("WebAssembly test: Your browser does not support the \"value\" property of the Global object."); }
-			if (typeof WebAssembly.Global.prototype.valueOf === "function") { tests_passed++; }
-			else { console.log("WebAssembly test: Your browser does not support the \"valueOf\" method of the Global object."); }
 			if (typeof WebAssembly.Instance === "function") { tests_passed++; }
 			else { console.log("WebAssembly test: Your browser does not support the \"Instance\" object."); }
 			if (typeof WebAssembly.instantiate === "function") { tests_passed++; }
@@ -5362,38 +5366,46 @@ window.onload = function() {
 			else { console.log("WebAssembly test: Your browser does not support the \"instantiateStreaming\" method."); }
 			if (typeof WebAssembly.LinkError === "function") { tests_passed++; }
 			else { console.log("WebAssembly test: Your browser does not support the \"LinkError\" object."); }
-			if (typeof WebAssembly.Memory === "function") { tests_passed++; }
+			if (typeof WebAssembly.Memory === "function") {
+				tests_passed++;
+				let my_memory = new WebAssembly.Memory({ initial: 1 });
+				if ("buffer" in my_memory) { tests_passed++; }
+				else { console.log("WebAssembly test: Your browser does not support the \"buffer\" property of the Memory object."); }
+				if (typeof WebAssembly.Memory.prototype.grow === "function") { tests_passed++; }
+				else { console.log("WebAssembly test: Your browser does not support the \"grow\" method of the Memory object."); }
+			}
 			else { console.log("WebAssembly test: Your browser does not support the \"Memory\" object."); }
-			let my_memory = new WebAssembly.Memory({ initial: 1 });
-			if ("buffer"in my_memory) { tests_passed++; }
-			else { console.log("WebAssembly test: Your browser does not support the \"buffer\" property of the Memory object."); }
-			if (typeof WebAssembly.Memory.prototype.grow === "function") { tests_passed++; }
-			else { console.log("WebAssembly test: Your browser does not support the \"grow\" method of the Memory object."); }
-			if (typeof WebAssembly.Module === "function") { tests_passed++; }
+			if (typeof WebAssembly.Module === "function") {
+				tests_passed++;
+				if (typeof WebAssembly.Module.customSections === "function") { tests_passed++; }
+				else { console.log("WebAssembly test: Your browser does not support the \"customSections\" static method of the Module object."); }
+				if (typeof WebAssembly.Module.exports === "function") { tests_passed++; }
+				else { console.log("WebAssembly test: Your browser does not support the \"exports\" static method of the Module object."); }
+				if (typeof WebAssembly.Module.imports === "function") { tests_passed++; }
+				else { console.log("WebAssembly test: Your browser does not support the \"imports\" static method of the Module object."); }
+			}
 			else { console.log("WebAssembly test: Your browser does not support the \"Module\" object."); }
-			if (typeof WebAssembly.Module.customSections === "function") { tests_passed++; }
-			else { console.log("WebAssembly test: Your browser does not support the \"customSections\" static method of the Module object."); }
-			if (typeof WebAssembly.Module.exports === "function") { tests_passed++; }
-			else { console.log("WebAssembly test: Your browser does not support the \"exports\" static method of the Module object."); }
-			if (typeof WebAssembly.Module.imports === "function") { tests_passed++; }
-			else { console.log("WebAssembly test: Your browser does not support the \"imports\" static method of the Module object."); }
 			if (typeof WebAssembly.RuntimeError === "function") { tests_passed++; }
 			else { console.log("WebAssembly test: Your browser does not support the \"RuntimeError\" object."); }
-			if (typeof WebAssembly.Table === "function") { tests_passed++; }
+			if (typeof WebAssembly.Table === "function") {
+				tests_passed++;
+				if (typeof WebAssembly.Table.prototype.get === "function") { tests_passed++; }
+				else { console.log("WebAssembly test: Your browser does not support the \"get\" method of the Table object."); }
+				if (typeof WebAssembly.Table.prototype.grow === "function") { tests_passed++; }
+				else { console.log("WebAssembly test: Your browser does not support the \"grow\" method of the Table object."); }
+				let my_table = new WebAssembly.Table({ element: 'anyfunc', initial: 1 });
+				if ("length" in my_table) { tests_passed++; }
+				else { console.log("WebAssembly test: Your browser does not support the \"length\" property of the Table object."); }
+				if (typeof WebAssembly.Table.prototype.set === "function") { tests_passed++; }
+				else { console.log("WebAssembly test: Your browser does not support the \"set\" method of the Table object."); }
+			}
 			else { console.log("WebAssembly test: Your browser does not support the \"Table\" object."); }
-			if (typeof WebAssembly.Table.prototype.get === "function") { tests_passed++; }
-			else { console.log("WebAssembly test: Your browser does not support the \"get\" method of the Table object."); }
-			if (typeof WebAssembly.Table.prototype.grow === "function") { tests_passed++; }
-			else { console.log("WebAssembly test: Your browser does not support the \"grow\" method of the Table object."); }
-			let my_table = new WebAssembly.Table({ element: 'anyfunc', initial: 1 });
-			if ("length" in my_table) { tests_passed++; }
-			else { console.log("WebAssembly test: Your browser does not support the \"length\" property of the Table object."); }
-			if (typeof WebAssembly.Table.prototype.set === "function") { tests_passed++; }
-			else { console.log("WebAssembly test: Your browser does not support the \"set\" method of the Table object."); }
-			if (typeof WebAssembly.Tag === "function") { tests_passed++; }
+			if (typeof WebAssembly.Tag === "function") {
+				tests_passed++;
+				if (typeof WebAssembly.Tag.prototype.type === "function") { tests_passed++; }
+				else { console.log("WebAssembly test: Your browser does not support the \"type\" method of the Tag object."); }
+			}
 			else { console.log("WebAssembly test: Your browser does not support the \"Tag\" object."); }
-			if (typeof WebAssembly.Tag.prototype.type === "function") { tests_passed++; }
-			else { console.log("WebAssembly test: Your browser does not support the \"type\" method of the Tag object."); }
 			if (typeof WebAssembly.validate === "function") { tests_passed++; }
 			else { console.log("WebAssembly test: Your browser does not support the \"validate\" method."); }
 			document.getElementById("webassemblytest").textContent = (tests_passed === 29) ? "PASS" : "PARTIAL";
@@ -5480,8 +5492,6 @@ window.onload = function() {
 			else { console.log("CSS Font Loading API: Your browser does not support the \"descentOverride\" property."); }
 			if ("display" in sample_font) { tests_passed++; }
 			else { console.log("CSS Font Loading API: Your browser does not support the \"display\" property."); }
-			if ("display" in sample_font) { tests_passed++; }
-			else { console.log("CSS Font Loading API: Your browser does not support the \"display\" property."); }
 			if ("family" in sample_font) { tests_passed++; }
 			else { console.log("CSS Font Loading API: Your browser does not support the \"family\" property."); }
 			if ("featureSettings" in sample_font) { tests_passed++; }
@@ -5504,8 +5514,8 @@ window.onload = function() {
 			else { console.log("CSS Font Loading API: Your browser does not support the \"variant\" property."); }
 			if ("weight" in sample_font) { tests_passed++; }
 			else { console.log("CSS Font Loading API: Your browser does not support the \"weight\" property."); }
-			document.getElementById("fontloadingapitest").textContent = (tests_passed === 15) ? "PASS" : "PARTIAL";
-			document.getElementById("fontloadingapitest").style.color = (tests_passed === 15) ? "green" : "black";
+			document.getElementById("fontloadingapitest").textContent = (tests_passed === 14) ? "PASS" : "PARTIAL";
+			document.getElementById("fontloadingapitest").style.color = (tests_passed === 14) ? "green" : "black";
 		}
 		else {
 			document.getElementById("fontloadingapitest").textContent = "FAIL";

@@ -8,3 +8,6 @@ Version 1.0.1 - August 10, 2024
 Version 1.0.2 - November 16, 2024
 	Added some links to ICC Version 4 color profiles tests and a link to a test for how well a browser can handle an image of arbitrary size (size as in dimensions, not in bytes).
 	Removed the test for HLS. Media Source Extensions will cover this on its own.
+	
+Version 1.0.3 - November 18, 2024
+	Fixed some bugs involving the WebAssembly test and removed some redundant code.
