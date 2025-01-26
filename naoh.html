@@ -51,7 +51,7 @@
 		<p>The name "Sodium-Hydroxide" was inspired by the name of an old, discontinued web standards test called Acid3. Sodium-Hydroxide (chemical symbol "NaOH") is a corrosive base.</p>
 		<p>Please understand that there is only so much that an automated test can do. Manual testing is needed for a more thorough test. Nevertheless, this should be good enough to convey what your browser supports in the grand scheme of things.</p>
 		<p><b>About the Audio and Video tests: </b>Unfortunately, there is no reliable way to test for specific audio and video codecs other than using live files and trying to get your browser to play them; as the codec detection methods only check the IANA media type, not the underlying codec. Basically this means for codecs like AV1, H.264, Opus, and Vorbis; the tests are only checking for the container formats these codecs might wind up in, like MP4 or Ogg, but not the codecs being contained like AV1, H.264, Opus, or Vorbis.</p>
-		<p><b>About the Ogg Video test specifically: </b>Towards the end of 2023 in the wake of a security vulnerability involving WebP, an image format by Google also tested here, both Google and Mozilla announced that they are dropping support for the Theora video format because it hasn't been updated since 2011 and because there are not many videos on the web that use the format at all these days (according to Mozilla, only ~0.09% of video traffic involved Theora). Since this is the only video format involving Ogg containers on the web, newer versions of Chrome, Firefox, and other modern Chromium- or Gecko-based browsers will fail the Ogg Video test. Unfortunately, Theora is historically significant (being an HTML5 recommendation at one point), there is still video on the web that use Theora, Theora has features not found in VP8 or H.264, and is the only video format reliably royalty-free (VP9 and AV1 are both attacked by patent claims); so browsers should ought to continue supporting it (Pale Moon still does), and Xiph should really update it. So, the test stays.</p>
+		<p><b>About the Ogg Video test specifically: </b>Towards the end of 2023 in the wake of a security vulnerability involving WebP, an image format by Google also tested here, both Google and Mozilla announced that they are dropping support for the Theora video format because it hasn't been updated since 2011 and because there are not many videos on the web that use the format at all these days (according to Mozilla, only ~0.09% of video traffic involved Theora). Since this is the only video format involving Ogg containers on the web, newer versions of Chrome, Firefox, and other modern Chromium- or Gecko-based browsers will fail the Ogg Video test. Unfortunately, Theora is historically significant (being an HTML5 recommendation at one point), there is still video on the web that use Theora, Theora has features not found in VP8 or H.264, and is the only video format reliably royalty-free (VP9 and AV1 are both attacked by patent claims); so browsers ought to continue supporting it (Pale Moon still does), and Xiph should really update it. So, the test stays.</p>
 		<p><b>About the Ad/Tracker blocking test: </b>Just to be clear, I am not using an actual ad or tracker. The test is merely trying to grab an image from a domain known to host them seeing if your browser will intercept it. Even if it doesn't, no ads or trackers will actually run. People want to protect themselves from spyware and malware, they don't like being tracked, and they don't like advertisements. The test addresses those concerns.</p>
 		<p><b>About the Blink element test: </b>Yes, I know it is considered obsolete, but it is historically significant and I want it back. Obviously this can be done using CSS, but what's the fun in that?</p>
 		</div>
@@ -586,9 +586,10 @@
 				<td><a href="https://wicg.github.io/speech-api/">WICG</a></td>
 			</tr>
 			<tr>
-				<td>AAC-LC in ADTS</td>
+				<td>AAC-LC in ADTS (MPEG-4 Part 3)</td>
 				<td id = "aaclcadtstest"; class = "results"></td>
-				<td><a href="https://mpeg.chiariglione.org/standards/mpeg-4/audio.html">MPEG</a></td>
+				<!--<td><a href="https://mpeg.chiariglione.org/standards/mpeg-4/audio.html">MPEG</a></td>-->
+				<td><a href="https://www.iso.org/standard/76383.html">ISO</a>, this is a paid standard. Look in subpart 4.2.2.</td>
 			</tr>
 			<tr>
 				<td>Au</td>
@@ -618,12 +619,14 @@
 			<tr>
 				<td>M4A</td>
 				<td id = "m4atest"; class = "results"></td>
-				<td>MP4 container: <a href="https://mpeg.chiariglione.org/standards/mpeg-4/mp4-file-format.html">MPEG</a>, codecs used for the Web are AAC-LC, AC-3, E-AC-3, and Opus.</td>
+				<!--<td>MP4 container: <a href="https://mpeg.chiariglione.org/standards/mpeg-4/mp4-file-format.html">MPEG</a>, codecs used for the Web are AAC-LC, AC-3, E-AC-3, and Opus.</td>-->
+				<td>MP4 container: <a href="https://www.iso.org/standard/79110.html">ISO</a>, this is a paid standard and codecs used for the Web are AAC-LC, AC-3, E-AC-3, and Opus.</td>
 			</tr>
 			<tr>
 				<td>MP3</td>
 				<td id = "mp3test"; class = "results"></td>
-				<td><a href="https://mpeg.chiariglione.org/standards/mpeg-2/audio.html">MPEG</a>, MP3 is the sort-form of MPEG1/2 Audio Layer III.</td>
+				<!--<td><a href="https://mpeg.chiariglione.org/standards/mpeg-2/audio.html">MPEG</a>, MP3 is the sort-form of MPEG1/2 Audio Layer III.</td>-->
+				<td><a href="https://www.iso.org/standard/26797.html">ISO</a>, this is a paid standard. MP3 is the sort-form of MPEG1/2 Audio Layer III.</td>
 			</tr>
 			<tr>
 				<td>Ogg audio</td>
@@ -641,6 +644,12 @@
 				<td><a href="https://www.webmproject.org/docs/container/">WebM Project</a>, codecs used for the Web are Opus and Vorbis.</td>
 			</tr>
 		</table>
+		<p><b>Specifications for audio codecs that are not tested for here: </b></p>
+		<ul>
+			<li>AAC-LC: <a href="https://www.iso.org/standard/76383.html">ISO</a> (Paid standard, also known as MPEG-4 Part 3. Look in subpart 4.2.1.)</li>
+			<li>Opus: <a href="https://datatracker.ietf.org/doc/html/rfc6716">IETF</a></li>
+			<li>Vorbis: <a href="https://xiph.org/vorbis/doc/Vorbis_I_spec.html">Xiph</a></li>
+		</ul>
 		</div>
 		<div class = "testbox">
 		<h3>Video tests</h3>
@@ -668,12 +677,14 @@
 			<tr>
 				<td>MP4</td>
 				<td id = "mp4test"; class = "results"></td>
-				<td><a href="https://mpeg.chiariglione.org/standards/mpeg-4/mp4-file-format.html">MPEG</a>, codecs used for the Web are AV1 + Opus, or H.264 + either AAC-LC, AC-3, or E-AC-3.</td>
+				<!--<td><a href="https://mpeg.chiariglione.org/standards/mpeg-4/mp4-file-format.html">MPEG</a>, codecs used for the Web are AV1 + either AAC-LC or Opus, or H.264 + either AAC-LC, AC-3, or E-AC-3.</td>-->
+				<td><a href="https://www.iso.org/standard/79110.html">ISO</a>, this is a paid standard and codecs used for the Web are AV1 + either AAC-LC or Opus, or H.264 + either AAC-LC, AC-3, or E-AC-3.</td>
 			</tr>
 			<tr>
 				<td>MPEG Transport Stream</td>
 				<td id = "tstest"; class = "results"></td>
-				<td><a href="https://mpeg.chiariglione.org/standards/mpeg-2/systems.html">MPEG</a>, H.264 is the only video codec in MPEG-TS used on the Web, paired with either AAC-LC, AC-3, or E-AC-3.</td>
+				<!--<td><a href="https://mpeg.chiariglione.org/standards/mpeg-2/systems.html">MPEG</a>, H.264 is the only video codec in MPEG-TS used on the Web, paired with either AAC-LC, AC-3, or E-AC-3.</td>-->
+				<td><a href="https://www.iso.org/standard/87619.html">ISO</a>, this is a paid standard and H.264 is the only video codec in MPEG-TS used on the Web, paired with either AAC-LC, AC-3, or E-AC-3.</td>
 			</tr>
 			<tr>
 				<td>Ogg video</td>
@@ -686,6 +697,14 @@
 				<td><a href="https://www.webmproject.org/docs/container/">WebM Project</a>, codecs used for the web are AV1 + Opus, VP8 + Vorbis, or VP9 + Opus.</td>
 			</tr>
 		</table>
+		<p><b>Specifications for video codecs that are not tested for here: </b></p>
+		<ul>
+			<li>AV1: <a href="https://github.com/AOMediaCodec/av1-spec/releases/tag/v1.0.0-errata1">AOM</a> via their GitHub repository</li>
+			<li>H.264: <a href="https://www.itu.int/ITU-T/recommendations/rec.aspx?rec=7825">ITU</a>, also known as AVC or MPEG-4 Part 10. Version 3 (Edition 2) is the latest version used on the Web.</li>
+			<li>Theora: <a href="https://www.theora.org/doc/Theora.pdf">Xiph</a></li>
+			<li>VP8: <a href="https://datatracker.ietf.org/doc/html/rfc6386">IETF</a></li>
+			<li>VP9: <a href="https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.7-20170222-draft.pdf">WebM Project</a></li>
+		</ul>
 		</div>
 		<div class = "testbox">
 		<h3>Streaming tests</h3>
@@ -1567,6 +1586,6 @@
 		</div>
 		
 		<p></p>
-		<small>Copyright &copy; 2024 Mac Young. Licensed under the <a href="LICENSE.txt">Zero-Clause BSD License</a>, Sodium-Hydroxide is Free Software.</small>
+		<small>Copyright &copy; 2025 Mac Young. Licensed under the <a href="LICENSE.txt">Zero-Clause BSD License</a>, Sodium-Hydroxide is Free Software.</small>
 	</body>
 </html>

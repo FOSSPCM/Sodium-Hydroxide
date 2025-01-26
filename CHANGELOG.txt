@@ -11,3 +11,9 @@ Version 1.0.2 - November 16, 2024
 	
 Version 1.0.3 - November 18, 2024
 	Fixed some bugs involving the WebAssembly test and removed some redundant code.
+	
+Version 1.0.4 - January 26, 2025
+	Added tests for the DurationFormat, RelativeTimeFormat, Segmenter, and Segment objects in the International test.
+	Added links to specifications for audio and video codecs that couldn't reliably be tested for automatically with JavaScript.
+	Changed the links for MPEG specifications to the ISO specifications, as the MPEG links were merely technical whitepapers, not the specifications and ISO is the authoritative source for MPEG specs anyway.
+	Did some code cleanup and fixed some grammatical errors.

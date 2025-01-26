@@ -1,8 +1,8 @@
 /***************************
 * HTML5 STANDARDS AND SECURITY TEST
-* Version 1.0.3
+* Version 1.0.4
 * Written by Kelly "Mac" Young
-* November 18, 2024
+* January 26, 2025
 ***************************/
 window.onload = function() {
 	/* PARSING */
@@ -2511,7 +2511,7 @@ window.onload = function() {
 		else {
 			document.getElementById("oggvideotest").textContent = "FAIL";
 			document.getElementById("oggvideotest").style.color = "red";
-			console.log("Ogg video: Your browser does not support The Ogg audio mime type.");
+			console.log("Ogg video: Your browser does not support the Ogg video mime type.");
 		}
 	}
 	catch (error) {
@@ -4909,6 +4909,19 @@ window.onload = function() {
 			}
 			catch (error) { console.log("Internationalization: Your browser does not support the DisplayNames object."); }
 			try {
+				let sample_duration_format = new Intl.DurationFormat("en-US");
+				tests_passed++;
+				if (typeof sample_duration_format.format === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"format\" method on the DurationFormat object."); }
+				if (typeof sample_duration_format.formatToParts === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"formatToParts\" method on the DurationFormat object."); }
+				if (typeof sample_duration_format.resolvedOptions === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"resolvedOptions\" method on the DurationFormat object."); }
+				if (typeof Intl.DurationFormat.supportedLocalesOf === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"supportedLocalesOf\" method on the DurationFormat object."); }
+			}
+			catch (error) { console.log("Internationalization: Your browser does not support the DurationFormat object."); }
+			try {
 				let sample_list_format = new Intl.ListFormat("en-US");
 				tests_passed++;
 				if (typeof sample_list_format.format === "function") { tests_passed++; }
@@ -4944,8 +4957,6 @@ window.onload = function() {
 				else { console.log("Internationalization: Your browser does not support the \"getTextInfo\" method on the Locale object."); }
 				if (typeof sample_locale.getTimeZones === "function") { tests_passed++; }
 				else { console.log("Internationalization: Your browser does not support the \"getTimeZones\" method on the Locale object."); }
-				if (typeof sample_locale.getCalendars === "function") { tests_passed++; }
-				else { console.log("Internationalization: Your browser does not support the \"getCalendars\" method on the Locale object."); }
 				if (typeof sample_locale.getWeekInfo === "function") { tests_passed++; }
 				else { console.log("Internationalization: Your browser does not support the \"getWeekInfo\" method on the Locale object."); }
 				if ("hourCycle" in sample_locale) { tests_passed++; }
@@ -4996,21 +5007,55 @@ window.onload = function() {
 				let sample_plural_rules = new Intl.PluralRules("en-US");
 				tests_passed++;
 				if (typeof sample_plural_rules.resolvedOptions === "function") { tests_passed++; }
-				else { console.log("Internationalization: Your browser does not support the \"resolvedOptions\" method on the DisplayNames object."); }
+				else { console.log("Internationalization: Your browser does not support the \"resolvedOptions\" method on the PluralRules object."); }
 				if (typeof sample_plural_rules.select === "function") { tests_passed++; }
-				else { console.log("Internationalization: Your browser does not support the \"select\" method on the DisplayNames object."); }
+				else { console.log("Internationalization: Your browser does not support the \"select\" method on the PluralRules object."); }
 				if (typeof sample_plural_rules.selectRange === "function") { tests_passed++; }
-				else { console.log("Internationalization: Your browser does not support the \"selectRange\" method on the DisplayNames object."); }
+				else { console.log("Internationalization: Your browser does not support the \"selectRange\" method on the PluralRules object."); }
 				if (typeof Intl.PluralRules.supportedLocalesOf === "function") { tests_passed++; }
-				else { console.log("Internationalization: Your browser does not support the \"supportedLocalesOf\" method on the DisplayNames object."); }
+				else { console.log("Internationalization: Your browser does not support the \"supportedLocalesOf\" method on the PluralRules object."); }
 			}
-			catch (error) { console.log("Internationalization: Your browser does not support the DisplayNames object."); }
+			catch (error) { console.log("Internationalization: Your browser does not support the PluralRules object."); }
+			try {
+				let sample_rt_format = new Intl.RelativeTimeFormat("en-US");
+				tests_passed++;
+				if (typeof sample_rt_format.format === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"format\" method on the RelativeTimeFormat object."); }
+				if (typeof sample_rt_format.formatToParts === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"formatToParts\" method on the RelativeTimeFormat object."); }
+				if (typeof sample_rt_format.resolvedOptions === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"resolvedOptions\" method on the RelativeTimeFormat object."); }
+				if (typeof Intl.RelativeTimeFormat.supportedLocalesOf === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"supportedLocalesOf\" method on the RelativeTimeFormat object."); }
+			}
+			catch (error) { console.log("Internationalization: Your browser does not support the RelativeTimeFormat object."); }
+			try {
+				let sample_segmenter = new Intl.Segmenter("en-US");
+				var segment_test_passed = false;
+				tests_passed++;
+				if (typeof sample_segmenter.resolvedOptions === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"resolvedOptions\" method on the Segmenter object."); }
+				if (typeof sample_segmenter.segment === "function") { 
+					tests_passed++;
+					segment_test_passed = true;
+				}
+				else { console.log("Internationalization: Your browser does not support the \"segment\" method on the Segmenter object."); }
+				if (typeof Intl.Segmenter.supportedLocalesOf === "function") { tests_passed++; }
+				else { console.log("Internationalization: Your browser does not support the \"supportedLocalesOf\" method on the Segmenter object."); }
+				if (segment_test_passed === true) {
+					let sample_segment = sample_segmenter.segment("Hello world!");
+					if (typeof sample_segment.containing === "function") { tests_passed++; }
+					else { console.log("Internationalization: Your browser does not support the \"containing\" method on the Segment object."); }
+					// [Symbol.iterator] testing might be nice in the future.
+				}
+			}
+			catch (error) { console.log("Internationalization: Your browser does not support the Segmenter object."); }
 			switch (tests_passed) {
 				case 0:
 					document.getElementById("internationaltest").textContent = "FAIL";
 					document.getElementById("internationaltest").style.color = "red";
 					break;
-				case 53:
+				case 68:
 					document.getElementById("internationaltest").textContent = "PASS";
 					document.getElementById("internationaltest").style.color = "green";
 					break;
@@ -5846,7 +5891,7 @@ window.onload = function() {
 		console.log("Content Security Policy 2: There was an error in running this test. If you suspect this to be a bug in the test, please file a bug report.");
 	}
 	
-	/* Cross-Origin Resource Sharing test*/
+	/* Cross-Origin Resource Sharing test */
 	try {
 		var my_xhr = new XMLHttpRequest();
 		let data_url = "data:text/plain;base64,SGVsbG8gd29ybGQ=";
